@@ -1,6 +1,6 @@
-# Que es Tagger ?
+# Que es Tagger de TheEye?
 
-Tagger de The Eye es una herramienta que permite de forma automática reconocer información contenida en comprobantes de la República Argentina. Mediante técnicas de Inteligencia Artificial, el sistema es capaz reconocer y extraer la información relevante de los documentos con mucha precisión. Tagger usa The Eye como orquestador, lo que le permite integrarse a cualquier ERP y cargar la información extraída automáticamente, con baja intervención manual reduciendo el tiempo de carga.
+Tagger de The Eye es una herramienta que permite de forma automática reconocer información contenida en comprobantes de compra de la República Argentina. Mediante técnicas de Inteligencia Artificial, el sistema es capaz de reconocer y extraer la información relevante de los documentos con mucha precisión. Tagger utiliza TheEye como orquestador, lo que le permite integrarse a cualquier ERP y cargar la información extraída automáticamente, con baja intervención manual reduciendo el tiempo de carga notablemente.
 
 Actualmente el sistema fue entrenado para extraer la información de los siguientes tipos de comprobantes:
 
@@ -24,10 +24,9 @@ La precisión del reconocimiento varía según la calidad del documento a recono
 
 * Digital o manuscrita
 
-En caso de ser un escaneos, la nitidez, alineación, manchas, imágenes de fondo, etc. influyen mucho en el reconocimiento y la probabilidad de fallar o no detectar la información es mucho mayor.
+En caso de ser un escaneos, la nitidez, alineación, manchas, imágenes de fondo, etc. influyen en el reconocimiento y la probabilidad de fallar o no detectar la información es mayor.
 
 Luego de leerse y procesarse los documentos, el sistema verifica si la información extraída es correcta. En caso de encontrarse información incorrecta, que se detecten inconsistencias o falta de información, el usuario deberá validar el documento usando la interfaz de revisión.
-
 
 
 # Validación y corrección de datos de un comprobante
