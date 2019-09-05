@@ -115,7 +115,7 @@ Los botones de Zoom facilitan la lectura el texto cuando se superpone o si es mu
 ![](https://github.com/theeye-io/documents_docs/blob/master/docs/files/zoom.gif?raw=true)
 
 
-## Dejanos tus datos y un asesor se contactará a la brevedad, [Contáctanos!](https://theeye.io/facturas.html#contact)
+## Dudas o consultas? [Contáctanos!](https://theeye.io/facturas.html#contact)
 
 [Powered By TheEye](https://theeye.io)
 
