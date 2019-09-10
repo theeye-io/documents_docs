@@ -28,6 +28,21 @@ En caso de ser un escaneos, la nitidez, alineación, manchas, imágenes de fondo
 
 Luego de leerse y procesarse los documentos, el sistema verifica si la información extraída es correcta. En caso de encontrarse información incorrecta, que se detecten inconsistencias o falta de información, el usuario deberá validar el documento usando la interfaz de revisión.
 
+# Workflows de Carga
+
+Actualmente existen dos workflows de carga de facturas. Desde un input en donde se pueden dejar las facturas, permite multiples facturas, o con un mailbot. El mailbot requiere acceso a una casilla de correo
+
+
+## Subida de archivos.
+
+![](https://github.com/theeye-io/documents_docs/blob/master/docs/files/workflow_facturas_upload.png?raw=true)
+
+
+## MailBot.
+
+![](https://github.com/theeye-io/documents_docs/blob/master/docs/files/workflow_facturas.png?raw=true)
+
+
 
 # Validación y corrección de datos de un comprobante
 
