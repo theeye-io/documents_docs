@@ -19,7 +19,7 @@ Se pueden sumar bloques a un mismo tag, utilizando la tecla CTRL y volviendo a u
 ## A veces al querer seleccionar un dato, este aparece en el mismo bloque con otros datos superpuestos. ¿Puedo corregirlo?
 Si es posible utilizando las herramientas de edición (mostrar y remover bloques) de la interfaz.
 
-## ¿Qué es un documento es inválido?
+## ¿Qué es un documento inválido?
 Los documentos que no pueden ser procesados de forma automática por el sistema, son considerados inválidos. Todos estos casos se presentan para ser ser procesados de forma manual por un operador. Desde el tagger, el operador los puede corregir o terminar de invalidar. Cuando un documento no puede o no debe ser procesado automáticamente se debe invalidar para liberar el documento y continuar con el workflow de rechazo.
 
 Ejemplo de documentos inválidos:
