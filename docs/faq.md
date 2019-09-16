@@ -5,7 +5,7 @@ Cada uno de los usuarios registrados, recibirá un correo con un link de acceso 
 También se puede acceder de forma directa accediendo a https://tagger-ui.s3.amazonaws.com/index.html
 
 ## ¿Cómo obtengo mi usuario de acceso?
-Los usuarios son gestionados por TheEye. Consultar el proceso de dentro de cada empresa
+Los usuarios son gestionados por TheEye. Consultar el proceso dentro su empresa
 
 ## ¿Cómo puedo saber cuantos documentos quedan por revisar?
 Cuando se ingresa al sistema, arriba del lado derecho, aparece la cantidad de documentos pendientes de revisión
@@ -13,10 +13,10 @@ Cuando se ingresa al sistema, arriba del lado derecho, aparece la cantidad de do
 ## ¿Puedo ver el archivo del documento?
 En la interfaz, del lado superior izquierdo aparece el nombre del archivo y el link para descargar el documento original, en caso de necesitarlo para revisar error o falta en los datos detectados.
 
-Veo que a un dato etiquetado le falta un bloque de información. ¿Puedo agregarlo?
+## Veo que a un dato etiquetado le falta un bloque de información. ¿Puedo agregarlo?
 Se pueden sumar bloques a un mismo tag, utilizando la tecla CTRL y volviendo a utilizar el mismo nombre del tag. Una vez marcados todos los bloques con CTRL, deben desmarcarse los bloques que quedaron incompletos.
 
-A veces al querer seleccionar un dato, este aparece en el mismo bloque con otros datos superpuestos. ¿Puedo corregirlo?
+## A veces al querer seleccionar un dato, este aparece en el mismo bloque con otros datos superpuestos. ¿Puedo corregirlo?
 Si es posible utilizando las herramientas de edición (mostrar y remover bloques) de la interfaz.
 
 ## ¿Qué es un documento es inválido?
