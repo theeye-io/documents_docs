@@ -36,28 +36,28 @@ Si, se debe seleccionar “Invalid” en el combo que se encuentra al lado del b
 La interfaz guía al operador para que al momento de presentar un comprobante, el documento contenga todos los tags requeridos y además realiza comprobaciones propias de cada tipo de documento.
 
 DATOS REQUERIDOS
-*cae
-*cuit jurídica (Destinatario)
-*cuit proveedor
-*fecha emisión
-*fecha cae
-*codigo Barra
-*tipo documento
-*Subtotal gravado, no gravado, exento
-*Total
-*Iva
-*Numero de factura (punto de venta + numero de comprobante)
+* cae
+* cuit jurídica (Destinatario)
+* cuit proveedor
+* fecha emisión
+* fecha cae
+* codigo Barra
+* tipo documento
+* Subtotal gravado, no gravado, exento
+* Total
+* Iva
+* Numero de factura (punto de venta + numero de comprobante)
  
 
 DATOS NO OBLIGATORIOS
 
-*guía
-*embarque
-*condicion iva
-*moneda
-*tipo de cambio
-*orden de compra
-*número de recepción
+* guía
+* embarque
+* condicion iva
+* moneda
+* tipo de cambio
+* orden de compra
+* número de recepción 
 
 VALIDACIONES
 
@@ -82,4 +82,4 @@ Esta funcionalidad es muy utilizada para corregir documentos multipágina. En es
 nota: los valores siempre tienen que ir con dos decimales 
 
 ## Borré un bloque sin querer ¿Cómo hago para recuperarlo?
-En caso de cometer algún error al verificar los datos, ya sea borrar algún bloque sin querer o marcar muchos tags mal, se puede volver al principio apretando F5.
+En caso de cometer algún error al verificar los datos, ya sea borrar algún bloque sin querer o marcar muchos tags mal, se puede volver al principio recargando la págino o apretando F5.
