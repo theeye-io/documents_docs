@@ -134,7 +134,7 @@ Los botones de Zoom facilitan la lectura el texto cuando se superpone o si es mu
 
 Ante dudas, consulte nuestra sección de pregunta y respuestas frecuentes.
 
-[Ir a la FAQ](./faq)
+[Ir a la FAQ](./faq.md)
 
 
 ## Dudas o consultas sin respuesta? [Contáctanos](https://theeye.io/facturas.html#contact)
