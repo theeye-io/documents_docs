@@ -130,7 +130,14 @@ Los botones de Zoom facilitan la lectura el texto cuando se superpone o si es mu
 ![](https://github.com/theeye-io/documents_docs/blob/master/docs/files/zoom.gif?raw=true)
 
 
-## Dudas o consultas? [Contáctanos!](https://theeye.io/facturas.html#contact)
+# FAQ
+
+Ante dudas, consulte nuestra sección de pregunta y respuestas frecuentes.
+
+[Ir a la FAQ](./faq)
+
+
+## Dudas o consultas sin respuesta? [Contáctanos](https://theeye.io/facturas.html#contact)
 
 [Powered By TheEye](https://theeye.io)
 
