@@ -35,7 +35,7 @@ Actualmente existen dos workflows de carga de facturas. Desde un input en donde 
 
 ## Subida de archivos.
 
-![](../files/workflow_facturas_upload.png?raw=true)
+![](./files/workflow_facturas_upload.png)
 
 
 ## MailBot.
