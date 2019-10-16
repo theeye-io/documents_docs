@@ -35,7 +35,7 @@ Actualmente existen dos workflows de carga de facturas. Desde un input en donde 
 
 ## Subida de archivos.
 
-![](https://github.com/theeye-io/documents_docs/blob/master/docs/files/workflow_facturas_upload.png?raw=true)
+![](../files/workflow_facturas_upload.png?raw=true)
 
 
 ## MailBot.
