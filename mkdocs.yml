@@ -1,0 +1,35 @@
+# Configuration site theme
+theme:
+  name: material
+  language: 'es'
+  palette:
+    primary: 'indigo'
+    accent: 'indigo'
+  logo: './files/logo-theeye-circle.png'
+  favicon: './files/logo-theeye-docu-glasses.png'
+markdown_extensions:
+  - codehilite
+
+# Project information
+site_name: 'TheEye Tagger - Documentation'
+site_description: 'Reconocimiento de texto en Documentos para carga de comprobantes'
+site_url: 'https://theeye.io/facturas.html'
+
+# Menu
+nav:
+- Home: 'index.md'
+- FAQ's: 'faqs.md'
+- Support: 'https://theeye.io/'
+
+# Footer
+copyright: 'TheEye.io | Copyright &copy; 2019 - All rights reserved'
+extra:
+  social:
+    - type: 'medium'
+      link: 'https://medium.com/@theeye_io'
+    - type: 'facebook'
+      link: 'https://www.facebook.com/theeyeio/'
+    - type: 'twitter'
+      link: 'https://twitter.com/theeye_io'
+    - type: 'linkedin'
+      link: 'https://www.linkedin.com/company/theeye.io/'
