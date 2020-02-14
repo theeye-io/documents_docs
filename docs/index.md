@@ -12,7 +12,7 @@ Actualmente el sistema fue entrenado para extraer la información de los siguien
 
 La precisión del reconocimiento varía según la calidad del documento a reconocer. Los mejores resultados se obtienen con documentos Digitales, como por ejemplo las facturas de AFIP. Las principales características que influyen en la precisión del proceso son:
 
-* Nitidez
+* Nitidez.
 
 * Alineación del texto en relación a los bordes
 
@@ -68,9 +68,9 @@ Para seleccionar texto y asignarle un tag, se debe hacer click y arrastrar forma
 # Herramientas de la Interfaz
 
 La lista completa de TAGS se encuentra oculto en el panel lateral derecho.
-Usando la pestaña con el icono de tres líneas (hamburger):
+Usando la pestaña con el icono en forma de flecha ( < ):
 
-![](./files/hamburguesa.png)
+![](./files/flecha_tagger_2020.png)
 
 se despliega la lista completa de los tags para los datos que comúnmente pueden aparecer en los documentos. Tómese algún tiempo para familiarizarse con las etiquetas más comunes. Si no encuentra la etiqueta para algún dato, contactenos.
 
