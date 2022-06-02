@@ -1,11 +1,9 @@
+# Documentación API
 
 Para ejecutar este ejemplo debemos usar npm. inicializamos un directorio
 
 ```bash
-
 npm init -y
-
-
 ```
 
 luego vamos a instalar las dependencias.
@@ -13,17 +11,13 @@ podemos usar otras librerias como got, axios, node-fetch. en este ejemplo usamos
 
 
 ```bash
-
 npm install form-data
-
 ```
 
 creamos un archivo index.js y pegamos el siguiente codigo
 
 
 ```javascript
-
-
 const FormData = require('form-data')
 const path = require('path')
 const fs = require('fs')
@@ -89,16 +83,13 @@ const main = async ([ filepath ]) => {
 }
 
 main(process.argv.slice(2)).then(console.log).catch(console.error)
-
-
 ```
 
 ahora debemos setear el access token para poder comunicarnos con la API.
 
-si ejecutamos este ejemplo desde Linux sería de la siguiente manera
+si ejecutamos este ejemplo desde Linux sería de la siguiente manera.
+hay que pasar el archivo a procesar como primer parámetro
 
 ```bash
-
-TAGGER_ACCESS_TOKEN="ElTokenDeAcceso" node processar_documento.js
-
+TAGGER_ACCESS_TOKEN="ElTokenDeAcceso" node processar_documento.js ./file.pdf
 ```
