@@ -143,6 +143,6 @@ Ante dudas consultas, visite nuestra sección de pregunta y respuestas frecuente
 
 [Ir a la FAQ](./faqs)
 
-### Tiene dudas o consultas sin respuesta? [Contactanos](https://theeye.io/facturas.html#contact)
+### Tiene dudas o consultas sin respuesta? [Contactanos](https://theeye.io)
 
 ******
