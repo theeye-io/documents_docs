@@ -14,7 +14,7 @@ podemos usar otras librerias como got, axios, node-fetch. en este ejemplo usamos
 npm install form-data
 ```
 
-creamos un archivo index.js y pegamos el siguiente codigo
+creamos un archivo `processar_documento.js` y pegamos el siguiente codigo
 
 
 ```javascript
