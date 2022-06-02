@@ -95,10 +95,11 @@ main(process.argv.slice(2)).then(console.log).catch(console.error)
 
 ahora debemos setear el access token para poder comunicarnos con la API.
 
-si ejecutamos este ejemplo desde Linux sería de la siguiente manera
+si ejecutamos este ejemplo desde Linux sería de la siguiente manera.
+hay que pasar el archivo a procesar como primer parámetro
 
 ```bash
 
-TAGGER_ACCESS_TOKEN="ElTokenDeAcceso" node processar_documento.js
+TAGGER_ACCESS_TOKEN="ElTokenDeAcceso" node processar_documento.js ./file.pdf
 
 ```
