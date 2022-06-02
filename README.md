@@ -1,4 +1,6 @@
-# Que es Tagger de TheEye?
+# TheEye Tagger
+
+## Que es Tagger de TheEye?
 
 Tagger de The Eye es una herramienta que permite de forma automática reconocer información contenida en comprobantes de compra de la República Argentina. Mediante técnicas de Inteligencia Artificial, el sistema es capaz de reconocer y extraer la información relevante de los documentos con mucha precisión. Tagger utiliza TheEye como orquestador, lo que le permite integrarse a cualquier ERP y cargar la información extraída automáticamente, con baja intervención manual reduciendo el tiempo de carga notablemente.
 
@@ -30,17 +32,17 @@ Luego de leerse y procesarse los documentos, el sistema verifica si la informaci
 
 ******
 
-# Workflows de Carga
+## Workflows de Carga
 
 Actualmente existen dos workflows de carga de facturas. Desde un input en donde se pueden dejar las facturas, permite multiples facturas, o con un mailbot. El mailbot requiere acceso a una casilla de correo
 
 
-## Subida de archivos.
+### Subida de archivos.
 
 ![](./files/workflow_facturas_upload.png)
 
 
-## MailBot.
+### MailBot.
 
 ![](./files/workflow_facturas.png)
 
@@ -48,7 +50,7 @@ Actualmente existen dos workflows de carga de facturas. Desde un input en donde 
 ******
 
 
-# Validación y corrección de datos de un comprobante
+## Validación y corrección de datos de un comprobante
 
 Cuando los comprobantes pasan por el proceso de reconocimiento pueden requerir revisión manual para validar los datos encontrados. Esta validación se realiza desde una interfaz Web como la que se muestra en la siguiente imagen:
 
@@ -65,7 +67,7 @@ Para seleccionar texto y asignarle un tag, se debe hacer click y arrastrar forma
 
 ******
 
-# Herramientas de la Interfaz
+## Herramientas de la Interfaz
 
 La lista completa de TAGS se encuentra oculto en el panel lateral derecho.
 Usando la pestaña con el icono en forma de flecha ( < ):
@@ -102,10 +104,10 @@ En el cuadro de selección que se encuentra al lado del botón **Presentar** se 
 
 ******
 
-# Herramientas adicionales.
+## Herramientas adicionales.
 
 
-## Bloques
+### Bloques
 
 La forma en que se representa el texto extraído del documento, es mediante bloques. Los bloques pueden estar compuestos por palabra, números, símbolos o letras individuales. La vista de bloques puede ser activada utilizando el botón
 
@@ -123,24 +125,24 @@ A continuación se muestra cómo remover bloques de texto
 
 ******
 
-# Zoom
+## Zoom
 
 Los botones de Zoom facilitan la lectura el texto cuando se superpone o si es muy pequeño. Esto permite obtener mayor nivel de detalle, manteniendo la ubicación original del texto al seleccionar los datos
 
 ![](./files/zoom.png)
 
-## **Ejemplo**
+### **Ejemplo**
 
 ![](./files/zoom.gif)
 
 ******
 
-# FAQ
+### FAQ
 
 Ante dudas consultas, visite nuestra sección de pregunta y respuestas frecuentes.
 
 [Ir a la FAQ](./faqs)
 
-## Tiene dudas o consultas sin respuesta?  [Contactanos](https://theeye.io/facturas.html#contact)
+### Tiene dudas o consultas sin respuesta? [Contactanos](https://theeye.io/facturas.html#contact)
 
 ******
