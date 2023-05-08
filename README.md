@@ -1,148 +1,536 @@
-# TheEye Tagger
+# **Introducción**
 
-## Que es Tagger de TheEye?
+Reconocimiento de comprobantes de TheEye es una herramienta que permite definir plantillas de reconocimiento de documentos , las cuales son utilizadas para reconocer comprobantes del mismo tipo. Mediante las distintas integraciones es posible trabajar tanto con la obtención de los documentos como con los resultados para utilizarlos en distintos sistemas.
 
-Tagger de The Eye es una herramienta que permite de forma automática reconocer información contenida en comprobantes de compra de la República Argentina. Mediante técnicas de Inteligencia Artificial, el sistema es capaz de reconocer y extraer la información relevante de los documentos con mucha precisión. Tagger utiliza TheEye como orquestador, lo que le permite integrarse a cualquier ERP y cargar la información extraída automáticamente, con baja intervención manual reduciendo el tiempo de carga notablemente.
 
-Actualmente el sistema fue entrenado para extraer la información de los siguientes tipos de comprobantes:
+## Funcionalidades y características de Reconocimiento de comprobantes de TheEye
 
-* Facturas
 
-* Notas de Crédito
 
-* Notas de Débito
+* Permite definir la estructura de los comprobantes cuya información se desea digitalizar, mediante la creación de de plantillas
+* Obtención de datos de comprobantes a través de filtros y/o patrones
+* Reconocimiento y digitalización de los comprobantes cuya estructura ha sido definida de manera automática y manual
+* Capacidad de trabajar con múltiples páginas
+* Integraciones
+    * Toma de comprobantes desde casillas de correo
+    * Envío de comprobantes y resultados vía API
+    * conciliación contra AFIP (Argentina)
 
-La precisión del reconocimiento varía según la calidad del documento a reconocer. Los mejores resultados se obtienen con documentos Digitales, como por ejemplo las facturas de AFIP. Las principales características que influyen en la precisión del proceso son:
 
-* Nitidez.
+## Objetivos
 
-* Alineación del texto en relación a los bordes
+Describir cómo crear y utilizar plantillas de reconocimiento de comprobantes 
 
-* Alineación de los datos
 
-* Manchas, rayones
+# **Manual de Usuario**
 
-* Ubicación y formato del texto
+El usuario puede generar, gestionar y digitalizar comprobantes desde la web:
 
-* Digital o manuscrita
+**<span style="text-decoration:underline;">https://digitize.theeye.io/home</span>**
 
-En caso de ser un escaneos, la nitidez, alineación, manchas, imágenes de fondo, etc. influyen en el reconocimiento y la probabilidad de fallar o no detectar la información es mayor.
+El usuario debe ingresar al formulario con su usuario y contraseña.
 
-Luego de leerse y procesarse los documentos, el sistema verifica si la información extraída es correcta. En caso de encontrarse información incorrecta, que se detecten inconsistencias o falta de información, el usuario deberá validar el documento usando la interfaz de revisión.
 
-******
+![alt_text](./images/image61.png "image_tooltip")
 
-## Workflows de Carga
 
-Actualmente existen dos workflows de carga de facturas. Desde un input en donde se pueden dejar las facturas, permite multiples facturas, o con un mailbot. El mailbot requiere acceso a una casilla de correo
 
+## Menú principal 
 
-### Subida de archivos.
+Una vez logeado el usuario podrá visualizar el siguiente menú principal: 
 
-![](./files/workflow_facturas_upload.png)
 
+![alt_text](./images/image71.png "image_tooltip")
 
-### MailBot.
 
-![](./files/workflow_facturas.png)
+**Reporte de Documentos**: El usuario puede visualizar el historial de documentos digitalizados y obtener un reporte con los datos obtenidos. Desde esta sección puede también procesar los documentos, visualizar la información obtenida, descargar el documento reconocido y acceder a  modificar la planilla. 
 
+**Reporte de Mails:** En caso de que cuenten con una solución donde los comprobantes son recuperados y descargados desde una casilla de correo el usuario podrá visualizar la información de los e-mails recibidos.
 
-******
+**Subir Documentos:** El usuario puede importar nuevos documentos para digitalizar y/o generar plantillas.
 
+**Plantillas:** El usuario puede visualizar el listado de plantillas “templates” de documentos y modificar las plantillas, así como también puede habilitar o deshabilitar cualquier de ellas.
 
-## Validación y corrección de datos de un comprobante
+**Salir:** Cierra la sesión del usuario.
 
-Cuando los comprobantes pasan por el proceso de reconocimiento pueden requerir revisión manual para validar los datos encontrados. Esta validación se realiza desde una interfaz Web como la que se muestra en la siguiente imagen:
 
+## Reportes de Documentos procesados
 
-![](./files/con_sin_tags.gif)
+Los estados de los documentos se pueden visualizar en la sección de “Reporte de Documentos”
 
 
-Cada uno de los datos detectados del comprobante está representado por un **tag**  o etiqueta (e.g. cuitProveedor, razonSocialProveedor). El dato marcado con cada tag puede ser corregido o incluso re-asignado a otro tag usando la interfaz. A continuación se muestra cómo asignar y/o corregir un tag.
+![alt_text](./images/image21.png "image_tooltip")
 
 
-![](./files/tags_a_texto.gif)
+Donde se visualiza el listado de documentos digitalizados.
 
-Para seleccionar texto y asignarle un tag, se debe hacer click y arrastrar formando un cuadro sobre todo el texto deseado y luego soltar. 
 
-******
+![alt_text](./images/image56.png "image_tooltip")
 
-## Herramientas de la Interfaz
 
-La lista completa de TAGS se encuentra oculto en el panel lateral derecho.
-Usando la pestaña con el icono en forma de flecha ( < ):
 
-![](./files/flecha_tagger_2020.png)
+### **Estados:**
 
-se despliega la lista completa de los tags para los datos que comúnmente pueden aparecer en los documentos. Tómese algún tiempo para familiarizarse con las etiquetas más comunes. Si no encuentra la etiqueta para algún dato, contactenos.
+| Estado | Símbolo | Descripcion | 
+|--------|---------|-------------|
+| Procesando| ![alt_text](./images/image46.png "image_tooltip") | El proceso de reconocimiento y obtención de datos está en curso.|
+| Procesado | ![alt_text](./images/image20.png "image_tooltip") | El proceso de reconocimiento finalizó con éxito. |
+| Error | ![alt_text](./images/image53.png "image_tooltip") | El comprobante no pudo ser procesado. |
 
-Al lado del título “TAGS” se encuentra el botón (-) que oculta todos los tags vacíos, al presionarlo nuevamente vuelven a aparecer.
 
-![](./files/tags_edicion.gif)
 
-**Edición de datos seleccionados**
+### **Coincidencias:**
 
-Los datos asignados a los tags pueden ser editados utilizando el botón del lápiz que se encuentra a la derecha de cada valor.
+| Coincidencias | Símbolo de Estado | Descripción |
+|---------------|-------------------|-------------|
+| **%** | ![alt_text](./images/image12.png "image_tooltip") | Indica el grado de coincidencia obtenido, respecto de la plantilla seleccionada por el proceso de reconocimiento. |
 
-**Inserción de datos no seleccionables**
 
-Al lado del título de cada uno de los tags se encuentra el botón (+) que permite ingresar un dato cuando no se encuentra presente en el documento, ya sea por fallos en el OCR, en los casos de documentos multipágina o porque requieren ingreso manual.
 
-**Presentación y envío de datos**
+### **Acciones:**
 
-![](./files/presentar.png)
+| Estado | Símbolo | Descripcion | 
+|--------|---------|-------------|
+| Reprocesar | ![alt_text](./images/image34.png "image_tooltip") | Permite volver a procesar un comprobante ya digitalizado. Se puede utilizar para verificar que se hayan aplicado los cambios realizados en las plantillas. |
+| Información obtenida| ![alt_text](./images/image43.png "image_tooltip") | Permite visualizar en pantalla la información reconocida del comprobante importado. |
+| Descargar documento | ![alt_text](./images/image80.png "image_tooltip") | Permite descargar el comprobante importado. (formato pdf) |
+| Editar plantilla | ![alt_text](./images/image77.png "image_tooltip") | Permite editar plantilla modelo con el formato de comprobante |
+| Visualizar plantilla | ![alt_text](./images/image25.png "image_tooltip") | Permite solo ver la plantilla modelo sobre el comprobante procesado |
+| Procesar manualmente | ![alt_text](./images/image84.png "image_tooltip") | Permite completar a mano datos faltantes de un comprobante en particular. |
 
-Una vez finalizada la selección y edición, se debe presionar el botón **Presentar** para continuar con el proceso de carga. El sistema almacena las etiquetas y envía los tags para que sean procesados y almacenados en el sistema de gestión.
 
-Al presionar el botón se realizan verificaciones sobre los datos para asegurar que no haya errores en los datos a enviar. Si algún data necesario fuese incorrecto o faltase, se mostrará un cartel y no se podrá continuar con el envío de los datos hasta corregir el la falla. (adjuntar link lista de errores y documentar cada uno)
 
-En el cuadro de selección que se encuentra al lado del botón **Presentar** se debe elegir si el documento es Válido o Inválido. En la mayoría de los casos la selección por defecto “Valid” es la correcta. En caso en que no se pueda o no se deba proceder a cargar el documento en el sistema, puede optar por Invalidar el documento para cancelar la operación. Debe elegir “Invalid” y presionar el botón **Presentar**. De esta forma el documento se marca como Invalid y luego deberá ser procesado de forma manual.
 
-![](./files/valid_o_invalid.png)
+## Plantilla
 
-**Nota: Ningún documento puede ser borrados. Todo el historial de documentos procesados Válidos e Inválidos quedan almacenados en la cuenta del usuario.**
+El listado de plantillas (templates) creados se puede visualizar en la sección “Plantillas”
 
-******
 
-## Herramientas adicionales.
+![alt_text](./images/image66.png "image_tooltip")
+ 
 
+![alt_text](./images/image57.png "image_tooltip")
 
-### Bloques
 
-La forma en que se representa el texto extraído del documento, es mediante bloques. Los bloques pueden estar compuestos por palabra, números, símbolos o letras individuales. La vista de bloques puede ser activada utilizando el botón
+Seleccionar “Activar” ![alt_text](./images/image10.png "image_tooltip") para habilitar o deshabilitar una plantilla
 
-![](./files/bloques_on_off.png)
+Al seleccionar ![alt_text](./images/image14.png "image_tooltip") se visualiza el editor de la plantilla.
 
-![](./files/etiquetas_on_off.gif)
+![alt_text](./images/image70.png "image_tooltip")
 
-Ocasionalmente aparecen bloques superpuestos. Cuando estos casos dificultan la selección del dato se puede remover bloques utilizando el botón para tal fin.
+### **Acciones**
 
-![](./files/remover_bloque.png)
+| Acciones |Símbolo | Descripción |
+|----------|--------|-------------|
+| Menú de edición | ![alt_text](./images/image54.png "image_tooltip") | Abrir el menú de edición para agregar los filtros y etiquetas del template. Ver ¿Cómo hago para digitalizar un documento? |
+| Guardar template | ![alt_text](./images/image60.png "image_tooltip") | Guardar el template asignando un nombre. |
+| Quitar etiquetas | ![alt_text](./images/image11.png "image_tooltip") | Visualizar o no las etiquetas creadas. |
+| Mostrar información de reconocimiento IA | ![alt_text](./images/image15.png "image_tooltip") | Visualizar o no la información de reconocimiento de IA. |
+| Ajuste de pantalla | ![alt_text](./images/image50.png "image_tooltip") | Permite acercar, alejar o ajustar la visualización del documento en pantalla. |
 
-A continuación se muestra cómo remover bloques de texto
 
-![](./files/remover_bloques_(2).gif)
+Dentro del menú de edición: 
 
-******
+**Sección configuración general**
 
-## Zoom
 
-Los botones de Zoom facilitan la lectura el texto cuando se superpone o si es muy pequeño. Esto permite obtener mayor nivel de detalle, manteniendo la ubicación original del texto al seleccionar los datos
+| Acciones | Símbolo | Descripción |
+| -------- | ------- |-------------|
+| Exportar plantilla | ![alt_text](./images/image6.png "image_tooltip") | Permite exportar la plantilla en formato .json |
+| Importar plantilla | ![alt_text](./images/image37.png "image_tooltip") | Permite importar una plantilla en formato .json |
+| Cambiar nombre | ![alt_text](./images/image31.png "image_tooltip") | Permite cambiar el nombre a la plantilla  |
+| Multipágina | ![alt_text](./images/image52.png "image_tooltip") | Habilita el reconocimiento de varias páginas. <br>Se debe activar para poder digitalizar documentos con N páginas. |
+| Eliminar plantilla | ![alt_text](./images/image8.png "image_tooltip") | Permite eliminar de forma permanente la plantilla |
+| Definir como plantilla por defecto | ![alt_text](./images/image67.png" image_tooltip") | Permite definir a la plantilla como predeterminada. |
 
-![](./files/zoom.png)
 
-### **Ejemplo**
 
-![](./files/zoom.gif)
+**Sección reglas de extracción**
 
-******
+Permite crear reglas de extracción de datos.
 
-### FAQ
+ Ver ¿Como crear una plantilla ?
 
-Ante dudas consultas, visite nuestra sección de pregunta y respuestas frecuentes.
 
-[Ir a la FAQ](./faqs)
+![alt_text](./images/image33.png "image_tooltip") ![alt_text](./images/image58.png "image_tooltip")
 
-### Tiene dudas o consultas sin respuesta? [Contactanos](https://theeye.io)
 
-******
+
+## Reporte de eMails (integración)
+
+
+![alt_text](./images/image23.png "image_tooltip")
+
+
+## Subir Documentos (integración)
+
+
+![alt_text](./images/image3.png "image_tooltip")
+
+
+
+# FAQs - Preguntas frecuentes
+
+
+## ¿Cómo crear una nueva plantilla?
+
+Para digitalizar un documento lo primero que debemos hacer es crear una plantilla, para ello será necesario contar con varias copias del tipo de documento que deseamos digitalizar.
+
+Se recomienda comenzar con al menos diez copias del mismo tipo de documento, aunque el proceso puede realizarse con menos cantidad. En esta instancia es importante darle un nombre a los archivos que identifique su tipo. En el ejemplo utilizaremos “AFIP_B” como prefijo de todos los nombres de documentos, para indicar que todos ellos son del mismo tipo (estructura).
+
+Lo primero que debemos hacer es es cargar los documentos del mismo tipo en la plataforma del siguiente modo:
+
+Ir a la sección “Subir Documentos”.
+
+
+![alt_text](./images/image3.png "image_tooltip")
+
+
+Arrastrar o seleccionar los documentos a digitalizar
+
+
+![alt_text](./images/image51.png "image_tooltip")
+
+
+El progreso de la carga se visualiza a medida que los documentos son cargados:
+
+
+![alt_text](./images/image74.png "image_tooltip")
+
+
+Una vez cargados los documentos, procedemos a crear una plantilla de clasificación, para ello debemos:
+
+1- Ir a la sección “Documentos procesados“ para visualizar los documentos cargados
+
+
+![alt_text](./images/image48.png "image_tooltip")
+
+
+2- Verificar que los documentos se han cargado y seleccionarlos.
+
+Notar que el campo “coincidencias” así como también el campo “plantilla” están vacíos,  esto significa que no se pudo reconocer el documento porque no tiene ningún template creado para ese tipo de documento.
+
+
+![alt_text](./images/image30.png "image_tooltip")
+
+
+Seleccionar los documentos:
+
+
+![alt_text](./images/image83.png "image_tooltip")
+
+
+3- Generar la  plantilla, haciendo click en “Generar plantilla”
+
+
+![alt_text](./images/image4.png "image_tooltip")
+
+
+Al darle click a “Generar plantilla” la plataforma creará una plantilla, que servirá para identificar todos los documentos del mismo tipo.
+
+
+![alt_text](./images/image55.png "image_tooltip")
+
+
+ La plantilla aparecerá en la sección de plantillas con un nombre genérico como por ejemplo “plantilla autogenerada 1674073143726”.
+
+Una vez creada la plantilla autogenerada, deberemos editarla para indicarle los datos a digitalizar y darle un nombre representativo
+
+Ir a plantillas:
+
+
+![alt_text](./images/image66.png "image_tooltip")
+
+
+Buscar la última generada:
+
+
+![alt_text](./images/image79.png "image_tooltip")
+
+
+Luego editar la plantilla mediante la acción 
+
+Se visualizará uno de los documentos cargados en “modo plantilla”:
+
+
+![alt_text](./images/image81.png "image_tooltip")
+
+
+Se recomienda cambiar el nombre utilizando el “lápiz” para dejarle un nombre representativo
+
+
+![alt_text](./images/image59.png "image_tooltip")
+
+
+Por cada dato de interés se debe crear una etiqueta. Para ello se debe seleccionar el dato encuadrando con el puntero del mouse, tal como se muestra a continuación:
+
+
+![alt_text](./images/image38.png "image_tooltip")
+
+
+Una vez encuadrado el dato, se le debe dar un nombre  a la etiqueta y luego presionar ”OK”
+
+En el menú derecho se mostrará la nueva etiqueta creada. Se puede editar seleccionando el filtro  desde el menú derecho para establecer configuraciones adicionales.
+
+
+![alt_text](./images/image7.png "image_tooltip")
+
+
+**Formato:** se le puede indicar el formato de acuerdo al tipo de dato. Por ejemplo, si es un número, importe, fecha o carácter se le aplicará el formato de acuerdo al tipo de dato. 
+
+**Expresión regular:** para los usuarios con conocimiento de programación, se puede escribir una expresión regular para filtrar la información capturada. 
+
+**Define estructura:** Es un dato de clasificación que se utiliza para decidir qué plantilla utilizar en el proceso de reconocimiento. 
+
+**La posición no es fija:** El dato a reconocer puede variar en posición dentro del documento. 
+
+Por ejemplo, los importes totales de un comprobante pueden variar en posición dependiendo de la cantidad de ítems que haya en la descripción o incluso dependiendo de la cantidad de hojas que tiene el documento. 
+
+**Ocurrencia múltiple**: Al marcarla, el proceso de reconocimiento, utilizará el patrón definido en la expresión regular y cada vez que se cumpla, sumará la coincidencia a un listado de valores. En caso de no estar marcado devolverá un único dato con la primera ocurrencia que coincida con el patrón de la expresión regular.
+
+
+![alt_text](./images/image13.png "image_tooltip") Borrar: borrar el filtro.
+
+
+![alt_text](./images/image35.png "image_tooltip")
+Filtros adicionales:  permite seleccionar las palabras a incluir o excluir al momento de obtener el dato.
+
+Arrastrar las palabras que desea excluir o incluir y seleccionar Aceptar.
+
+
+![alt_text](./images/image73.png "image_tooltip")
+
+
+**Validar:** permite previsualizar el dato a digitalizar. Al hacer click en Validar, nos mostrará en el documento, el valor seleccionado y en caso de haberle aplicado filtros de formato, el valor formateado
+
+
+![alt_text](./images/image41.png "image_tooltip")
+
+
+ 
+
+Repetir los pasos anteriores para identificar todos los datos a reconocer en el documento. 
+
+Guardar el template armado seleccionando ![alt_text](./images/image60.png "image_tooltip")
+
+
+Seleccionar guardar.
+
+
+![alt_text](./images/image19.png "image_tooltip")
+
+
+Asignar un nombre al template.
+
+
+![alt_text](./images/image64.png "image_tooltip")
+
+
+Al guardar el template correctamente se muestra el mensaje:
+
+
+![alt_text](./images/image65.png "image_tooltip")
+
+
+Si no se detectaron cambios para guardar se muestra el mensaje: 
+
+
+![alt_text](./images/image86.png "image_tooltip")
+
+
+En caso de querer capturar datos de páginas siguientes se deberá repetir el procedimiento para las siguientes páginas. Para avanzar o retroceder de página se deben utilizar las flechas ![alt_text](./images/image32.png "image_tooltip")
+
+Cada modificación que se realice en cada una de las páginas debe ser guardada, utilizando la opción de guardar 
+
+
+![alt_text](./images/image16.png "image_tooltip")
+
+
+
+### ¿Cómo digitalizar un documento?
+
+cargar los documentos del mismo tipo en la plataforma del siguiente modo:
+
+Ir a la sección “Subir Documentos”.
+
+
+![alt_text](./images/image3.png "image_tooltip")
+
+
+Arrastrar o seleccionar los documentos a digitalizar.Se pueden importar varios documentos a la vez.
+
+
+![alt_text](./images/image51.png "image_tooltip")
+
+
+El progreso de la carga se visualiza a medida que los documentos son cargados:
+
+
+![alt_text](./images/image74.png "image_tooltip")
+
+
+Una vez cargados los documentos, procedemos a revisar el estado de los documentos.
+
+1- Ir a la sección “Documentos procesados“ para visualizar los documentos cargados
+
+
+![alt_text](./images/image48.png "image_tooltip")
+
+
+2- Verificar que los documentos se han cargado y reconocido.
+
+Si los documento fueron reconocidos con excitó su estado será ![alt_text](./images/image20.png "image_tooltip") “Procesado”, tendrán asignado una PLANTILLA y un valor de COINCIDENCIA. 
+
+Seleccionando en ![alt_text](./images/image43.png "image_tooltip")
+ “Información obtenida “ se pueden visualizar los datos extraidos. 
+
+
+![alt_text](./images/image56.png "image_tooltip")
+
+
+
+![alt_text](./images/image68.png "image_tooltip")
+
+
+
+### ¿Cómo verificar los datos obtenidos por la plantilla creada ?
+
+Dirigirse a la sección “Reporte de documentos”  para verificar los resultados de las plantillas creadas, haciendo clic en el ícono de ThEye:
+
+
+![alt_text](./images/image9.png "image_tooltip")
+  
+
+Y luego en:
+
+
+![alt_text](./images/image27.png "image_tooltip")
+
+
+Luego procesar el documento en cuestión. ![alt_text](./images/image34.png "image_tooltip"). 
+
+
+![alt_text](./images/image22.png "image_tooltip")
+ 
+
+![alt_text](./images/image47.png "image_tooltip")
+
+
+Una vez procesado, se visualiza la plantilla reconocida, el porcentaje de coincidencia y el estado.
+
+
+![alt_text](./images/image18.png "image_tooltip")
+
+
+Se pueden verificar los resultados (datos obtenidos) haciendo click en el ícono de información ![alt_text](./images/image85.png "image_tooltip")
+
+
+
+![alt_text](./images/image17.png "image_tooltip")
+
+
+Verificamos los datos obtenidos:
+
+
+![alt_text](./images/image69.png "image_tooltip")
+
+
+La información obtenida muestra todos los datos etiquetados y reconocidos de acuerdo a la plantilla aplicada.
+
+
+### ¿Cómo modificar una plantilla existente ?
+
+En caso de que la información obtenida no sea acorde con la información buscada, habrá que modificar la plantilla creada.
+
+Existen 2 formas de acceder a una plantilla existente, ya sea desde la sección de plantillas o desde la sección de “Reporte de documentos”
+
+**Desde la sección de Reporte de Documentos**, podemos ubicar la plantilla utilizando el filtro por documento (con el que se armó la plantilla) o bien con el nombre de la plantilla
+
+
+![alt_text](./images/image75.png "image_tooltip")
+
+
+Desde la sección de Plantillas, podemos buscar utilizando el filtro con el nombre de la plantilla:
+
+
+![alt_text](./images/image1.png "image_tooltip")
+
+
+Luego debemos hacer click en el ícono de edición de plantillas ![alt_text](./images/image77.png "image_tooltip")
+
+Nos llevará a la misma pantalla donde creamos la plantilla:
+
+
+![alt_text](./images/image26.png "image_tooltip")
+
+
+Podemos editar o agregar etiquetas del mismo modo en que se hizo al momento de la creación:
+
+
+![alt_text](./images/image62.png "image_tooltip")
+
+
+Una vez realizado los cambios, recordar guardar las modificaciones, utilizando el ícono del disco: 
+
+
+![alt_text](./images/image16.png "image_tooltip")
+
+
+
+#### **¿Cómo modificar la etiqueta de un bloque?**
+
+Una vez dentro del modo edición de la plantilla, en el menu reglas de extraccion, seleccionar el lapiz del bloque que a cambiar: 
+
+
+![alt_text](./images/image72.png "image_tooltip")
+
+
+Cambiar el nombre, seleccionar el tilde 
+
+
+![alt_text](./images/image24.png "image_tooltip")
+
+
+Guardar el template: 
+
+
+![alt_text](./images/image42.png "image_tooltip")
+
+
+
+### ¿Cómo descargar reportes de documentos ? 
+
+Dirigirse a la sección “Reporte de documentos”  para verificar los resultados de las plantillas creadas, haciendo clic en el ícono de TheEye:
+
+
+![alt_text](./images/image9.png "image_tooltip")
+  
+
+Y luego en:
+
+
+![alt_text](./images/image27.png "image_tooltip")
+
+
+Desde la pantalla de reportes, seleccionar un rango de fechas:
+
+
+![alt_text](./images/image63.png "image_tooltip")
+
+
+Luego hacer clic en ![alt_text](./images/image40.png "image_tooltip")
+
+Se descargará un listado de comprobantes en formato EXCEL, como por ejemplo:
+
+
+![alt_text](./images/image39.png "image_tooltip")
+
+
+
+![alt_text](./images/image78.png "image_tooltip")
+
+
+Pueden resultar de interés los campos:
+* “**Original_name**”: Nombre de archivo con el que se subió el comprobante.
+* “**Classification_label**”: Nombre de la plantilla utilizada
+* “**Creation_date**”: Fecha de creación del documento
