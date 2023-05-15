@@ -93,7 +93,7 @@ Donde se visualiza el listado de documentos digitalizados.
 |--------|---------|-------------|
 | Reprocesar | ![alt_text](./images/image34.png "image_tooltip") | Permite volver a procesar un comprobante ya digitalizado. Se puede utilizar para verificar que se hayan aplicado los cambios realizados en las plantillas. |
 | Información obtenida| ![alt_text](./images/image43.png "image_tooltip") | Permite visualizar en pantalla la información reconocida del comprobante importado. |
-| Descargar documento | ![alt_text](./images/image80.png "image_tooltip") | Permite descargar el comprobante importado. (formato pdf) |
+| Descargar documento | ![alt_text](./images/descarga_comprobantes.png "descarga_documento") | Permite descargar el comprobante importado. (formato pdf) |
 | Editar plantilla | ![alt_text](./images/image77.png "image_tooltip") | Permite editar plantilla modelo con el formato de comprobante |
 | Visualizar plantilla | ![alt_text](./images/image25.png "image_tooltip") | Permite solo ver la plantilla modelo sobre el comprobante procesado |
 | Procesar manualmente | ![alt_text](./images/image84.png "image_tooltip") | Permite completar a mano datos faltantes de un comprobante en particular. |
@@ -371,13 +371,13 @@ El progreso de la carga se visualiza a medida que los documentos son cargados:
 
 Una vez cargados los documentos, procedemos a revisar el estado de los documentos.
 
-1- Ir a la sección “Documentos procesados“ para visualizar los documentos cargados
+#### 1- Ir a la sección “Documentos procesados“ para visualizar los documentos cargados
 
 
 ![alt_text](./images/image48.png "image_tooltip")
 
 
-2- Verificar que los documentos se han cargado y reconocido.
+#### 2- Verificar que los documentos se han cargado y reconocido.
 
 Si los documento fueron reconocidos con excitó su estado será ![alt_text](./images/image20.png "image_tooltip") “Procesado”, tendrán asignado una PLANTILLA y un valor de COINCIDENCIA. 
 
@@ -503,13 +503,13 @@ Guardar el template:
 Dirigirse a la sección “Reporte de documentos”  para verificar los resultados de las plantillas creadas, haciendo clic en el ícono de TheEye:
 
 
-![alt_text](./images/image9.png "image_tooltip")
+![alt_text](./images/image9.png "logo_theeye")
   
 
 Y luego en:
 
 
-![alt_text](./images/image27.png "image_tooltip")
+![alt_text](./images/image27.png "reporte_documentos")
 
 
 Desde la pantalla de reportes, seleccionar un rango de fechas:
@@ -534,3 +534,64 @@ Pueden resultar de interés los campos:
 * “**Original_name**”: Nombre de archivo con el que se subió el comprobante.
 * “**Classification_label**”: Nombre de la plantilla utilizada
 * “**Creation_date**”: Fecha de creación del documento
+
+<br>
+<br>
+
+# **Trazabilidad**
+Cuando el ingreso de documentos a digitalizar se realiza mediante un proceso automático, puede ser necesario realizar el segumiento del proceso de digitialización de cada uno de los documentos ingresados. Digitize tiene integrada la incorporación de documentos a través de correos electrónicos.<br>
+El flujo responde al siguiente diagrama:
+
+![alt_text](./images/image87.png "flow")
+
+<br>
+Cada documento pasa por distintos estados durante el ciclo de vida del proceso, hasta que o bien termina con su proceso del lado del cliente o es rechazado o abortado por algún error del proceso. En el siguiente diagrama se muestran esos estados que estarán visibles desde las vistas que ofrece Digitize.
+
+
+![alt_text](./images/image88.png "flow_status")
+
+
+
+| Estado | Ícono | Descripción |
+| -------- | ------- |-------------|
+| converting | ![alt_text](./images/image46.png "converting") | El documento se está procesando |
+| submitted | ![alt_text](./images/submitted.png "submitted") | Es necesario tomar acciones del lado del cliente en caso de que la conciliación este activada |
+| queued | ![alt_text](./images/queued.png "qeued") | Indica que está listo para comenzar el proceso posterior a la digitalización  |
+| completed | ![alt_text](./images/image12.png "completed") | Indica fin del proceso posterior a la digitalización |
+| aborted | ![alt_text](./images/aborted.png "aborted") | El proceso posterior a la digitalización no se pudo completar |
+| error | ![alt_text](./images/image53.png " error") | El proceso posterior a la digitalización finalizó con errores |
+
+Estos estados se visualizan desde el reporte de documentos:
+
+![alt_text](./images/image27.png "boton_reporte_documentos")
+
+En la columna estado:
+
+![alt_text](./images/reporteDocumentos.png "reporte_documentos")
+
+<br>
+
+## Caso Práctico
+### ¿Cómo hacemos para obtener el estado del procesamiento de un documento que fué enviado a  por e-mail?
+
+El primer paso es acceder al reporte de eMails desde la pantalla de inicio :
+
+![alt_text](./images/home_emails.png "home_emails") 
+
+Se mostrarán los correos procesados, y por cada adjunto descargado, aparecerá un registro: 
+<br>
+
+Las columnas muestran la fecha de recepción del e-mail, el remitente, el asunto, el nombre del adjunto, y el estado del proceso de descarga del adjunto. <br>
+
+En la sección de acciones se puede descargar el archivo adjunto asociado ![alt_text](./images/descarga_comprobantes.png "descarga_documento"). En caso de que el documento ya se haya procesado, se podrá visualizar la información obtenida de la digitalización ![alt_text](./images/datos_comprobantes.png "datos_comprobantes"), y además tendrá un acceso directo al documento generado por el proceso ![alt_text](./images/informacion_proceso_documento.png "datos_proceso"), para poder visualizar el estado del ciclo de vida del mismo.
+<br>
+<br>
+![alt_text](./images/reporte_emails.png "reporte_emails") 
+<br>
+
+Presionando ![alt_text](./images/informacion_proceso_documento.png "datos_proceso") se puede acceder a la pantalla de proceso del documento “Reporte de Documentos”:
+<br>
+
+![alt_text](./images/documento_filtrado.png "documento_filtrado")
+
+De este modo podremos saber el estado de proceso del documento. Notar que se utilizó el filtro para seleccionar el documento en cuestión.
