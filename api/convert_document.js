@@ -16,7 +16,7 @@ const main = async ([ filepath ]) => {
 
   const request = https.request({
     method: 'post',
-    host: 'tagger-api-dev.theeye.io',
+    host: 'digitize-api.theeye.io',
     path: `/api/documents/upload?access_token=${accessToken}`,
     headers: formData.getHeaders()
   })

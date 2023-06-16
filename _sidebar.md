@@ -1,4 +1,4 @@
 - [Inicio](/)
 - [API](/api/)
-- [FAQs](/faqs)
+- [FAQs](/faqs/)
 - [Soporte](https://help.theeye.io)

@@ -1,20 +1,75 @@
 # Documentación API
 
-Para ejecutar este ejemplo debemos usar npm. inicializamos un directorio
+## Preparacion
+
+### Bearer Access Token
+
+Para acceder a la API se debe contar con un AccessToken Bearer.
+
+Para obtenerlo por el momento es solo posible solicitandolo al equipo de TheEye mediante el canal de soporte proporcionado en el momento del alta de su cuenta.
+
+Es posible obtener un AccessToken que se obtiene luego de un login Basic utilizando el usuario y contraseña del panel web.
+En caso de no tener un token de acceso de API, el token de acceso obtenido con login Basic sera util para realizar las operaciones que describiremos a continuación
+Tener en cuenta que este token caduca luego de 14 dias, durante ese periodo se mantendra la sesión abierta.
+Por lo que no debe ser compartido
+
+## Operaciones comunes
+
+### Basic Login
+
+<!-- tabs:start -->
+##### **Curl**
+
+```bash
+curl -X POST \
+       --header 'Content-Type: application/json' \
+       --header 'Accept: application/json' \
+       -d '{"email":"user%40domain.io","password":"youknowit"}' \
+       'https://digitize-api.theeye.io/api/TaggerUsers/login'
+
+```
+<!-- tabs:end -->
+
+El resultado de esta operación es un access token que se puede utilizar para consultar la API durante un periodo de tiempo especifico
+
+
+### Enviar documentos a procesar
+
+<!-- tabs:start -->
+##### **Curl**
+
+```bash
+accessToken="ElTokenDeAcceso"
+
+curl -X POST 'https://digitize-api.theeye.io/api/documents/upload?access_token=${accessToken}' \
+       -F file=@"archivocomprobante.pdf"
+```
+
+##### **Node.js**
+
+*Pre-requisitos. Instalar nodejs y npm*
+
+##### Paso 1 (opcional)
+
+Inicializamos el directorio donde colocaremos el script
 
 ```bash
 npm init -y
 ```
 
-luego vamos a instalar las dependencias.
-podemos usar otras librerias como got, axios, node-fetch. en este ejemplo usamos la libreria https nativa de nodejs y la libreria form-data que nos permite enviar archivos utilizando el header multiparted
+##### Paso 2
+
+Instalamos las dependencias.
+En este ejemplo usamos la libreria https nativa de nodejs y la libreria form-data que nos permite enviar archivos utilizando el header multiparted.
 
 
 ```bash
 npm install form-data
 ```
 
-creamos un archivo `processar_documento.js` y pegamos el siguiente codigo
+##### Paso 3
+
+Creamos un archivo `procesar_documento.js` y pegamos el siguiente codigo
 
 
 ```javascript
@@ -23,7 +78,7 @@ const path = require('path')
 const fs = require('fs')
 
 const https = require('https')
-const accessToken = process.env.TAGGER_ACCESS_TOKEN
+const accessToken = process.env.API_ACCESS_TOKEN
 
 const main = async ([ filepath ]) => {
   const content =  fs.createReadStream(filepath)
@@ -33,7 +88,7 @@ const main = async ([ filepath ]) => {
 
   const request = https.request({
     method: 'post',
-    host: 'tagger-api-dev.theeye.io',
+    host: 'digitize-api.theeye.io',
     path: `/api/documents/upload?access_token=${accessToken}`,
     headers: formData.getHeaders()
   })
@@ -83,13 +138,203 @@ const main = async ([ filepath ]) => {
 }
 
 main(process.argv.slice(2)).then(console.log).catch(console.error)
+
 ```
 
-ahora debemos setear el access token para poder comunicarnos con la API.
+##### Paso 4
 
-si ejecutamos este ejemplo desde Linux sería de la siguiente manera.
-hay que pasar el archivo a procesar como primer parámetro
+En el shell debemos setear el access token por variable de entorno para poder comunicarnos con la API.
+
+Linux
 
 ```bash
-TAGGER_ACCESS_TOKEN="ElTokenDeAcceso" node processar_documento.js ./file.pdf
+export API_ACCESS_TOKEN="ElTokenDeAcceso"
+```
+
+Windows
+
+```shell
+set API_ACCESS_TOKEN="ElTokenDeAcceso"
+```
+
+##### Paso 5
+
+Pasar el archivo a procesar como primer parámetro
+
+
+```shell
+node processar_documento.js './FacturaDigital(2)(1).pdf'
+```
+
+##### **Python**
+
+*Pre-requisitos. Instalar python y pip*
+
+##### Paso 1
+
+Instalamos la librería request. 
+
+```bash
+pip install requests
+```
+
+##### Paso 2
+
+Creamos el archivo `procesar_documento.py` y pegamos el codigo.
+
+```python
+import requests
+import os
+import sys
+
+file = sys.argv[1]
+basename = os.path.basename(file)
+accessToken = os.getenv('API_ACCESS_TOKEN')
+
+url = "https://digitize-api.theeye.io/api/documents/upload?access_token=" + accessToken
+
+payload = {}
+files=[ ('file', (basename, open(file,'rb'),'application/pdf')) ]
+headers = {}
+
+response = requests.request("POST", url, headers=headers, data=payload, files=files)
+
+print(response.text)
+```
+
+##### Paso 3
+
+En el shell debemos setear el access token por variable de entorno para poder comunicarnos con la API.
+
+Linux
+
+```bash
+export API_ACCESS_TOKEN="ElTokenDeAcceso"
+```
+
+Windows
+
+```shell
+set API_ACCESS_TOKEN="ElTokenDeAcceso"
+```
+
+##### Paso 4
+
+Pasar el archivo a procesar como primer parámetro
+
+
+```shell
+python processar_documento.py './FacturaDigital(2)(1).pdf'
+```
+
+<!-- tabs:end -->
+
+La respuesta debe ser un JSON similar al siguiente
+
+```json
+{
+  customer_id: '648af81f5a0d5b45943da170',
+  assignee_id: null,
+  miscomprobantes_id: null,
+  filename: null,
+  original_name: 'FacturaDigital(2)(1).pdf',
+  keyPrefix: 'documents/organization/20230615/648b0e6647df4ecd5f1f98d0',
+  creation_date: '2022-06-15T13:13:10.254Z',
+  modification_date: '2022-06-15T13:13:10.254Z',
+  categories: [],
+  checksum: '1ec0ad6513dfcedf9cdd01a369cda34fe6849bed',
+  lifecycle: 'converting',
+  lifecycle_details: '',
+  lifecycle_error: '',
+  id: '648b0e6647df4ecd5f1f98d0'
+}
+```
+
+Con el ID devuelto en la operación anterior es posible consultar el estado del documento y el resultado.
+
+
+### Consultar estado de un comprobante
+
+<!-- tabs:start -->
+##### **Curl**
+
+```bash
+accessToken="ElTokenDeAcceso"
+
+curl -X GET --header 'Accept: application/json' \
+      'https://digitize-api.theeye.io/api/Documents/6363ed5eb1a2cc0cc2e056c8?access_token=${accessToken}'
+```
+<!-- tabs:end -->
+
+*Respuesta*
+
+```json
+{
+  "customer_id": "6363c704c740e7ace739fb34",
+  "assignee_id": null,
+  "miscomprobantes_id": null,
+  "filename": null,
+  "original_name": "FA-B-0003-00091963.pdf",
+  "keyPrefix": "documents/demo/20230615/648b733d28f369d638f7e79b",
+  "creation_date": "2023-06-15T20:23:25.952Z",
+  "modification_date": "2023-06-15T20:23:29.916Z",
+  "categories": [],
+  "checksum": "c80f525768850938e38f7a47e0ecc2f685dfe182",
+  "lifecycle": "submitted",
+  "lifecycle_details": "",
+  "lifecycle_error": "",
+  "pages_number": 1,
+  "id": "648b733d28f369d638f7e79b"
+}
+```
+
+### Obtener el resultado de un comprobante
+
+<!-- tabs:start -->
+##### **Curl**
+
+```bash
+accessToken="ElTokenDeAcceso"
+
+curl -X GET --header 'Accept: application/json' \
+      'https://digitize-api.theeye.io/api/Documents/6363ed5eb1a2cc0cc2e056c8?access_token=${accessToken}'
+```
+<!-- tabs:end -->
+
+*Respuesta*
+
+```json
+[
+  {
+    "document_id": "648b733d28f369d638f7e79b",
+    "customer_id": "6363c704c740e7ace739fb34",
+    "filtered_values": {
+      "cuitProveedor": null,
+      "fechaCae": null,
+      "fechaEmision": null,
+      "cae": "70189034020441",
+      "tipoCae": "CAE.",
+      "codigoDocumento": 6,
+      "tipoDocumento": "FACTURA",
+      "puntoVenta": null,
+      "numeroComprobante": null,
+      "importeNetoGravado": "",
+      "domicilioProveedor": "CONDIC",
+      "domicilioJuridica": "",
+      "razonSocialProveedor": "",
+      "importeTotal": null,
+      "copiaDocumentoOriginal": "",
+      "afip": "",
+      "labelAfip": "",
+      "tables": {}
+    },
+    "classification_confidence": 30,
+    "classification_label": "afip_patterns",
+    "creation_date": "2023-06-15T20:23:29.870Z",
+    "origin": "prediction",
+    "id": "648b734136b27c0a15b3a7be",
+    "hrtime_ms": 2361,
+    "modification_date": "2023-06-15T20:23:29.870Z"
+  }
+]
 ```
