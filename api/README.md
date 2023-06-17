@@ -297,7 +297,7 @@ curl -X GET --header 'Accept: application/json' \
 accessToken="ElTokenDeAcceso"
 
 curl -X GET --header 'Accept: application/json' \
-      'https://digitize-api.theeye.io/api/Documents/6363ed5eb1a2cc0cc2e056c8?access_token=${accessToken}'
+      'https://digitize-api.theeye.io/api/Documents/6363ed5eb1a2cc0cc2e056c8/documentTags?access_token=${accessToken}'
 ```
 <!-- tabs:end -->
 
