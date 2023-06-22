@@ -338,3 +338,49 @@ curl -X GET --header 'Accept: application/json' \
   }
 ]
 ```
+
+## Callback URL
+
+Al finalizar el procesamiento de un comprobante Digitize puede utilizar un callback URL para enviar el resultado del procesamiento.
+La respuesta contiene los siguientes datos
+
+```json
+  {
+    origin,
+    filename,
+    state,
+    tagger,
+    values,
+    label,
+    confidence,
+    document_id
+  }
+```
+
+### Detalle de cada campo
+
+
+| Nombre      | Descripcion                                                                                                                                           | Tipo     | Valor                      | 
+| -----       | -----                                                                                                                                                 | -----    | -----                      | 
+| origin      | Origen del proceso de conversion                                                                                                                      | string   | tagger o prediction        | 
+| filename    | Nombre original del archivo                                                                                                                           | string   |                            | 
+| state       | Estado del documento que toma según el resultado del proceso de extracción y las condiciones predeterminadas en el sistema (Dispatcher Flag)          | string   | ready / invalid / review   | 
+| tagger      | Cuando el documento fue revisado manualmente URL de la interfaz origen. Cuando el origen es el proceso automatico, URL del ambiente asociado a la API | url      | https://digitize.theeye.io | 
+| values      | Conjunto datos extraidos del proceso. Normalmente asociados a los bloques y patrones del template utilizado                                           | object   | {}                         | 
+| label       | Nombre de la plantilla utilizada                                                                                                                      | string   |                            | 
+| confidence  | Porcentaje de coincidencia del documento con la plantilla utilizada                                                                                   | number   |                            | 
+| document_id | ID asignado al documento dentro del sistema                                                                                                           | objectId |                            | 
+
+
+### Configuracion admitida
+
+| Nombre         | Descripcion                                                                                                   | Type    | Valor por Defecto | 
+| -----          | -----                                                                                                         | -----   | -----             | 
+| url            | webhook url                                                                                                   | url     |                   | 
+| bearer_token   | en caso de que la api remota necesite autenticación con token bearer. solo admite token fijo sin vencimiento  | string  |                   | 
+| method         | metodo http                                                                                                   | string  | post              | 
+| headers        | http headers                                                                                                  | object  |                   | 
+| payload_format | formato del payload enviado. posibles valores: json , array , values                                          | string  | array             | 
+| encoded_tags   | si payload_format es array ,  utilizar base64 encode en el campo values                                       | boolean | true              | 
+| basic_username | usuario para autenticacion basic                                                                              | string  |                   | 
+| basic_password | password para autenticacion basic                                                                             | string  |                   | 
