@@ -384,3 +384,85 @@ La respuesta contiene los siguientes datos
 | encoded_tags   | si payload_format es array ,  utilizar base64 encode en el campo values                                       | boolean | true              | 
 | basic_username | usuario para autenticacion basic                                                                              | string  |                   | 
 | basic_password | password para autenticacion basic                                                                             | string  |                   | 
+
+#### Payload Format. Ejemplos
+
+<!-- tabs:start -->
+
+##### **Json**
+
+```
+  {
+    origin: "prediction",
+    filename: "#5645387152.pdf",
+    state: "review",
+    tagger: https://digitize.theeye.io,
+    values: {
+      tables: {
+        segun_facturacion: [],
+        segun_empleados: []
+      },
+      cuitJuridica: null,
+      cuitProveedor: null,
+      fechaCae: null,
+      fechaEmision: null,
+      cae: null,
+      tipoCae: null,
+      codigoDocumento: null,
+      tipoDocumento: "FACTURA",
+      puntoVenta: null,
+      numeroComprobante: null,
+      ...
+    },
+    label: "CATEGORIZACION PYME",
+    confidence: 20.13166962644007,
+    document_id: "64997da69344103de1ba9362"
+  }
+```
+
+##### **Array**
+
+Este formato es compatible con los inputs de ejecución de tareas de TheEye
+
+```
+[
+  "tagger",
+  "#5645387152.pdf",
+  "review",
+  "https://digitize.theeye.io",
+  "{\"tables\":{\"segun_facturacion\":[[null,null,null,null,[\"Base\"],null],[[\"Neto\"],null,null,null,null,[\"181,03\"]],[[\"n EU services\"],[\"VAT\"],[\"0,00 %\"],null,[\"181,03\"],[\"0,00\"]],[[\"dad Total\"],null,null,null,null,[\"181,03\"]],[[\"88308291\"],[\"Su Referencia:\"],null,null,null,null],[[\"usan\"],[\"Lugar de\"],[\"recibo: Busan\"],[\"Barco/Viaje:\"],[\"SAN VICENTE/947W\"],null],[[\"uenos Aires\"],[\"Lugar de\"],[\"entrega: Buenos Aires\"],null,null,null],[[\"0-Nov-2019\"],[\"ETA:\"],[\"05-Jan-2020\"],null,null,null]],\"segun_empleados\":[[null,null,null,[\"Valor\"],[\"Total:\"],[\"181,03\"]],[[\"Número de\"],[\"Tamaño/\"],[\"Tipo Servicio\"],[\"PCD\"],null,null],[[\"Contenedor\"]],[[\"TCNU7017994\"],[\"40/9' 6/DRY\"],[\"CY/CY\"],[\"20. Nov.2019\"]],[[\"ero de Contrato:\"],[\"2263230\"],null,null,null,null]]},\"cuitJuridica\":null,\"cuitProveedor\":null,\"fechaCae\":null,\"fechaEmision\":null,\"cae\":null,\"tipoCae\":null,\"codigoDocumento\":null,\"tipoDocumento\":\"FACTURA\",\"puntoVenta\":null,\"numeroComprobante\":null,\"importeNetoGravado\":null,\"domicilioProveedor\":null,\"domicilioJuridica\":null,\"razonSocialProveedor\":null,\"importeTotal\":null,\"razonSocialJuridica\":null,\"iva21\":null,\"condicionVenta\":null,\"ivaJuridica\":null,\"periodoFacturadoDesde\":null,\"periodoFacturadoHasta\":null,\"iibb\":null,\"inicioActividad\":null,\"fechaVencimiento\":null,\"copiaDocumentoOriginal\":null,\"afip\":null,\"labelAfip\":null}",
+  "CATEGORIZACION PYME",
+  "20.13166962644007",
+  "64997da69344103de1ba9362"
+]
+```
+
+El indice 4 contiene los valores extraidos del documento. Si se encuentran inconvenientes para recibir el payload por problemas de encoding del campo de datos se puede utilizar el flag `encoded_tags` para que este indice sea convertido a base 64 antes de ser enviado al callback.
+
+
+##### **Values**
+
+Solo los valores obtenidos del documento
+
+```
+    {
+      tables: {
+        segun_facturacion: [],
+        segun_empleados: []
+      },
+      cuitJuridica: null,
+      cuitProveedor: null,
+      fechaCae: null,
+      fechaEmision: null,
+      cae: null,
+      tipoCae: null,
+      codigoDocumento: null,
+      tipoDocumento: "FACTURA",
+      puntoVenta: null,
+      numeroComprobante: null,
+      ...
+    }
+
+```
+
+<!-- tabs:end -->
