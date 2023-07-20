@@ -365,11 +365,12 @@ Pueden resultar de interés los campos:
 * “**Classification_label**”: Nombre de la plantilla utilizada
 * “**Creation_date**”: Fecha de creación del documento
 
+
 ## ¿Cómo cambiar el documento base de la plantilla?
 
 Para cambiar el documento base de la plantilla hay que exportar y volver a importar la plantilla sobre el nuevo documento base.
 
-El primer paso es exportar la plantilla. con el botón que está en la sección general con la opción Exportar plantilla
+El primer paso es exportar la plantilla. Esto se logra con el botón `Exportar plantilla` que se encuentra en la sección general de la pantalla de edición de plantillas.
 
 ![alt_text](./images/image91.png "image_tooltip")
 
@@ -383,7 +384,7 @@ Si necesitan por una única vez ver como una plantilla afecta a un documento, pu
 
 ![alt_text](./images/image89.png "image_tooltip")
 
-## ¿Cuál es la diferencia entre número, moneda e importe? ¿Cuál recomienda usar?
+## ¿Cuál es la diferencia entre los filtros de número, importe y moneda?
 
 - Número: este filtro recibe un string y remueve todos los símbolos dejando solo números.
 - Importe: verifica que el valor sea un importe válido. si es válido lo convierte a un importe con separador decimal punto.
@@ -391,17 +392,17 @@ Si necesitan por una única vez ver como una plantilla afecta a un documento, pu
 
 El filtro de importe tiene en cuenta los símbolos separadores de decimales y de miles.
  
-## El botón “Validar” pareciera no funcionar correctamente ¿Recomiendan su uso?
+## ¿Que hace el botón “Validar”?
  
-Si, se puede utilizar. El botón validar aplica reglas de búsqueda y extracción similares a las que aplica el backend.
-Puede ser que en algunos casos no esté mostrando correctamente el valor filtrado.
-Tengan en cuenta que el resultado obtenido en la interfaz es aproximado y sirve para hacer una verificación aproximada.
+El botón validar aplica reglas de búsqueda y extracción similares a las que aplica el backend.
+En algunos casos puede no estar mostrando el resultado exactamente igual al que se obtuvo luego del procesamiento automático o incluso ignorar algunos filtros.
+Tener en cuenta que el resultado obtenido en la interfaz es aproximado y sirve de referencia para hacer una verificación aproximada.
 
-Si nos pueden enviar captura del error que detectaron lo revisamos
+Con el tiempo lo irémos mejorando hasta igualar el resultado final.
  
 ## ¿Cómo funciona la opción “La posición no es fija”?
 
-Esta opción sirve para localizar bloques que no aparecen siempre en el mismo lugar y no se puede usar expresiones regulares.
+Esta opción sirve para localizar bloques que no aparecen siempre en el mismo lugar y cuando no es posible usar expresiones regulares.
 Por ejemplo, si necesitamos obtener datos al final de una lista de valores que tiene un largo variable.
 Según el largo de la lista el dato buscado puede aparecer mas arriba o mas abajo dentro de la página.
 
@@ -411,4 +412,4 @@ Al buscar Importe Factura, se le puede indicar que no es fijo y lo va a intentar
 
 ![alt_text](./images/image90.png "image_tooltip")
 
-Funciona mejor cuando hay datos alrededor del dato buscado. Datos aislados sin mucho detalle es mas difícil de encontrar.
+Funciona mejor cuando hay datos alrededor del dato buscado. Datos aislados sin mucho detalle son mas difíciles de encontrar.
