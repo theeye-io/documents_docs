@@ -14,13 +14,13 @@
     title="docsify-darklight-theme"
     type="text/css"
   />
-
 </head>
 <body>
   <div id="app"></div>
   <script>
     window.$docsify = {
       name: 'TheEye Digitize',
+      repo: '',
       loadNavbar: true,
       loadSidebar: true,
       subMaxLevel: 3,
@@ -28,6 +28,11 @@
       search: 'auto',
       //fallbackLanguages: ['es'],
       logo: 'logo-theeye-theOeye.png',
+      themeColor: "#004E7A",
+      tabs: {
+        theme: 'material',
+        tabHeadings: true
+      },
       darklightTheme: {
         dark: {
           'zoom-background-color': '#0E0E0E'
@@ -35,11 +40,6 @@
         light: {
           'zoom-background-color': '#FFFFFF'
         }
-      },
-      themeColor: "#004E7A",
-      tabs: {
-        theme: 'material',
-        tabHeadings: true
       }
     }
   </script>
@@ -52,6 +52,7 @@
     src="//cdn.jsdelivr.net/npm/docsify-darklight-theme@latest/dist/index.min.js"
     type="text/javascript">
   </script>
+
   <script src="//cdn.jsdelivr.net/npm/docsify-tabs@1"></script>
   <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-bash.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-batch.min.js"></script>

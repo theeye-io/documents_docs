@@ -1,4 +1,6 @@
 - [Inicio](/)
+  - [Manual de Usuario](/manual)
+  - [Trazabilidad](/trazabilidad)
 - [API](/api/)
 - [FAQs](/faqs)
 - [Soporte](https://help.theeye.io)
