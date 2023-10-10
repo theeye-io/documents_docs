@@ -225,11 +225,8 @@ Seleccionando en ![alt_text](./images/image43.png "image_tooltip")
 
 ## ¿Cómo verificar los datos obtenidos por la plantilla creada ?
 
-Dirigirse a la sección “Reporte de documentos”  para verificar los resultados de las plantillas creadas, haciendo clic en el ícono de ThEye:
+Dirigirse a la sección "Reporte de documentos" para verificar los resultados de las plantillas creadas, haciendo clic en el ícono de TheEye.
 
-
-![alt_text](./images/image9.png "image_tooltip")
-  
 
 Y luego en:
 
@@ -330,11 +327,7 @@ Guardar el template:
 
 ## ¿Cómo descargar reportes de documentos ? 
 
-Dirigirse a la sección “Reporte de documentos”  para verificar los resultados de las plantillas creadas, haciendo clic en el ícono de TheEye:
-
-
-![alt_text](./images/image9.png "logo_theeye")
-  
+Dirigirse a la sección "Reporte de documentos" para verificar los resultados de las plantillas creadas, haciendo clic en el logo de TheEye.
 
 Y luego en:
 

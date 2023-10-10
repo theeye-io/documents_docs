@@ -1,5 +1,5 @@
 
-# Digitize - Manual de Usuario
+# Digitize - Primeros pasos
 
 El usuario puede generar, gestionar y digitalizar comprobantes desde la web:
 
@@ -154,16 +154,18 @@ Permite crear reglas de extracción de datos.
 ![alt_text](./images/image33.png "image_tooltip") ![alt_text](./images/image58.png "image_tooltip")
 
 
+### Subir Documentos
+
+
+![alt_text](./images/image3.png "image_tooltip")
+
+
+
 ### Reporte de eMails (integración)
 
 
 ![alt_text](./images/image23.png "image_tooltip")
 
-
-### Subir Documentos (integración)
-
-
-![alt_text](./images/image3.png "image_tooltip")
 
 
 

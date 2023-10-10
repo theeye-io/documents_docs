@@ -1,5 +1,9 @@
 # Documentación API
 
+## Flow de Envío de comprobantes
+
+![diagrama de secuencia](../images/image97.png "diagrama")
+
 ## Preparacion
 
 ### Bearer Access Token
