@@ -1,6 +1,7 @@
 - [Inicio](/inicio)
 - [Plantillas](/plantillas/)
 - [Trazabilidad](/trazabilidad)
+- [Carga](/carga/)
 - [API](/api/)
 - [FAQs](/faqs)
 - [Soporte](https://help.theeye.io)
