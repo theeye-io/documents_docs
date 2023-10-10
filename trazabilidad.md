@@ -8,7 +8,7 @@ Cuando el ingreso de documentos a digitalizar se realiza mediante un proceso aut
 <!-- tabs:start -->
 ##### **Correo Electrónico**
 
-Digitize tiene integrada la incorporación de documentos a través de correos electrónicos.<br>
+Digitize tiene integrada la importación de documentos a través de la lectura de casillas de correo electrónico.<br>
 El flujo responde al siguiente diagrama:
 
 ![alt_text](./images/image87.png "flow")
