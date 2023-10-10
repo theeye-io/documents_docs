@@ -13,6 +13,12 @@ El flujo responde al siguiente diagrama:
 
 ![alt_text](./images/image87.png "flow")
 
+##### **API**
+
+Digitize tiene API que permite importar documentos directamente desde otro sistema y la opción de recibir por Webhook la información extraida al finalizar su procesamiento <br>
+El flujo responde al siguiente diagrama:
+
+![alt_text](./images/image98.png "flow")
 <!-- tabs:end -->
 
 ### Ciclo de vida de un documento
