@@ -1,0 +1,20 @@
+{
+  "name": "documentation",
+  "version": "1.0.0",
+  "description": "Digitize Documentation",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/theeye-io/documents_docs.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/theeye-io/documents_docs/issues"
+  },
+  "homepage": "https://github.com/theeye-io/documents_docs#readme"
+}
