@@ -349,16 +349,31 @@ Al finalizar el procesamiento de un comprobante Digitize puede utilizar un callb
 La respuesta contiene los siguientes datos
 
 ```json
-  {
-    origin,
-    filename,
-    state,
-    tagger,
-    values,
-    label,
-    confidence,
-    document_id
+{
+  "state":"review",
+  "label":"FacugonTemplate",
+  "confidence":98.2873335223038,
+  "origin":"tagger",
+  "filename":"FACUGON_FC-A-0018-00012445_ARGENTINA_ORIG.pdf",
+  "tagger":"https://digitai.theeye.io/tagger-processing?id=666666666666666666666666",
+  "document_id":"65df64b2917f9bbac3510598",
+  "organization_uuid":"49359628-6755-5fd6-9bac-cdda63c9f80f",
+  "values":{
+    "codigoDocumento":1,
+    "numeroFactura":"0018-00012445",
+    "puntoVenta":"0018",
+    "numeroComprobante":"00012445",
+    "fechaEmision":"26/01/2024",
+    "moneda":"ARS",
+    "cae":"77777777777777",
+    "subtotal":444444.08,
+    "iva21":104.35784,
+    "total":601299.92,
+    "cuitEmisor":"33333333333",
+    "razonSocialProveedor":"FACUGON S.A.",
+    ...
   }
+}
 ```
 
 ### Detalle de cada campo
@@ -374,6 +389,7 @@ La respuesta contiene los siguientes datos
 | label       | Nombre de la plantilla utilizada                                                                                                                      | string   |                            | 
 | confidence  | Porcentaje de coincidencia del documento con la plantilla utilizada                                                                                   | number   |                            | 
 | document_id | ID asignado al documento dentro del sistema                                                                                                           | objectId |                            | 
+| organization_uuid |                                                                                                                                                 | string   |                            | 
 
 
 ### Configuracion admitida

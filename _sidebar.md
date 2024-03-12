@@ -2,6 +2,7 @@
 - [Plantillas](/plantillas/)
 - [Trazabilidad](/trazabilidad)
 - [Carga](/carga/)
+- [Convenciones](/convenciones/)
 - [API](/api/)
 - [FAQs](/faqs)
 - [Soporte](https://help.theeye.io)
