@@ -30,11 +30,15 @@ curl -X POST 'https://tagger-api-dev.theeye.io/api/documents/upload?access_token
 }
 ```
 
+Al finalizar el proceso de extracción y de haber sido configurado un callback URL, el sistema envia los datos obtenidos inmediatamente.
+También es posible aplicar validaciones, transformaciones de datos y customizaciones todos los documentos o para documentos de forma particular.
+
 
 ### Diccionario de datos
 
-El resultado del proceso de extracción de datos del comprobante devuelve los siguientes datos en formato JSON.
-Cuando el dato no pudo ser identificado correctamente se devuelve "null". En los casos donde el tipo de dato definido es una lista (array/collection) se obtendrá un array vacío.
+Uilizando las plantillas confeccionadas por TheEye para comprobantes de Argentina se obtienen los siguientes datos en formato JSON.
+
+Si algún dato no pudo ser identificado correctamente se devuelve "null". En los casos donde el tipo de dato definido es una lista (array/collection) se obtendrá un array vacío.
 
 
 | Campo del Json  | Significado / Dominio | Valores Aceptados | Filtro | Tipo de Dato | 
