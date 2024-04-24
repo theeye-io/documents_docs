@@ -5,7 +5,7 @@
 
 ## ¿Cómo digitalizar un documento?
 
-cargar los documentos del mismo tipo en la plataforma del siguiente modo:
+Cargar los documentos del mismo tipo en la plataforma del siguiente modo:
 
 Ir a la sección “Subir Documentos”.
 
