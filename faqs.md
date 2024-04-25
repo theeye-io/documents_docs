@@ -1,11 +1,105 @@
 
 # FAQs - Preguntas frecuentes
+## ¿Que es DigitAI?
 
+DigitAI es una plataforma web que permite digitalizar documentos en formato de imagen. 
+Extrae los datos por medio de tecnología OCR e IA, y los estandariza para adecuarse a tus necesidades.
 
+DigitAI permite agilizar tu proceso de carga de datos, no solo extrayendo y cargándolos automáticamente, sino también permitiendote gestionar tus comprobantes desde un único lugar. 
+
+## ¿El proceso se adapta al modelo de negocios de mi empresa?
+
+¡Nos adecuamos a tu empresa!
+- Podrás cargar comprobantes desde distintas fuentes, como mail o directorios, 
+- Podrás solicitar reglas de transformación de datos ad.hoc
+- Y los datos de salida generados, serán adecuados a tu sistema contable. 
+
+## ¿Cómo funciona?
+
+La plataforma extrae los datos de los comprobantes mediante reconocimiento de imagen OCR y captura los datos que necesitas utilizando modelos de extracción, que llamamos plantillas.
+
+Solo tendrás que configurar las plantillas por única vez y obtendrás los resultados al ir procesando los comprobantes recibidos automáticamente. 
+
+El sistema está diseñado para que puedas gestionar tus comprobantes en una bandeja de entrada. Es muy fácil visualizar el estado de los comprobantes, y realizar acciones para validar o finalizar el proceso.
+
+## ¿Qué pasa si tengo que gestionar muchos comprobantes con formatos distintos ?
+
+Gracias a la variedad de metodologías de identificación de datos que brinda la plataforma, podrás crear la mejor estrategia para abarcar la mayor cantidad de comprobantes.
+
+- Plantillas con etiquetas para datos simples.
+- Plantillas con tablas para listas de datos.
+- Plantillas con Expresiones Regulares para datos estructurados.
+
+Una plantilla puede reconocer múltiples comprobantes que posean una estructura similar.
+
+A partir de datos clave, es posible obtener la totalidad de la información, al conciliar contra bases de datos externas (como AFIP)
+Así como descartar documentos inválidos o no registrados en AFIP.
+
+Te recomendamos que comiences configurando los comprobantes con mayor volumen. 
+Al configurar las plantillas para tus principales proveedores, habrás automatizado la digitalización de al menos el 80% de los comprobantes recibidos. 
+
+## ¿Qué tipos de archivo se pueden procesar?
+
+Cualquier documento de imagen que contenga texto puede ser leído con DigitAI: PNG, JPG, JPEG, TIFF, PDF, tanto de origen digital como escaners.
+
+Se obtienen excelentes resultados con los documentos que mantienen el formato y donde los datos se encuentran ubicados siempre en el mismo lugar.
+
+## ¿Cómo subo los comprobantes ?
+
+Se pueden cargar automáticamente desde una casilla de correo usando nuestro propio Mailbot, desde un repositorio de archivos en la nube (sharepoint, onedrive, aws-s3, google drive, etc), enviando los archivos vía API o subirlos manualmente usando la interfaz web.
+
+Contactanos a support@theeye.io para conectar la plataforma con la casilla de correo o con el directorio.
+
+## ¿Cómo sé que la información extraída es la que yo necesito?
+
+Al configurar las plantillas, puedes establecer los datos obligatorios que necesitas. En caso de que la digitalización no los obtenga, serás notificado cuando haya campos pendientes, y tendrás la opción de incluirlos manualmente. 
+
+La plataforma permite configurar reglas de negocio más avanzadas, en caso de requerirse contactanos a soporte@theeye.io
+
+## ¿Puedo incluir datos que no están en los comprobantes ? 
+
+Se pueden incluir estos campos en las plantillas de extracción o configurar reglas de negocio (tablas maestras) para completarlos automáticamente. 
+
+## ¿Puedo cargar los datos o contabilizar los comprobantes directamente en mi sistema contable ?
+
+Si, podemos integrarnos con tu ERP via API.
+
+Es posible generar CSVs de carga masiva, XMLs o JSONs con información formateada para cumplir tus necesidades de negocio o técnicas.  
+
+Contactanos a support@theeye.io para configurar la integración. 
+
+## ¿Dónde puedo encontrarme con inconvenientes al digitalizar? ¿Qué puedo hacer?
+
+La calidad de los documentos de entrada determina el desempeño de digitalización. 
+Los siguientes casos pueden presentar inconvenientes:
+
+- Documentos manuscritos 
+- Imágenes escaneadas movidas.
+- Documentos torcidos, 
+- Documentos que tienen manchas 
+- Documentos con áreas no visibles. 
+
+Para sortear estas situaciones, procure mejorar la calidad de los documentos de entrada o complete manualmente los datos faltantes desde la plataforma. 
+
+## ¿Cómo se paga?
+
+Si eres de Argentina, el pago lo puedes realizar por débito automático. Si eres del exterior, el pago se realiza con tarjeta de crédito.Puede adquirirse de forma mensual o anual con 2 meses de regalo. 
+
+## ¿Tienen demo? ¿Tienen trial?
+
+Si, puedo hacer una demo online o puede acceder a un trial de hasta 30 días dependiendo del plan. 
+
+## ¿Tienen API?
+
+Si, la solución se puede consumir via API. Envianos tu consulta a  support@theeye.io  
+
+## ¿Cómo se cobra?
+
+El valor varía por cantidad de comprobantes  y cantidad de usuarios.
 
 ## ¿Cómo digitalizar un documento?
 
-cargar los documentos del mismo tipo en la plataforma del siguiente modo:
+Cargar los documentos del mismo tipo en la plataforma del siguiente modo:
 
 Ir a la sección “Subir Documentos”.
 
