@@ -1,7 +1,7 @@
 
 ### Documentos Procesados
 
-Los estados de los documentos se pueden visualizar en la sección de “Reporte de Documentos”
+Los estados de los documentos se pueden visualizar en la sección de “Documentos Procesados”
 
 
 ![alt_text](./images/image21.png "image_tooltip")
@@ -15,6 +15,8 @@ Donde se visualiza el listado de documentos digitalizados.
 
 
 #### Estados
+
+Los estados representan el estadio alcanzado por la digitalizacion. Indican si se requiere de alguna acción por parte del usuario, para finalizar el proceso.
 
 | Estado | Símbolo | Descripcion | 
 |--------|---------|-------------|
