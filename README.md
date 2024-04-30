@@ -1,5 +1,5 @@
 
-# Digitize - Digitalizador de comprobantes
+# DigitAI - Digitalizador de comprobantes
 
 ## Introducción
 
