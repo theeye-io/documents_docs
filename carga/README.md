@@ -1,7 +1,7 @@
 
 # Subir Documentos
 
-images/image3.png
+![alt_text](../images/image3.png "image_tooltip")
 
 ## Procesamiento
 
