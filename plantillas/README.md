@@ -148,7 +148,7 @@ Como primer paso se recomienda cambiar el nombre de la plantilla utilizando el b
 
 ![alt_text](../images/image59.png "image_tooltip")
 
-Paso 5: Crear reglas de extracción
+##### Paso 5: Crear reglas de extracción
 
 Por cada dato de interés se debe crear una etiqueta. Para ello se debe seleccionar el dato encuadrando con el puntero del mouse, tal como se muestra a continuación:
 
@@ -199,7 +199,7 @@ Arrastrar las palabras que desea excluir o incluir y seleccionar Aceptar.
 
 Repetir los pasos anteriores para identificar todos los datos a reconocer en el documento. 
 
-Paso 6: Guardar los cambios
+##### Paso 6: Guardar los cambios
 
 Guardar la plantilla armado seleccionando ![alt_text](../images/image60.png "image_tooltip")
 
