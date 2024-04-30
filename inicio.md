@@ -3,7 +3,7 @@
 
 El usuario puede generar, gestionar y digitalizar comprobantes desde la web:
 
-**<span style="text-decoration:underline;">https://digitize.theeye.io/home</span>**
+**<span style="text-decoration:underline;">https://digitai.theeye.io/home</span>**
 
 El usuario debe ingresar al formulario con su usuario y contraseña.
 
