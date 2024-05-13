@@ -1,7 +1,6 @@
 
-# Carga y Procesamiento
+# Cargar comprobantes
 
-## Procesamiento
 
 Digitize permite automatizar la carga de comprobantes de diversas maneras.
 
@@ -35,16 +34,14 @@ También se puede seleccionar al enviar los documentos via API.
   
 Una vez que los comprobantes son recibidos por el sistema, se envían a la queue de procesamiento correspondiente.
 
-### Carga Manual
+## Manual
 
 La carga manual se realiza desde el panel de operador utilizar el formulario de carga.
 
-Para mas informacion puede consultar la pagina del manual de la interfaz de usuario
 
-[link]
+![alt_text](../images/image3.png "image_tooltip")
 
-
-### API
+## API
 
 El procesamiento de comprobantes via Api permite automatizar la carga de comprobantes uno a uno siendo enviados desde otro sistema, desde una panel WEB hecho a medida o desde otra interfaz.
 
@@ -52,7 +49,7 @@ Una vez recibidos los comprobantes serán procesados en el orden en que fueron e
 
 <!--[EJEMPLO ACA USANDO PLUGIN DE INSERCION DE CODIGO]()-->
 
-### Mailbot
+## Mailbot
 
 <!--
 ## Obtención de Resultados

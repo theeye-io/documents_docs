@@ -1,7 +1,30 @@
 
-# Digitize - Plantillas
+# Plantillas
+
+
+El listado de plantillas (templates) creados se puede visualizar en la sección “Plantillas”
+
+
+![alt_text](../images/image66.png "image_tooltip")
+ 
+
+![alt_text](../images/image57.png "image_tooltip")
+
+
+Seleccionar “Activar” ![alt_text](../images/image10.png "image_tooltip") para habilitar o deshabilitar una plantilla
+
+
+
+### Editor de Plantillas
+
+Al seleccionar ![alt_text](../images/image14.png "image_tooltip") se visualiza el editor de la plantilla.
+
+![alt_text](../images/image70.png "image_tooltip")
+
 
 ## Creación de plantillas
+
+#### Paso 1: Cargar los documentos
 
 Para extraer datos de un documento lo primero que debemos hacer es crear una plantilla. Para ello será necesario contar con varias copias del tipo de documento que deseamos digitalizar.
 
@@ -26,6 +49,7 @@ El modulo de carga muestra el progreso a medida que los documentos son recibidos
 
 ![alt_text](../images/image74.png "image_tooltip")
 
+#### Paso 2: Seleccionar los documentos
 
 Una vez que los documentos fueron enviados a procesar, procedemos a crear una plantilla de clasificación, para ello debemos:
 
@@ -65,6 +89,8 @@ La plantilla aparecerá en la sección de plantillas con un nombre genérico com
 
 Una vez creada la plantilla autogenerada, deberemos editarla para indicarle los datos a digitalizar y darle un nombre representativo
 
+#### Paso 3: Editar la plantilla autogenerada
+
 Ir a plantillas:
 
 
@@ -93,11 +119,36 @@ En la mayoría de los casos esté no es el escenario habitual y se esperaría en
 
 ![alt_text](../images/image100.png "image_tooltip")
 
+#### Acciones
+
+| Acciones |Símbolo | Descripción |
+|----------|--------|-------------|
+| Menú de edición | ![alt_text](../images/image54.png "image_tooltip") | Abrir el menú de edición para agregar los filtros y etiquetas del template. Ver ¿Cómo hago para digitalizar un documento? |
+| Guardar template | ![alt_text](../images/image60.png "image_tooltip") | Guardar el template asignando un nombre. |
+| Quitar etiquetas | ![alt_text](../images/image11.png "image_tooltip") | Visualizar o no las etiquetas creadas. |
+| Mostrar información de reconocimiento IA | ![alt_text](../images/image15.png "image_tooltip") | Visualizar o no la información de reconocimiento de IA. |
+| Ajuste de pantalla | ![alt_text](../images/image50.png "image_tooltip") | Permite acercar, alejar o ajustar la visualización del documento en pantalla. |
+
+
+##### Paso 4: Configuración general
+
+![alt_text](../images/image33.png "image_tooltip") ![alt_text](../images/image58.png "image_tooltip")
+
+| Acciones | Símbolo | Descripción |
+| -------- | ------- |-------------|
+| Exportar plantilla | ![alt_text](../images/image6.png "image_tooltip") | Permite exportar la plantilla en formato .json |
+| Importar plantilla | ![alt_text](../images/image37.png "image_tooltip") | Permite importar una plantilla en formato .json |
+| Cambiar nombre | ![alt_text](../images/image31.png "image_tooltip") | Permite cambiar el nombre a la plantilla  |
+| Multipágina | ![alt_text](../images/image52.png "image_tooltip") | Habilita el reconocimiento de varias páginas. <br>Se debe activar para poder digitalizar documentos con N páginas. |
+| Eliminar plantilla | ![alt_text](../images/image8.png "image_tooltip") | Permite eliminar de forma permanente la plantilla |
+| Definir como plantilla por defecto | ![alt_text](../images/image67.png" image_tooltip") | Permite definir a la plantilla como predeterminada. |
+
 Como primer paso se recomienda cambiar el nombre de la plantilla utilizando el botón de **Cambiar nombre** indicado con un lápiz de la sección ![alt_text](../images/image101.png "image_tooltip"). Utilizar un nombre representativo del propósito de la plantilla
 
 
 ![alt_text](../images/image59.png "image_tooltip")
 
+##### Paso 5: Crear reglas de extracción
 
 Por cada dato de interés se debe crear una etiqueta. Para ello se debe seleccionar el dato encuadrando con el puntero del mouse, tal como se muestra a continuación:
 
@@ -147,6 +198,8 @@ Arrastrar las palabras que desea excluir o incluir y seleccionar Aceptar.
  
 
 Repetir los pasos anteriores para identificar todos los datos a reconocer en el documento. 
+
+##### Paso 6: Guardar los cambios
 
 Guardar la plantilla armado seleccionando ![alt_text](../images/image60.png "image_tooltip")
 

@@ -1,5 +1,5 @@
 
-# Digitize - Trazabilidad
+# DigitAI - Trazabilidad
 
 ### Flujos de procesamiento de un comprobante
 
