@@ -1,6 +1,6 @@
 - [Inicio](/inicio)
-- [Carga de documentos](/carga/)
-- [Documentos procesados](/documentos_procesados)
+- [Cargar documentos](/carga/)
+- [Documentos cargados](/documentos_procesados)
 - [Plantillas](/plantillas/)
 - [Trazabilidad](/trazabilidad)
 - [Convenciones](/convenciones/)

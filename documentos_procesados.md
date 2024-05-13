@@ -1,5 +1,7 @@
 
-### Documentos Procesados
+# Documentos Cargados
+
+## Pantalla de documentos procesados
 
 Los estados de los documentos se pueden visualizar en la sección de “Documentos Procesados”
 
@@ -14,7 +16,7 @@ Donde se visualiza el listado de documentos digitalizados.
 
 
 
-#### Estados
+### Estados
 
 Los estados representan el estadio alcanzado por la digitalizacion. Indican si se requiere de alguna acción por parte del usuario, para finalizar el proceso.
 
@@ -26,7 +28,7 @@ Los estados representan el estadio alcanzado por la digitalizacion. Indican si s
 
 
 
-#### Coincidencias
+### Coincidencias
 
 | Coincidencias | Símbolo de Estado | Descripción |
 |---------------|-------------------|-------------|
@@ -34,7 +36,7 @@ Los estados representan el estadio alcanzado por la digitalizacion. Indican si s
 
 
 
-#### Acciones
+### Acciones
 
 | Estado | Símbolo | Descripcion | 
 |--------|---------|-------------|
