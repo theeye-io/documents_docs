@@ -32,8 +32,9 @@ Cada documento pasa por distintos estados durante el ciclo de vida del proceso, 
 | Estado | Ícono | Descripción |
 | -------- | ------- |-------------|
 | converting | ![alt_text](./images/image46.png "converting") | El documento se está procesando |
-| submitted | ![alt_text](./images/submitted.png "submitted") | Es necesario tomar acciones del lado del cliente en caso de que la conciliación este activada |
-| queued | ![alt_text](./images/queued.png "qeued") | Indica que está listo para comenzar el proceso posterior a la digitalización  |
+| converted | ![alt_text](./images/converted-icon.png "converted") | El documento fue procesado y la información esta lista |
+| submitted | ![alt_text](./images/submitted.png "submitted") | La información extraida del documento fue enviado a la URL de dispatcher elegida |
+| queued | ![alt_text](./images/queued.png "queued") | Indica que está listo para comenzar el proceso posterior a la digitalización  |
 | completed | ![alt_text](./images/image12.png "completed") | Indica fin del proceso posterior a la digitalización |
 | aborted | ![alt_text](./images/aborted.png "aborted") | El proceso posterior a la digitalización no se pudo completar |
 | error | ![alt_text](./images/image53.png " error") | El proceso posterior a la digitalización finalizó con errores |
