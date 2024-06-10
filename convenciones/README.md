@@ -62,6 +62,8 @@ Si algún dato no pudo ser identificado correctamente se devuelve "null". En los
 | iva{xx} | Impuesto al valor agreado según porcentaje {xx}. El campo lleva en su nombre el tipo de IVA reconocido. (iva21/iva10_5 etc) Por lo tanto habrá tantos campos “ivaxx” como tipos de IVA tenga el comprobante y se expondrán todos aquellos que han sido reconocidos.  Lleva en su valor el monto total del ivaxx. Por ejemplo si el comprobante es una factura, tiene items gravados con un IVA del 21 %, existirá el campo “iva21”, si está discriminado en la factura. | | importe | Decimal |
 | ivaJuridica | Condición de iva del receptor | | | string |
 | importeNetoGravado  |  | | importe | decimal |
+| importeNetoGravado{xx}  | importe neto según alícutoa de iva  | | importe | decimal |
+| importeNetoGravado{xx}_{n}  | importe neto según alícutoa de iva en los casos donde no está totalizado | | importe | decimal |
 | importeNoGravado | | | importe | decimal |
 | importeExento | | | importe | decimal |
 | importeTotal | Contiene el valor del total Neto del comprobante | | importe | decimal |
@@ -106,6 +108,8 @@ A continuación se detallan los nombres utilizados para identificar las percepci
 | percepcionIVARes2955  |
 | percepcionIVARes3411  |
 | percepcionIVA  |
+| importeOtrosTributos  |
+| importeOtrosTributos_{n}  |
 
 
 ### Campos Particulares
