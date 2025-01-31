@@ -3,7 +3,7 @@
 
 ### Flujos de procesamiento de un comprobante
 
-Cuando el ingreso de documentos a digitalizar se realiza mediante un proceso automático, puede ser necesario realizar el segumiento del proceso de digitialización de cada uno de los documentos ingresados.
+Cuando el ingreso de documentos a digitalizar se realiza mediante un proceso automático, puede ser necesario realizar el seguimiento del proceso de digitalización de cada uno de los documentos ingresados.
 
 <!-- tabs:start -->
 ##### **Correo Electrónico**
@@ -15,7 +15,7 @@ El flujo responde al siguiente diagrama:
 
 ##### **API**
 
-Digitize tiene API que permite importar documentos directamente desde otro sistema y la opción de recibir por Webhook la información extraida al finalizar su procesamiento <br>
+Digitize tiene una API que permite importar documentos directamente desde otro sistema y la opción de recibir por Webhook la información extraída al finalizar su procesamiento <br>
 El flujo responde al siguiente diagrama:
 
 ![alt_text](./images/image98.png "flow")
@@ -27,19 +27,37 @@ Cada documento pasa por distintos estados durante el ciclo de vida del proceso, 
 
 ![alt_text](./images/image88.png "flow_status")
 
-#### Estados
+### **Estados (figuran en la imagen del flujo)**
 
-| Estado | Ícono | Descripción |
-| -------- | ------- |-------------|
-| converting | ![alt_text](./images/image46.png "converting") | El documento se está procesando |
-| converted | ![alt_text](./images/converted-icon.png "converted") | El documento fue procesado y la información esta lista |
-| submitted | ![alt_text](./images/submitted.png "submitted") | La información extraida del documento fue enviado a la URL de dispatcher elegida |
-| queued | ![alt_text](./images/queued.png "queued") | Indica que está listo para comenzar el proceso posterior a la digitalización  |
-| completed | ![alt_text](./images/image12.png "completed") | Indica fin del proceso posterior a la digitalización |
-| aborted | ![alt_text](./images/aborted.png "aborted") | El proceso posterior a la digitalización no se pudo completar |
-| error | ![alt_text](./images/image53.png " error") | El proceso posterior a la digitalización finalizó con errores |
+| Estado            | Mensaje                                     | Ícono | Descripción |
+|------------------|---------------------------------|----------------|--------------|
+| pending         | Pendiente de procesar          | ![alt_text](./images/pending.png "pending") | El documento se está procesando |
+| converting      | Procesando                     | ![alt_text](./images/converting.png "converting") | El documento se está procesando |
+| converted       | Procesado                      | ![alt_text](./images/converted.png "converted") | El documento fue procesado y la información está lista |
+| error          | Error                          | ![alt_text](./images/error.png "error") | El proceso posterior a la digitalización finalizó con errores |
+| not_matched_error | Error de conciliación con AFIP | ![alt_text](./images/not_matched.png "not_matched") | El proceso posterior a la digitalización finalizó con errores |
+| submitted       | Despachado                     | ![alt_text](./images/submitted.png "submitted") | La información extraída del documento fue enviada a la URL del dispatcher |
+| dispatched      | Disponible en el cliente       | ![alt_text](./images/dispatched.png "dispatched") | La información extraída del documento fue enviada a la URL del dispatcher |
+| aborted        | **Falta definir**               | ![alt_text](./images/aborted.png "aborted") | **Falta definir** |
+| queued         | Esperando                       | ![alt_text](./images/queued.png "queued") | Indica que está listo para comenzar el proceso posterior a la digitalización |
+| completed      | Proceso del cliente finalizado  | ![alt_text](./images/completed.png "completed") | Indica el fin del proceso posterior a la digitalización |
+
+---
+
+### **Estados (no figuran en la imagen del flujo)**
+
+| Estado          | Mensaje                             | Ícono | Descripción |
+|---------------|---------------------------------|----------------|--------------|
+| invalidated   | Documento invalidado manualmente | ![alt_text](./images/invalidated.png "invalidated") | El documento fue invalidado manualmente por un usuario |
+| review        | Pendiente de revisión             | ![alt_text](./images/review.png "review") | El documento requiere una revisión manual antes de continuar |
+| submit_error  | Error en carga del cliente        | ![alt_text](./images/error.png "submit_error") | Ocurrió un error al cargar el documento en el sistema del cliente |
+| postponed     | Pendiente                         | ![alt_text](./images/postponed.png "postponed") | El documento fue postergado para su procesamiento en otro momento |
+| matched       | Concilió con AFIP                 | ![alt_text](./images/matched.png "matched") | El documento fue conciliado correctamente con AFIP |
+| imported      | El contenido del archivo fue importado | ![alt_text](./images/imported.png "imported") | La información contenida en el archivo fue importada exitosamente |
+
 
 Estos estados se visualizan desde el reporte de documentos:
+
 
 ![alt_text](./images/image27.png "boton_reporte_documentos")
 
@@ -51,9 +69,9 @@ En la columna estado:
 
 ### Caso Práctico
 
-#### ¿Cómo hacemos para obtener el estado del procesamiento de un documento que fué enviado a  por e-mail?
+#### ¿Cómo obtenemos el estado del procesamiento de un documento que fue enviado por e-mail?
 
-El primer paso es acceder al reporte de eMails desde la pantalla de inicio :
+El primer paso es acceder al reporte de emails desde la pantalla de inicio :
 
 ![alt_text](./images/home_emails.png "home_emails") 
 
