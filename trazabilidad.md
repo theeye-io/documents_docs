@@ -27,33 +27,23 @@ Cada documento pasa por distintos estados durante el ciclo de vida del proceso, 
 
 ![alt_text](./images/image88.png "flow_status")
 
-### **Estados (figuran en la imagen del flujo)**
+### **Estados**
 
-| Estado            | Mensaje                                     | Ícono | Descripción |
+| Estado            | Mensaje                                   | Ícono | Descripción |
 |------------------|---------------------------------|----------------|--------------|
-| pending         | Pendiente de procesar          | ![alt_text](./images/pending.png "pending") | El documento se está procesando |
-| converting      | Procesando                     | ![alt_text](./images/converting.png "converting") | El documento se está procesando |
-| converted       | Procesado                      | ![alt_text](./images/converted.png "converted") | El documento fue procesado y la información está lista |
-| error          | Error                          | ![alt_text](./images/error.png "error") | El proceso posterior a la digitalización finalizó con errores |
-| not_matched_error | Error de conciliación con AFIP | ![alt_text](./images/not_matched.png "not_matched") | El proceso posterior a la digitalización finalizó con errores |
-| submitted       | Despachado                     | ![alt_text](./images/submitted.png "submitted") | La información extraída del documento fue enviada a la URL del dispatcher |
-| dispatched      | Disponible en el cliente       | ![alt_text](./images/dispatched.png "dispatched") | La información extraída del documento fue enviada a la URL del dispatcher |
-| aborted        | **Falta definir**               | ![alt_text](./images/aborted.png "aborted") | **Falta definir** |
-| queued         | Esperando                       | ![alt_text](./images/queued.png "queued") | Indica que está listo para comenzar el proceso posterior a la digitalización |
-| completed      | Proceso del cliente finalizado  | ![alt_text](./images/completed.png "completed") | Indica el fin del proceso posterior a la digitalización |
-
----
-
-### **Estados (no figuran en la imagen del flujo)**
-
-| Estado          | Mensaje                             | Ícono | Descripción |
-|---------------|---------------------------------|----------------|--------------|
-| invalidated   | Documento invalidado manualmente | ![alt_text](./images/invalidated.png "invalidated") | El documento fue invalidado manualmente por un usuario |
-| review        | Pendiente de revisión             | ![alt_text](./images/review.png "review") | El documento requiere una revisión manual antes de continuar |
-| submit_error  | Error en carga del cliente        | ![alt_text](./images/error.png "submit_error") | Ocurrió un error al cargar el documento en el sistema del cliente |
-| postponed     | Pendiente                         | ![alt_text](./images/postponed.png "postponed") | El documento fue postergado para su procesamiento en otro momento |
-| matched       | Concilió con AFIP                 | ![alt_text](./images/matched.png "matched") | El documento fue conciliado correctamente con AFIP |
-| imported      | El contenido del archivo fue importado | ![alt_text](./images/imported.png "imported") | La información contenida en el archivo fue importada exitosamente |
+| pending         | Pendiente de procesar          | ![alt_text](./images/pending.png "pending") | El documento está en cola para ser procesado. |
+| converting      | Procesando                     | ![alt_text](./images/converting.png "converting") | El documento está siendo digitalizado y procesado. |
+| converted       | Procesado                      | ![alt_text](./images/converted.png "converted") | El documento fue procesado y la información está lista. |
+| imported     | El contenido del archivo ha sido importado | ![imported](./images/imported.png "imported")   | La información contenida en el archivo ha sido importada exitosamente. |
+| matched      | Concilió contra AFIP                   | ![matched](./images/matched.png "matched")           | El documento fue conciliado correctamente contra AFIP. |
+| error          | Error                          | ![alt_text](./images/error.png "error") | Ocurrió un error en el procesamiento del documento. |
+| not_matched | No concilió contra AFIP | ![alt_text](./images/not_matched.png "not_matched") | El documento no pudo ser conciliado con AFIP. |
+| postponed    | Pendiente                           | ![postponed](./images/postponed.png "postponed")      | El documento fue postergado para su procesamiento en otro momento. |
+| submitted       | Despachado                     | ![alt_text](./images/submitted.png "submitted") | La información fue enviada a la URL del dispatcher para su procesamiento. |
+| dispatched      | Disponible en el cliente       | ![alt_text](./images/dispatched.png "dispatched") | La información fue enviada y está disponible para el cliente. |
+| queued         | Esperando                       | ![alt_text](./images/queued.png "queued") | El documento está en espera para iniciar el procesamiento posterior a la digitalización. |
+| completed      | Proceso del cliente finalizado  | ![alt_text](./images/completed.png "completed") | El proceso posterior a la digitalización ha finalizado. |
+| invalidated  | Documento invalidado manualmente    | ![invalidated](./images/invalidated.png "invalidated") | El documento fue invalidado manualmente por un usuario. |
 
 
 Estos estados se visualizan desde el reporte de documentos:
