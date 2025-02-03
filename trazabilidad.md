@@ -31,33 +31,33 @@ Cada documento pasa por distintos estados durante el ciclo de vida del proceso, 
 
 | Estado            | Mensaje                                   | Ícono | Descripción |
 |------------------|---------------------------------|----------------|--------------|
-| pending         | Pendiente de procesar          | ![alt_text](./images/pending.png "pending") | El documento está en cola para ser procesado. |
-| converting      | Procesando                     | ![alt_text](./images/converting.png "converting") | El documento está siendo digitalizado y procesado. |
-| converted       | Procesado                      | ![alt_text](./images/converted.png "converted") | El documento fue procesado y la información está lista. |
+| pending         | Pendiente de procesar          | ![pending](./images/pending.png "pending") | El documento está en cola para ser procesado. |
+| converting      | Procesando                     | ![converting](./images/converting.png "converting") | El documento está siendo digitalizado y procesado. |
+| converted       | Procesado                      | ![converted](./images/converted.png "converted") | El documento fue procesado y la información está lista. |
 | imported     | El contenido del archivo ha sido importado | ![imported](./images/imported.png "imported")   | La información contenida en el archivo ha sido importada exitosamente. |
 | matched      | Concilió contra AFIP                   | ![matched](./images/matched.png "matched")           | El documento fue conciliado correctamente contra AFIP. |
-| error          | Error                          | ![alt_text](./images/error.png "error") | Ocurrió un error en el procesamiento del documento. |
-| not_matched | No concilió contra AFIP | ![alt_text](./images/not_matched.png "not_matched") | El documento no pudo ser conciliado con AFIP. |
+| error          | Error                          | ![error](./images/error.png "error") | Ocurrió un error en el procesamiento del documento. |
+| not_matched | No concilió contra AFIP | ![not_matched](./images/not_matched.png "not_matched") | El documento no pudo ser conciliado con AFIP. |
 | postponed    | Pendiente                           | ![postponed](./images/postponed.png "postponed")      | El documento fue postergado para su procesamiento en otro momento. |
-| submitted       | Despachado                     | ![alt_text](./images/submitted.png "submitted") | La información fue enviada a la URL del dispatcher para su procesamiento. |
-| dispatched      | Disponible en el cliente       | ![alt_text](./images/dispatched.png "dispatched") | La información fue enviada y está disponible para el cliente. |
-| queued         | Esperando                       | ![alt_text](./images/queued.png "queued") | El documento está en espera para iniciar el procesamiento posterior a la digitalización. |
-| completed      | Proceso del cliente finalizado  | ![alt_text](./images/completed.png "completed") | El proceso posterior a la digitalización ha finalizado. |
-| invalidated  | Documento invalidado manualmente    | ![invalidated](./images/invalidated.png "invalidated") | El documento fue invalidado manualmente por un usuario. |
+| submitted       | Despachado                     | ![submitted](./images/submitted.png "submitted") | La información fue enviada a la URL del dispatcher para su procesamiento. |
+| dispatched      | Disponible en el cliente       | ![dispatched](./images/dispatched.png "dispatched") | La información fue enviada y está disponible para el cliente. |
+| queued         | Esperando                       | ![queued](./images/queued.png "queued") | El documento está en espera para iniciar el procesamiento posterior a la digitalización. |
+| completed      | Proceso del cliente finalizado  | ![completed](./images/completed.png "completed") | El proceso posterior a la digitalización ha finalizado. |
+| invalidated  | Documento invalidado manualmente    | ![invalidated](./images/invalidated.png "invalidated") | El documento fue invalidado manualmente por el usuario. |
 
 
 Estos estados se visualizan desde el reporte de documentos:
 
-
-![alt_text](./images/image27.png "boton_reporte_documentos")
+![boton_reporte_documentos](./images/image27.png "boton_reporte_documentos")
 
 En la columna estado:
 
-![alt_text](./images/reporteDocumentos.png "reporte_documentos")
+![reporteDocumentos](./images/reporteDocumentos.png "reporte_documentos")
 
 <br>
 
 ### Caso Práctico
+
 
 #### ¿Cómo obtenemos el estado del procesamiento de un documento que fue enviado por e-mail?
 
