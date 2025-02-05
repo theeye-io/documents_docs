@@ -3,7 +3,7 @@
 
 ### Flujos de procesamiento de un comprobante
 
-Cuando el ingreso de documentos a digitalizar se realiza mediante un proceso automático, puede ser necesario realizar el segumiento del proceso de digitialización de cada uno de los documentos ingresados.
+Cuando el ingreso de documentos a digitalizar se realiza mediante un proceso automático, puede ser necesario realizar el seguimiento del proceso de digitalización de cada uno de los documentos ingresados.
 
 <!-- tabs:start -->
 ##### **Correo Electrónico**
@@ -15,10 +15,10 @@ El flujo responde al siguiente diagrama:
 
 ##### **API**
 
-Digitize tiene API que permite importar documentos directamente desde otro sistema y la opción de recibir por Webhook la información extraida al finalizar su procesamiento <br>
+Digitize tiene una API que permite importar documentos directamente desde otro sistema y la opción de recibir por Webhook la información extraída al finalizar su procesamiento <br>
 El flujo responde al siguiente diagrama:
 
-![alt_text](./images/image98.png "flow")
+![alt_text](./images/grafico1_lifecycle.png "flow")
 <!-- tabs:end -->
 
 ### Ciclo de vida de un documento
@@ -27,33 +27,39 @@ Cada documento pasa por distintos estados durante el ciclo de vida del proceso, 
 
 ![alt_text](./images/image88.png "flow_status")
 
-#### Estados
 
-| Estado | Ícono | Descripción |
-| -------- | ------- |-------------|
-| converting | ![alt_text](./images/image46.png "converting") | El documento se está procesando |
-| converted | ![alt_text](./images/converted-icon.png "converted") | El documento fue procesado y la información esta lista |
-| submitted | ![alt_text](./images/submitted.png "submitted") | La información extraida del documento fue enviado a la URL de dispatcher elegida |
-| queued | ![alt_text](./images/queued.png "queued") | Indica que está listo para comenzar el proceso posterior a la digitalización  |
-| completed | ![alt_text](./images/image12.png "completed") | Indica fin del proceso posterior a la digitalización |
-| aborted | ![alt_text](./images/aborted.png "aborted") | El proceso posterior a la digitalización no se pudo completar |
-| error | ![alt_text](./images/image53.png " error") | El proceso posterior a la digitalización finalizó con errores |
+### **Estados**
+
+| Estado            | Detalle                                   | Ícono | Descripción |
+|------------------|---------------------------------|----------------|--------------|
+| pending         | Pendiente de procesar          | ![pending](./images/pending.png "pending") | Documento en recepción. Pendiente de ser procesado. |
+| converting     | Procesando                     | ![converting](./images/converting.png "converting") | El documento está siendo procesado. |
+| converted       | Procesado                      | ![converted](./images/converted.png "converted") | Datos extraídos. Puede requerir intervención. |
+| imported     | El contenido del archivo ha sido importado | ![imported](./images/imported.png "imported")   | Importación finalizada. |
+| error          | Error                          | ![error](./images/error.png "error") | El proceso posterior a la digitalización finalizó con errores. Reportar. |
+| postponed    | Postergado                           | ![postponed](./images/postponed.png "postponed")      | El documento fue postergado para su procesamiento en otro momento. |
+| submitted/dispatched       | Entregado al cliente          | ![submitted](./images/submitted.png "submitted") | La información extraída del documento está disponible en el cliente. |
+| queued         | Esperando                       | ![queued](./images/queued.png "queued") | Información lista y a la espera de ser cargada en el sistema del cliente. |
+| completed      | Proceso del cliente finalizado  | ![completed](./images/completed.png "completed") | La información fue procesada exitosamente por el cliente. |
+| invalidated  | Documento invalidado manualmente    | ![invalidated](./images/invalidated.png "invalidated") | El documento fue invalidado manualmente por el usuario. |
+
 
 Estos estados se visualizan desde el reporte de documentos:
 
-![alt_text](./images/image27.png "boton_reporte_documentos")
+![boton_reporte_documentos](./images/image27.png "boton_reporte_documentos")
 
 En la columna estado:
 
-![alt_text](./images/reporteDocumentos.png "reporte_documentos")
+![reporteDocumentos](./images/reporteDocumentos.png "reporte_documentos")
 
 <br>
 
 ### Caso Práctico
 
-#### ¿Cómo hacemos para obtener el estado del procesamiento de un documento que fué enviado a  por e-mail?
 
-El primer paso es acceder al reporte de eMails desde la pantalla de inicio :
+#### ¿Cómo obtenemos el estado del procesamiento de un documento que fue enviado por e-mail?
+
+El primer paso es acceder al reporte de emails desde la pantalla de inicio :
 
 ![alt_text](./images/home_emails.png "home_emails") 
 
