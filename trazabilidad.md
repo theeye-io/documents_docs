@@ -18,7 +18,7 @@ El flujo responde al siguiente diagrama:
 Digitize tiene una API que permite importar documentos directamente desde otro sistema y la opción de recibir por Webhook la información extraída al finalizar su procesamiento <br>
 El flujo responde al siguiente diagrama:
 
-![alt_text](./images/image98.png "flow")
+![alt_text](./images/grafico1_lifecycle.png "flow")
 <!-- tabs:end -->
 
 ### Ciclo de vida de un documento
@@ -27,22 +27,20 @@ Cada documento pasa por distintos estados durante el ciclo de vida del proceso, 
 
 ![alt_text](./images/image88.png "flow_status")
 
+
 ### **Estados**
 
-| Estado            | Mensaje                                   | Ícono | Descripción |
+| Estado            | Detalle                                   | Ícono | Descripción |
 |------------------|---------------------------------|----------------|--------------|
-| pending         | Pendiente de procesar          | ![pending](./images/pending.png "pending") | El documento está en cola para ser procesado. |
-| converting      | Procesando                     | ![converting](./images/converting.png "converting") | El documento está siendo digitalizado y procesado. |
-| converted       | Procesado                      | ![converted](./images/converted.png "converted") | El documento fue procesado y la información está lista. |
-| imported     | El contenido del archivo ha sido importado | ![imported](./images/imported.png "imported")   | La información contenida en el archivo ha sido importada exitosamente. |
-| matched      | Concilió contra AFIP                   | ![matched](./images/matched.png "matched")           | El documento fue conciliado correctamente contra AFIP. |
-| error          | Error                          | ![error](./images/error.png "error") | Ocurrió un error en el procesamiento del documento. |
-| not_matched | No concilió contra AFIP | ![not_matched](./images/not_matched.png "not_matched") | El documento no pudo ser conciliado con AFIP. |
-| postponed    | Pendiente                           | ![postponed](./images/postponed.png "postponed")      | El documento fue postergado para su procesamiento en otro momento. |
-| submitted       | Despachado                     | ![submitted](./images/submitted.png "submitted") | La información fue enviada a la URL del dispatcher para su procesamiento. |
-| dispatched      | Disponible en el cliente       | ![dispatched](./images/dispatched.png "dispatched") | La información fue enviada y está disponible para el cliente. |
-| queued         | Esperando                       | ![queued](./images/queued.png "queued") | El documento está en espera para iniciar el procesamiento posterior a la digitalización. |
-| completed      | Proceso del cliente finalizado  | ![completed](./images/completed.png "completed") | El proceso posterior a la digitalización ha finalizado. |
+| pending         | Pendiente de procesar          | ![pending](./images/pending.png "pending") | Documento en recepción. Pendiente de ser procesado. |
+| converting     | Procesando                     | ![converting](./images/converting.png "converting") | El documento está siendo procesado. |
+| converted       | Procesado                      | ![converted](./images/converted.png "converted") | Datos extraídos. Puede requerir intervención. |
+| imported     | El contenido del archivo ha sido importado | ![imported](./images/imported.png "imported")   | Importación finalizada. |
+| error          | Error                          | ![error](./images/error.png "error") | El proceso posterior a la digitalización finalizó con errores. Reportar. |
+| postponed    | Postergado                           | ![postponed](./images/postponed.png "postponed")      | El documento fue postergado para su procesamiento en otro momento. |
+| submitted/dispatched       | Entregado al cliente          | ![submitted](./images/submitted.png "submitted") | La información extraída del documento está disponible en el cliente. |
+| queued         | Esperando                       | ![queued](./images/queued.png "queued") | Información lista y a la espera de ser cargada en el sistema del cliente. |
+| completed      | Proceso del cliente finalizado  | ![completed](./images/completed.png "completed") | La información fue procesada exitosamente por el cliente. |
 | invalidated  | Documento invalidado manualmente    | ![invalidated](./images/invalidated.png "invalidated") | El documento fue invalidado manualmente por el usuario. |
 
 
