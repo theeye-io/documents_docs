@@ -18,14 +18,14 @@ El flujo responde al siguiente diagrama:
 Digitize tiene una API que permite importar documentos directamente desde otro sistema y la opción de recibir por Webhook la información extraída al finalizar su procesamiento <br>
 El flujo responde al siguiente diagrama:
 
-![alt_text](./images/grafico1_lifecycle.png "flow")
+![alt_text](./images/image98.png "flow")
 <!-- tabs:end -->
 
 ### Ciclo de vida de un documento
 
 Cada documento pasa por distintos estados durante el ciclo de vida del proceso, hasta que o bien termina con su proceso del lado del cliente o es rechazado o abortado por algún error del proceso. En el siguiente diagrama se muestran esos estados que estarán visibles desde las vistas que ofrece Digitize.
 
-![alt_text](./images/image88.png "flow_status")
+![alt_text](./images/image102.png "flow_status")
 
 
 ### **Estados**
