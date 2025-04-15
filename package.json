@@ -2,9 +2,11 @@
   "name": "documentation",
   "version": "1.0.0",
   "description": "Digitize Documentation",
-  "main": "index.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview docs"
   },
   "repository": {
     "type": "git",
@@ -16,5 +18,12 @@
   "bugs": {
     "url": "https://github.com/theeye-io/documents_docs/issues"
   },
-  "homepage": "https://github.com/theeye-io/documents_docs#readme"
+  "homepage": "https://github.com/theeye-io/documents_docs#readme",
+  "devDependencies": {
+    "vitepress": "^1.0.0",
+    "vue": "^3.3.4"
+  },
+  "dependencies": {
+    "swagger-ui-dist": "^5.2.0"
+  }
 }
