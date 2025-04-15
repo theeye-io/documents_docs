@@ -1,5 +1,0 @@
-- [Inicio](/inicio)
-- [Trazabilidad](/trazabilidad)
-- [Convenciones](/convenciones/)
-- [API](/api/)
-- [Soporte](https://ayuda.theeye.io)

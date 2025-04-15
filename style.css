@@ -1,7 +1,0 @@
-.medium-zoom-overlay {
-  background-color: var(--zoom-background-color, #ffffff) !important;
-}
-
-.app-name-link img {
-  width: 80%;
-}
