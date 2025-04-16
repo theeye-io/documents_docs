@@ -1,14 +1,14 @@
-# TheEye Digitize - Digitalización Inteligente de Documentos
+# Digitai - Digitalización Inteligente de Documentos
 
 ## Bienvenidos a la Documentación
 
-TheEye Digitize es una potente herramienta para la automatización del procesamiento y digitalización de documentos. Esta plataforma permite reconocer, extraer y procesar información de diversos tipos de comprobantes y documentos comerciales, integrándola con sus sistemas existentes.
+Digitai es una potente herramienta para la automatización del procesamiento y digitalización de documentos. Esta plataforma permite reconocer, extraer y procesar información de diversos tipos de comprobantes y documentos comerciales, integrándola con sus sistemas existentes.
 
 ![Diagrama de flujo de documentos](./public/images/image102.png)
 
 ## ¿Qué encontrará en esta documentación?
 
-Esta documentación está organizada para ayudarle a comprender y utilizar todas las funcionalidades de TheEye Digitize:
+Esta documentación está organizada para ayudarle a comprender y utilizar todas las funcionalidades de Digitai:
 
 ### [Trazabilidad](/trazabilidad)
 
@@ -28,7 +28,7 @@ Documentación técnica sobre la estructura de datos utilizada en el sistema:
 
 ### [API Reference](/api/)
 
-Documentación completa de nuestra API REST para integrar TheEye Digitize con sus sistemas:
+Documentación completa de nuestra API REST para integrar Digitai con sus sistemas:
 
 - Autenticación y manejo de tokens
 - Endpoints para subir documentos
@@ -46,7 +46,7 @@ Documentación completa de nuestra API REST para integrar TheEye Digitize con su
 
 ## Primeros Pasos
 
-Para comenzar a utilizar TheEye Digitize:
+Para comenzar a utilizar Digitai:
 
 1. **Acceda a la plataforma**: Ingrese a [https://digitai.theeye.io/home](https://digitai.theeye.io/home) con sus credenciales
 2. **Cree plantillas**: Defina la estructura de los documentos que desea procesar
@@ -55,7 +55,7 @@ Para comenzar a utilizar TheEye Digitize:
 
 ## Integraciones disponibles
 
-TheEye Digitize puede integrarse con múltiples fuentes y destinos:
+Digitai puede integrarse con múltiples fuentes y destinos:
 
 - **Importación de documentos** desde correo electrónico, API, carpetas compartidas, y más
 - **Exportación de datos** mediante API, webhooks, exportación a sistemas ERP, CRM
@@ -63,7 +63,7 @@ TheEye Digitize puede integrarse con múltiples fuentes y destinos:
 
 ## Soporte
 
-¿Necesita ayuda? Nuestro equipo está disponible para apoyarle en la integración y uso de TheEye Digitize:
+¿Necesita ayuda? Nuestro equipo está disponible para apoyarle en la integración y uso de Digitai:
 
 - [Portal de Ayuda](https://ayuda.theeye.io)
 - Correo: soporte@theeye.io
@@ -78,13 +78,28 @@ TheEye Digitize puede integrarse con múltiples fuentes y destinos:
   border-radius: 4px;
   padding: 0.75em 1.5em;
   border: 1px solid transparent;
-  background-color: var(--vp-c-brand);
-  color: white;
+  background-color: #3b5eca;
+  color: white !important;
   transition: background-color 0.25s;
-  text-decoration: none;
+  text-decoration: none !important;
 }
 
 .custom-button:hover {
-  background-color: var(--vp-c-brand-dark);
+  background-color: #2c498f;
+  color: white !important;
+  text-decoration: none !important;
+}
+
+/* Override any link styles from VitePress theme */
+a.custom-button {
+  color: white !important;
+  text-decoration: none !important;
+}
+
+a.custom-button:hover, 
+a.custom-button:focus, 
+a.custom-button:active {
+  color: white !important;
+  text-decoration: none !important;
 }
 </style> 

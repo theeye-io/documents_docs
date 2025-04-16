@@ -6,7 +6,7 @@ Cuando el ingreso de documentos a digitalizar se realiza mediante un proceso aut
 
 #### Correo Electrónico
 
-Digitize tiene integrada la importación de documentos a través de la lectura de casillas de correo electrónico.
+Digitai tiene integrada la importación de documentos a través de la lectura de casillas de correo electrónico.
 
 El flujo responde al siguiente diagrama:
 
@@ -16,7 +16,7 @@ El flujo responde al siguiente diagrama:
 
 #### API
 
-Digitize tiene una API que permite importar documentos directamente desde otro sistema y la opción de recibir por Webhook la información extraída al finalizar su procesamiento.
+Digitai tiene una API que permite importar documentos directamente desde otro sistema y la opción de recibir por Webhook la información extraída al finalizar su procesamiento.
 
 El flujo responde al siguiente diagrama:
 
@@ -24,7 +24,7 @@ El flujo responde al siguiente diagrama:
 
 ### Ciclo de vida de un documento
 
-Cada documento pasa por distintos estados durante el ciclo de vida del proceso, hasta que o bien termina con su proceso del lado del cliente o es rechazado o abortado por algún error del proceso. En el siguiente diagrama se muestran esos estados que estarán visibles desde las vistas que ofrece Digitize.
+Cada documento pasa por distintos estados durante el ciclo de vida del proceso, hasta que o bien termina con su proceso del lado del cliente o es rechazado o abortado por algún error del proceso. En el siguiente diagrama se muestran esos estados que estarán visibles desde las vistas que ofrece Digitai.
 
 ![flow_status](./public/images/image102.png)
 
