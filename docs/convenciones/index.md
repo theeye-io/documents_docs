@@ -1,14 +1,14 @@
 # Convenciones Utilizadas
 
-## Estructura de datos para Facturas emitidas en Argentina (AFIP)
+## Estructura de datos para Facturas emitidas en Argentina
 
-La API de tagger disponibilizará un endpoint para recibir el archivo (PDF), junto con las credenciales al que responderá con el identificador del documento (en desarrollo)
+La API de Digitai disponibilizará un endpoint para recibir el archivo (PDF), junto con las credenciales al que responderá con el identificador del documento (en desarrollo)
 Podemos pensarlo como un POST a urlAPI/documents/upload
 
 #### Ejemplo de invocacion a la api de Upload:
 
 ```bash
-curl -X POST 'https://tagger-api-dev.theeye.io/api/documents/upload?access_token=URklzVT6dg7YjG1oCsHnSAhcFEd1DfGSUkgZcNh06jSsjEDgj5fX5yEOegmJMDO' -F file=@AFIP_Consumidor_Final.pdf
+curl -X POST 'https://digitai-api-dev.theeye.io/api/documents/upload?access_token=URklzVT6dg7YjG1oCsHnSAhcFEd1DfGSUkgZcNh06jSsjEDgj5fX5yEOegmJMDO' -F file=@AFIP_Consumidor_Final.pdf
 ```
 
 #### Respuesta:

@@ -1,5 +1,5 @@
 export default {
-  title: 'TheEye Digitize',
+  title: 'Digitai',
   description: 'Digitalizador de comprobantes',
   base: '/',
   vite: {

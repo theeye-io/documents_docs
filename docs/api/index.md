@@ -13,21 +13,33 @@ Para acceder a la API se debe contar con un AccessToken Bearer.
 Para obtenerlo por el momento es solo posible solicitandolo al equipo de Digitai mediante el canal de soporte proporcionado en el momento del alta de su cuenta.
 
 Es posible obtener un AccessToken que se obtiene luego de un login Basic utilizando el usuario y contraseña del panel web.
-En caso de no tener un token de acceso de API, el token de acceso obtenido con login Basic sera util para realizar las operaciones que describiremos a continuación
+En caso de no tener un token de acceso de API, el token de acceso obtenido con login Basic sera util para realizar las operaciones que describiremos a continuación.
 Tener en cuenta que este token caduca luego de 14 dias, durante ese periodo se mantendra la sesión abierta.
 Por lo que no debe ser compartido
 
+<ApiPlaygroundControls />
+
 ## Operaciones comunes
 
-### Basic Login
+<ApiEndpoint
+  title="Basic Login"
+  method="POST" 
+  endpoint="https://digitai-api.theeye.io/api/Session/login"
+  :hasBody="true"
+  defaultBody='{"username":"user@domain.io","password":"youknowit"}'
+>
+
+Este endpoint permite obtener un token de acceso mediante un login básico.
+
+<template #example>
 
 ::: code-group
 ```bash [Curl]
 curl -X POST \
        --header 'Content-Type: application/json' \
        --header 'Accept: application/json' \
-       -d '{"email":"user%40domain.io","password":"youknowit"}' \
-       'https://digitai-api.theeye.io/api/TaggerUsers/login'
+       -d '{"username":"user%40domain.io","password":"youknowit"}' \
+       'https://digitai-api.theeye.io/api/Session/login'
 ```
 
 ```javascript [NodeJS]
@@ -35,8 +47,8 @@ const axios = require('axios');
 
 async function login() {
   try {
-    const response = await axios.post('https://digitai-api.theeye.io/api/TaggerUsers/login', {
-      email: 'user@domain.io',
+    const response = await axios.post('https://digitai-api.theeye.io/api/Session/login', {
+      username: 'user@domain.io',
       password: 'youknowit'
     }, {
       headers: {
@@ -60,11 +72,107 @@ login();
 
 El resultado de esta operación es un access token que se puede utilizar para consultar la API durante un periodo de tiempo especifico
 
+
+</template>
+</ApiEndpoint>
+
 ## Operaciones con Lotes (Batch)
 
-### Crear Batch
+<ApiEndpoint
+  title="Obtener Todos los Lotes"
+  method="GET" 
+  endpoint="https://digitai-api.theeye.io/api/Batches"
+  :params="[{name: 'access_token', placeholder: 'ElTokenDeAcceso'}]"
+>
+
+Este endpoint permite obtener todos los lotes de documentos del cliente.
+
+<template #example>
+
+::: code-group
+```bash [Curl]
+accessToken="ElTokenDeAcceso"
+
+curl -X GET \
+       --header 'Accept: application/json' \
+       'https://digitai-api.theeye.io/api/Batches?access_token=${accessToken}'
+```
+
+```javascript [NodeJS]
+const axios = require('axios');
+
+async function obtenerTodosLosLotes(accessToken) {
+  try {
+    const response = await axios.get(
+      'https://digitai-api.theeye.io/api/Batches', 
+      {
+        params: {
+          access_token: accessToken
+        },
+        headers: {
+          'Accept': 'application/json'
+        }
+      }
+    );
+    
+    console.log('Todos los lotes:', response.data);
+    return response.data;
+  } catch (error) {
+    console.error('Error al obtener lotes:', error.response?.data || error.message);
+  }
+}
+
+// Uso
+const accessToken = 'ElTokenDeAcceso';
+obtenerTodosLosLotes(accessToken);
+```
+:::
+
+Ejemplo de respuesta:
+
+```json
+[
+  {
+    "customer_id": "60a1b2c3d4e5f6a7b8c9d0e1",
+    "name": "Lote de Facturas Enero 2023",
+    "creation_date": "2023-06-01T10:15:30.000Z",
+    "modification_date": "2023-06-01T10:15:30.000Z",
+    "lifecycle": "pending",
+    "lifecycle_details": "",
+    "import_uuid": "550e8400-e29b-41d4-a716-446655440000",
+    "id": "60a1b2c3d4e5f6a7b8c9d0e2",
+    "documents_count": 5
+  },
+  {
+    "customer_id": "60a1b2c3d4e5f6a7b8c9d0e1",
+    "name": "Lote de Facturas Febrero 2023",
+    "creation_date": "2023-07-01T09:10:20.000Z",
+    "modification_date": "2023-07-01T09:10:20.000Z",
+    "lifecycle": "processed",
+    "lifecycle_details": "",
+    "import_uuid": "660e8400-e29b-41d4-a716-446655440001",
+    "id": "60a1b2c3d4e5f6a7b8c9d0e5",
+    "documents_count": 8
+  }
+]
+```
+
+</template>
+</ApiEndpoint>
+
+<ApiEndpoint
+  title="Crear Batch"
+  method="POST" 
+  endpoint="https://digitai-api.theeye.io/api/Batches"
+  :params="[{name: 'access_token', placeholder: 'ElTokenDeAcceso'}]"
+  :hasBody="true"
+  defaultBody='{"name":"Lote de Facturas Enero 2023"}'
+  :initiallyExpanded="true"
+>
 
 Este endpoint permite crear un nuevo lote para agrupar documentos.
+
+<template #example>
 
 ::: code-group
 ```bash [Curl]
@@ -122,9 +230,24 @@ Ejemplo de respuesta:
 }
 ```
 
-### Subir Documentos al Batch
+</template>
+</ApiEndpoint>
+
+<ApiEndpoint
+  title="Subir Documentos al Batch"
+  method="POST" 
+  endpoint="https://digitai-api.theeye.io/api/Batches/:batchId/upload"
+  :params="[
+    {name: 'batchId', placeholder: '60a1b2c3d4e5f6a7b8c9d0e2'},
+    {name: 'access_token', placeholder: 'ElTokenDeAcceso'}
+  ]"
+  :hasBody="false"
+  :hasFileUpload="true"
+>
 
 Este endpoint permite subir documentos a un lote específico.
+
+<template #example>
 
 ::: code-group
 ```bash [Curl]
@@ -140,7 +263,6 @@ curl -X POST \
 const axios = require('axios');
 const fs = require('fs');
 const FormData = require('form-data');
-const path = require('path');
 
 async function subirDocumentoAlBatch(accessToken, batchId, filePath) {
   try {
@@ -192,9 +314,22 @@ Ejemplo de respuesta:
 }
 ```
 
-### Leer Batch por ID
+</template>
+</ApiEndpoint>
+
+<ApiEndpoint
+  title="Leer Batch por ID"
+  method="GET" 
+  endpoint="https://digitai-api.theeye.io/api/Batches/:batchId"
+  :params="[
+    {name: 'batchId', placeholder: '60a1b2c3d4e5f6a7b8c9d0e2'},
+    {name: 'access_token', placeholder: 'ElTokenDeAcceso'}
+  ]"
+>
 
 Este endpoint permite obtener la información de un lote específico.
+
+<template #example>
 
 ::: code-group
 ```bash [Curl]
@@ -253,11 +388,102 @@ Ejemplo de respuesta:
 }
 ```
 
+</template>
+</ApiEndpoint>
+
 ## Operaciones con Documentos
 
-### Leer Documento por ID
+<ApiEndpoint
+  title="Obtener Todos los Documentos"
+  method="GET" 
+  endpoint="https://digitai-api.theeye.io/api/Documents"
+  :params="[{name: 'access_token', placeholder: 'ElTokenDeAcceso'}]"
+>
+
+Este endpoint permite obtener todos los documentos del cliente.
+
+<template #example>
+
+::: code-group
+```bash [Curl]
+accessToken="ElTokenDeAcceso"
+
+curl -X GET \
+       --header 'Accept: application/json' \
+       'https://digitai-api.theeye.io/api/Documents?access_token=${accessToken}'
+```
+
+```javascript [NodeJS]
+const axios = require('axios');
+
+async function obtenerTodosLosDocumentos(accessToken) {
+  try {
+    const response = await axios.get(
+      'https://digitai-api.theeye.io/api/Documents', 
+      {
+        params: {
+          access_token: accessToken
+        },
+        headers: {
+          'Accept': 'application/json'
+        }
+      }
+    );
+    
+    console.log('Todos los documentos:', response.data);
+    return response.data;
+  } catch (error) {
+    console.error('Error al obtener documentos:', error.response?.data || error.message);
+  }
+}
+
+// Uso
+const accessToken = 'ElTokenDeAcceso';
+obtenerTodosLosDocumentos(accessToken);
+```
+:::
+
+Ejemplo de respuesta:
+
+```json
+[
+  {
+    "customer_id": "60a1b2c3d4e5f6a7b8c9d0e1",
+    "batch_id": "60a1b2c3d4e5f6a7b8c9d0e2",
+    "filename": "factura1.pdf",
+    "original_name": "factura1.pdf",
+    "creation_date": "2023-06-01T10:20:15.000Z",
+    "lifecycle": "processed",
+    "id": "60a1b2c3d4e5f6a7b8c9d0e3"
+  },
+  {
+    "customer_id": "60a1b2c3d4e5f6a7b8c9d0e1",
+    "batch_id": "60a1b2c3d4e5f6a7b8c9d0e5",
+    "filename": "factura2.pdf",
+    "original_name": "factura2.pdf",
+    "creation_date": "2023-07-01T09:15:45.000Z",
+    "lifecycle": "processed",
+    "id": "60a1b2c3d4e5f6a7b8c9d0e4"
+  }
+]
+```
+
+</template>
+</ApiEndpoint>
+
+<ApiEndpoint
+  title="Leer Documento por ID"
+  method="GET" 
+  endpoint="https://digitai-api.theeye.io/api/Documents/:documentId"
+  :params="[
+    {name: 'documentId', placeholder: '60a1b2c3d4e5f6a7b8c9d0e3'},
+    {name: 'access_token', placeholder: 'ElTokenDeAcceso'}
+  ]"
+>
 
 Este endpoint permite obtener la información de un documento específico.
+
+<template #example>
 
 ::: code-group
 ```bash [Curl]
@@ -328,9 +554,22 @@ Ejemplo de respuesta:
 }
 ```
 
-### Obtener Documentos por Batch ID
+</template>
+</ApiEndpoint>
+
+<ApiEndpoint
+  title="Obtener Documentos por Batch ID"
+  method="GET" 
+  endpoint="https://digitai-api.theeye.io/api/Documents"
+  :params="[
+    {name: 'batch_id', placeholder: '60a1b2c3d4e5f6a7b8c9d0e2'},
+    {name: 'access_token', placeholder: 'ElTokenDeAcceso'}
+  ]"
+>
 
 Este endpoint permite obtener todos los documentos asociados a un lote específico.
+
+<template #example>
 
 ::: code-group
 ```bash [Curl]
@@ -399,11 +638,24 @@ Ejemplo de respuesta:
 ]
 ```
 
+</template>
+</ApiEndpoint>
+
 ## Reportes de Documentos
 
-### Obtener Reporte de Documentos por Batch ID
+<ApiEndpoint
+  title="Obtener Reporte de Documentos por Batch ID"
+  method="GET" 
+  endpoint="https://digitai-api.theeye.io/api/Documents/report"
+  :params="[
+    {name: 'filters[batch_id]', placeholder: '60a1b2c3d4e5f6a7b8c9d0e2'},
+    {name: 'access_token', placeholder: 'ElTokenDeAcceso'}
+  ]"
+>
 
 Este endpoint permite obtener un reporte detallado de todos los documentos asociados a un lote específico.
+
+<template #example>
 
 ::: code-group
 ```bash [Curl]
@@ -502,7 +754,22 @@ Ejemplo de respuesta:
 ]
 ```
 
-### Enviar documentos a procesar
+</template>
+</ApiEndpoint>
+
+<ApiEndpoint
+  title="Enviar documentos a procesar"
+  method="POST" 
+  endpoint="https://digitai-api.theeye.io/api/documents/upload"
+  :params="[
+    {name: 'access_token', placeholder: 'ElTokenDeAcceso'}
+  ]"
+  :hasFileUpload="true"
+>
+
+Este endpoint permite enviar documentos a procesar directamente sin un lote.
+
+<template #example>
 
 ::: code-group
 ```bash [Curl]
@@ -640,6 +907,9 @@ print(response.text)
 ```
 :::
 
+</template>
+</ApiEndpoint>
+
 ## Instalación de los requisitos
 
 Para ejecutar los ejemplos anteriores necesitas instalar las dependencias:
@@ -709,3 +979,5 @@ Windows:
 ```shell
 set API_ACCESS_TOKEN="ElTokenDeAcceso"
 ``` 
+
+<ApiPlaygroundControls /> 

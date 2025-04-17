@@ -1,4 +1,4 @@
-# DigitAI - Trazabilidad
+# Trazabilidad
 
 ### Flujos de procesamiento de un comprobante
 
