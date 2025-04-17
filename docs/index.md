@@ -35,15 +35,6 @@ Documentación completa de nuestra API REST para integrar Digitai con sus sistem
 - Callbacks y notificaciones
 - Ejemplos de código en múltiples lenguajes (cURL, Node.js, Python)
 
-<div class="custom-container tip">
-<p class="custom-container-title">Explorador Interactivo</p>
-<p>Pruebe nuestra API directamente desde la documentación con nuestro explorador interactivo:</p>
-</div>
-
-<div style="margin-top: 1rem; margin-bottom: 2rem;">
-  <a href="/api/" class="custom-button">Ir al Explorador de API</a>
-</div>
-
 ## Primeros Pasos
 
 Para comenzar a utilizar Digitai:

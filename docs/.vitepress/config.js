@@ -16,7 +16,15 @@ export default {
       { text: 'Trazabilidad', link: '/trazabilidad' },
       { text: 'Convenciones', link: '/convenciones/' },
       { text: 'API', link: '/api/' },
-      { text: 'Soporte', link: 'https://ayuda.theeye.io' }
+      { text: 'Soporte', link: 'https://ayuda.theeye.io' },
+      {
+        text: 'Versión',
+        items: [
+          { text: 'v1.1.0 (Actual)', link: '/' },
+          { text: 'v1.0.0', link: '/v1.0.0/' },
+          { text: 'Todas las versiones', link: '/versions' }
+        ]
+      }
     ],
     sidebar: [
       {
