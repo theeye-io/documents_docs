@@ -949,70 +949,43 @@ print(response.text)
 
 Para ejecutar los ejemplos anteriores necesitas instalar las dependencias:
 
-### Node.js
+::: code-group
+```bash [Node.js]
+# Pre-requisitos: Instalar nodejs y npm
 
-*Pre-requisitos. Instalar nodejs y npm*
-
-#### Paso 1 (opcional)
-
-Inicializamos el directorio donde colocaremos el script
-
-```bash
+# Paso 1 (opcional): Inicializamos el directorio
 npm init -y
-```
 
-#### Paso 2
-
-Instalamos las dependencias.
-En este ejemplo usamos la libreria https nativa de nodejs y la libreria form-data que nos permite enviar archivos utilizando el header multiparted.
-
-
-```bash
+# Paso 2: Instalamos las dependencias
 npm install form-data axios
-```
 
-#### Paso 3
-
-Luego podemos guardar el código en un archivo `procesar_documento.js` y ejecutarlo:
-
-```bash
+# Paso 3: Ejecutamos el script
 node procesar_documento.js './comprobante.pdf'
 ```
 
-### Python
+```bash [Python]
+# Pre-requisitos: Instalar python y pip
 
-*Pre-requisitos. Instalar python y pip*
-
-#### Paso 1
-
-Instalamos la librería request. 
-
-```bash
+# Paso 1: Instalamos la librería requests
 pip install requests
-```
 
-#### Paso 2
-
-Guardamos el código en un archivo `procesar_documento.py` y lo ejecutamos:
-
-```bash
+# Paso 2: Ejecutamos el script
 python procesar_documento.py './comprobante.pdf'
 ```
+:::
 
 ## Variables de entorno
 
 En el shell debemos setear el access token por variable de entorno para poder comunicarnos con la API.
 
-Linux y macOS:
-
-```bash
+::: code-group
+```bash [Linux/macOS]
 export API_ACCESS_TOKEN="ElTokenDeAcceso"
 ```
 
-Windows:
-
-```shell
+```shell [Windows]
 set API_ACCESS_TOKEN="ElTokenDeAcceso"
-``` 
+```
+:::
 
 <ApiPlaygroundControls /> 
