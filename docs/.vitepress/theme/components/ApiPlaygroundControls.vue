@@ -93,53 +93,6 @@
             <span>URL personalizada configurada: <code>{{ apiBaseUrl }}</code></span>
           </div>
         </div>
-
-        <!-- Playground Controls -->
-        <div class="playground-manager-section">
-          <h5>Controles de Playground</h5>
-          <div class="buttons-container">
-            <button 
-              class="control-btn show-all-btn" 
-              @click="showAllPlaygrounds" 
-              :disabled="allVisible"
-            >
-              <span class="control-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <circle cx="12" cy="12" r="10"></circle>
-                  <line x1="12" y1="8" x2="12" y2="16"></line>
-                  <line x1="8" y1="12" x2="16" y2="12"></line>
-                </svg>
-              </span>
-              Mostrar Todos
-            </button>
-            <button 
-              class="control-btn hide-all-btn" 
-              @click="hideAllPlaygrounds" 
-              :disabled="noneVisible"
-            >
-              <span class="control-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <circle cx="12" cy="12" r="10"></circle>
-                  <line x1="8" y1="12" x2="16" y2="12"></line>
-                </svg>
-              </span>
-              Ocultar Todos
-            </button>
-            <button 
-              class="control-btn toggle-all-btn" 
-              @click="toggleAllPlaygrounds"
-            >
-              <span class="control-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                  <polyline points="17 8 12 3 7 8"></polyline>
-                  <line x1="12" y1="3" x2="12" y2="15"></line>
-                </svg>
-              </span>
-              Alternar Todos
-            </button>
-          </div>
-        </div>
       </div>
     </div>
   </div>
@@ -147,15 +100,8 @@
 
 <script setup>
 import { ref, computed, onMounted } from 'vue'
-import { usePlaygroundVisibility } from '../composables/usePlaygroundVisibility'
 import { useApiToken } from '../composables/useApiToken'
 import { useApiBaseUrl } from '../composables/useApiBaseUrl'
-
-// Playground visibility control
-const { globalVisibility, showAllPlaygrounds, hideAllPlaygrounds, toggleAllPlaygrounds } = usePlaygroundVisibility()
-
-const allVisible = computed(() => globalVisibility.value === true)
-const noneVisible = computed(() => globalVisibility.value === false)
 
 // Token management
 const { token, hasToken, clearToken } = useApiToken()
@@ -237,19 +183,16 @@ function resetApiUrl() {
 }
 
 .token-manager-section,
-.playground-manager-section,
 .api-url-section {
   margin-bottom: 1.5rem;
   padding-bottom: 1.5rem;
 }
 
-.token-manager-section,
-.api-url-section {
+.token-manager-section {
   border-bottom: 1px solid var(--vp-c-divider-light);
 }
 
 .token-manager-section h5,
-.playground-manager-section h5,
 .api-url-section h5 {
   margin-top: 0;
   margin-bottom: 0.75rem;
@@ -378,25 +321,5 @@ function resetApiUrl() {
 .token-clear-btn:hover:not(:disabled),
 .url-reset-btn:hover:not(:disabled) {
   background-color: var(--vp-c-danger-soft);
-}
-
-.buttons-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-
-.show-all-btn,
-.hide-all-btn,
-.toggle-all-btn {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.control-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
 }
 </style> 

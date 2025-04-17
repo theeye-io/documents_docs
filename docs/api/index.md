@@ -24,7 +24,8 @@ Por lo que no debe ser compartido
 <ApiEndpoint
   title="Basic Login"
   method="POST" 
-  endpoint="https://digitai-api.theeye.io/api/Session/login"
+  endpoint="/api/Session/login"
+  :baseUrl="'https://digitai-api.theeye.io'"
   :hasBody="true"
   defaultBody='{"username":"user@domain.io","password":"youknowit"}'
 >
@@ -81,7 +82,8 @@ El resultado de esta operación es un access token que se puede utilizar para co
 <ApiEndpoint
   title="Obtener Todos los Lotes"
   method="GET" 
-  endpoint="https://digitai-api.theeye.io/api/Batches"
+  endpoint="/api/Batches"
+  :baseUrl="'https://digitai-api.theeye.io'"
   :params="[{name: 'access_token', placeholder: 'ElTokenDeAcceso'}]"
 >
 
@@ -95,7 +97,7 @@ accessToken="ElTokenDeAcceso"
 
 curl -X GET \
        --header 'Accept: application/json' \
-       'https://digitai-api.theeye.io/api/Batches?access_token=${accessToken}'
+       "https://digitai-api.theeye.io/api/Batches?access_token=${accessToken}"
 ```
 
 ```javascript [NodeJS]
@@ -163,7 +165,8 @@ Ejemplo de respuesta:
 <ApiEndpoint
   title="Crear Batch"
   method="POST" 
-  endpoint="https://digitai-api.theeye.io/api/Batches"
+  endpoint="/api/Batches"
+  :baseUrl="'https://digitai-api.theeye.io'"
   :params="[{name: 'access_token', placeholder: 'ElTokenDeAcceso'}]"
   :hasBody="true"
   defaultBody='{"name":"Lote de Facturas Enero 2023"}'
@@ -182,7 +185,7 @@ curl -X POST \
        --header 'Content-Type: application/json' \
        --header 'Accept: application/json' \
        -d '{"name":"Lote de Facturas Enero 2023"}' \
-       'https://digitai-api.theeye.io/api/Batches?access_token=${accessToken}'
+       "https://digitai-api.theeye.io/api/Batches?access_token=${accessToken}"
 ```
 
 ```javascript [NodeJS]
@@ -236,7 +239,8 @@ Ejemplo de respuesta:
 <ApiEndpoint
   title="Subir Documentos al Batch"
   method="POST" 
-  endpoint="https://digitai-api.theeye.io/api/Batches/:batchId/upload"
+  endpoint="/api/Batches/:batchId/upload"
+  :baseUrl="'https://digitai-api.theeye.io'"
   :params="[
     {name: 'batchId', placeholder: '60a1b2c3d4e5f6a7b8c9d0e2'},
     {name: 'access_token', placeholder: 'ElTokenDeAcceso'}
@@ -255,7 +259,7 @@ accessToken="ElTokenDeAcceso"
 batchId="60a1b2c3d4e5f6a7b8c9d0e2"
 
 curl -X POST \
-       'https://digitai-api.theeye.io/api/Batches/${batchId}/upload?access_token=${accessToken}' \
+       "https://digitai-api.theeye.io/api/Batches/${batchId}/upload?access_token=${accessToken}" \
        -F file=@"factura.pdf"
 ```
 
@@ -302,15 +306,28 @@ Ejemplo de respuesta:
 
 ```json
 {
-  "customer_id": "60a1b2c3d4e5f6a7b8c9d0e1",
-  "batch_id": "60a1b2c3d4e5f6a7b8c9d0e2",
-  "filename": "factura.pdf",
-  "original_name": "factura.pdf",
-  "creation_date": "2023-06-01T10:20:15.000Z",
-  "modification_date": "2023-06-01T10:20:15.000Z",
+  "customer_id": "333333333333333333333333",
+  "assignee_id": null,
+  "miscomprobantes_id": null,
+  "batch_id": "444444444444444444444444",
+  "filename": "",
+  "original_name": "5116.pdf",
+  "keyPrefix": "documents/digitai/20250417/999999999999999999999999",
+  "creation_date": "2025-04-17T11:52:45.894Z",
+  "modification_date": "2025-04-17T11:52:45.894Z",
+  "categories": [],
+  "checksum": "76bd6b3a5eaa0398c01d405775514e87c3bfde02",
+  "type": null,
   "lifecycle": "pending",
   "lifecycle_details": "",
-  "id": "60a1b2c3d4e5f6a7b8c9d0e3"
+  "lifecycle_error": "",
+  "content_type": "application/pdf",
+  "extension": "pdf",
+  "manual_classification": null,
+  "export_timestamp": null,
+  "extractor": null,
+  "secret": "88888888888888888888888888888888",
+  "id": "999999999999999999999999"
 }
 ```
 
@@ -320,7 +337,8 @@ Ejemplo de respuesta:
 <ApiEndpoint
   title="Leer Batch por ID"
   method="GET" 
-  endpoint="https://digitai-api.theeye.io/api/Batches/:batchId"
+  endpoint="/api/Batches/:batchId"
+  :baseUrl="'https://digitai-api.theeye.io'"
   :params="[
     {name: 'batchId', placeholder: '60a1b2c3d4e5f6a7b8c9d0e2'},
     {name: 'access_token', placeholder: 'ElTokenDeAcceso'}
@@ -338,7 +356,7 @@ batchId="60a1b2c3d4e5f6a7b8c9d0e2"
 
 curl -X GET \
        --header 'Accept: application/json' \
-       'https://digitai-api.theeye.io/api/Batches/${batchId}?access_token=${accessToken}'
+       "https://digitai-api.theeye.io/api/Batches/${batchId}?access_token=${accessToken}"
 ```
 
 ```javascript [NodeJS]
@@ -396,7 +414,8 @@ Ejemplo de respuesta:
 <ApiEndpoint
   title="Obtener Todos los Documentos"
   method="GET" 
-  endpoint="https://digitai-api.theeye.io/api/Documents"
+  endpoint="/api/Documents"
+  :baseUrl="'https://digitai-api.theeye.io'"
   :params="[{name: 'access_token', placeholder: 'ElTokenDeAcceso'}]"
 >
 
@@ -410,7 +429,7 @@ accessToken="ElTokenDeAcceso"
 
 curl -X GET \
        --header 'Accept: application/json' \
-       'https://digitai-api.theeye.io/api/Documents?access_token=${accessToken}'
+       "https://digitai-api.theeye.io/api/Documents?access_token=${accessToken}"
 ```
 
 ```javascript [NodeJS]
@@ -474,7 +493,8 @@ Ejemplo de respuesta:
 <ApiEndpoint
   title="Leer Documento por ID"
   method="GET" 
-  endpoint="https://digitai-api.theeye.io/api/Documents/:documentId"
+  endpoint="/api/Documents/:documentId"
+  :baseUrl="'https://digitai-api.theeye.io'"
   :params="[
     {name: 'documentId', placeholder: '60a1b2c3d4e5f6a7b8c9d0e3'},
     {name: 'access_token', placeholder: 'ElTokenDeAcceso'}
@@ -492,7 +512,7 @@ documentId="60a1b2c3d4e5f6a7b8c9d0e3"
 
 curl -X GET \
        --header 'Accept: application/json' \
-       'https://digitai-api.theeye.io/api/Documents/${documentId}?access_token=${accessToken}'
+       "https://digitai-api.theeye.io/api/Documents/${documentId}?access_token=${accessToken}"
 ```
 
 ```javascript [NodeJS]
@@ -530,55 +550,62 @@ Ejemplo de respuesta:
 
 ```json
 {
-  "customer_id": "60a1b2c3d4e5f6a7b8c9d0e1",
-  "batch_id": "60a1b2c3d4e5f6a7b8c9d0e2",
-  "filename": "factura.pdf",
-  "original_name": "factura.pdf",
-  "url": "https://storage.digitai.io/documents/60a1b2c3d4e5f6a7b8c9d0e3.pdf",
-  "creation_date": "2023-06-01T10:20:15.000Z",
-  "modification_date": "2023-06-01T10:20:15.000Z",
-  "lifecycle": "processed",
-  "tags": [
-    {
-      "name": "numero_factura",
-      "value": "A-0001-00000123",
-      "confidence": 0.95
-    },
-    {
-      "name": "fecha",
-      "value": "2023-05-20",
-      "confidence": 0.98
-    }
-  ],
-  "id": "60a1b2c3d4e5f6a7b8c9d0e3"
+  "_id": "60a1b2c3d4e5f6a7b8c9d0e1",
+  "customer_id": "60a1b2c3d4e5f6a7b8c9d0e2",
+  "assignee_id": null,
+  "miscomprobantes_id": null,
+  "batch_id": null,
+  "filename": null,
+  "original_name": "17614 CRT  BORRADOR.pdf",
+  "keyPrefix": "documents/client_name/20250207/60a1b2c3d4e5f6a7b8c9d0e1",
+  "creation_date": "2025-02-07T15:34:45.547Z",
+  "modification_date": "2025-02-07T15:34:48.960Z",
+  "categories": [],
+  "checksum": "555fc1ac9929a2b62693caf3c12d3774f15d9216",
+  "type": null,
+  "lifecycle": "converted",
+  "lifecycle_details": "",
+  "lifecycle_error": "",
+  "content_type": "application/pdf",
+  "extension": "pdf",
+  "manual_classification": null,
+  "export_timestamp": null,
+  "matched": false,
+  "extractor": "pdf-extractor",
+  "id": "60a1b2c3d4e5f6a7b8c9d0e1"
 }
 ```
 
 </template>
 </ApiEndpoint>
 
+<script setup>
+const params = [
+    {name: 'filter', placeholder: '{"where":{"batch_id":"6800eb313251642494ae877d"}}'},
+    {name: 'access_token', placeholder: 'ElTokenDeAcceso'}
+  ]
+</script>
 <ApiEndpoint
   title="Obtener Documentos por Batch ID"
   method="GET" 
-  endpoint="https://digitai-api.theeye.io/api/Documents"
-  :params="[
-    {name: 'batch_id', placeholder: '60a1b2c3d4e5f6a7b8c9d0e2'},
-    {name: 'access_token', placeholder: 'ElTokenDeAcceso'}
-  ]"
+  endpoint="/api/Documents"
+  :baseUrl="'https://digitai-api.theeye.io'"
+  :params="params"
 >
 
-Este endpoint permite obtener todos los documentos asociados a un lote específico.
+Este endpoint permite obtener todos los documentos asociados a un lote específico. El parámetro `filter` debe ser un objeto JSON codificado en URL que contenga la condición de filtrado.
 
 <template #example>
 
 ::: code-group
 ```bash [Curl]
 accessToken="ElTokenDeAcceso"
-batchId="60a1b2c3d4e5f6a7b8c9d0e2"
+batchId="6800eb313251642494ae877d"
+filter="{\"where\":{\"batch_id\":\"6800eb313251642494ae877d\"}}"
 
 curl -X GET \
        --header 'Accept: application/json' \
-       'https://digitai-api.theeye.io/api/Documents?batch_id=${batchId}&access_token=${accessToken}'
+       "https://digitai-api.theeye.io/api/Documents?filter=${filter}&access_token=${accessToken}"
 ```
 
 ```javascript [NodeJS]
@@ -586,11 +613,17 @@ const axios = require('axios');
 
 async function obtenerDocumentosPorBatchId(accessToken, batchId) {
   try {
+    const filter = JSON.stringify({
+      where: {
+        batch_id: batchId
+      }
+    });
+    
     const response = await axios.get(
       'https://digitai-api.theeye.io/api/Documents', 
       {
         params: {
-          batch_id: batchId,
+          filter: filter,
           access_token: accessToken
         },
         headers: {
@@ -608,7 +641,7 @@ async function obtenerDocumentosPorBatchId(accessToken, batchId) {
 
 // Uso
 const accessToken = 'ElTokenDeAcceso';
-const batchId = '60a1b2c3d4e5f6a7b8c9d0e2';
+const batchId = '6800eb313251642494ae877d';
 obtenerDocumentosPorBatchId(accessToken, batchId);
 ```
 :::
@@ -619,7 +652,7 @@ Ejemplo de respuesta:
 [
   {
     "customer_id": "60a1b2c3d4e5f6a7b8c9d0e1",
-    "batch_id": "60a1b2c3d4e5f6a7b8c9d0e2",
+    "batch_id": "6800eb313251642494ae877d",
     "filename": "factura1.pdf",
     "original_name": "factura1.pdf",
     "creation_date": "2023-06-01T10:20:15.000Z",
@@ -628,7 +661,7 @@ Ejemplo de respuesta:
   },
   {
     "customer_id": "60a1b2c3d4e5f6a7b8c9d0e1",
-    "batch_id": "60a1b2c3d4e5f6a7b8c9d0e2",
+    "batch_id": "6800eb313251642494ae877d",
     "filename": "factura2.pdf",
     "original_name": "factura2.pdf",
     "creation_date": "2023-06-01T10:25:45.000Z",
@@ -646,7 +679,8 @@ Ejemplo de respuesta:
 <ApiEndpoint
   title="Obtener Reporte de Documentos por Batch ID"
   method="GET" 
-  endpoint="https://digitai-api.theeye.io/api/Documents/report"
+  endpoint="/api/Documents/report"
+  :baseUrl="'https://digitai-api.theeye.io'"
   :params="[
     {name: 'filters[batch_id]', placeholder: '60a1b2c3d4e5f6a7b8c9d0e2'},
     {name: 'access_token', placeholder: 'ElTokenDeAcceso'}
@@ -664,7 +698,7 @@ batchId="60a1b2c3d4e5f6a7b8c9d0e2"
 
 curl -X GET \
        --header 'Accept: application/json' \
-       'https://digitai-api.theeye.io/api/Documents/report?filters[batch_id]=${batchId}&access_token=${accessToken}'
+       "https://digitai-api.theeye.io/api/Documents/report?filters[batch_id]=${batchId}&access_token=${accessToken}"
 ```
 
 ```javascript [NodeJS]
@@ -760,7 +794,8 @@ Ejemplo de respuesta:
 <ApiEndpoint
   title="Enviar documentos a procesar"
   method="POST" 
-  endpoint="https://digitai-api.theeye.io/api/documents/upload"
+  endpoint="/api/documents/upload"
+  :baseUrl="'https://digitai-api.theeye.io'"
   :params="[
     {name: 'access_token', placeholder: 'ElTokenDeAcceso'}
   ]"
@@ -775,7 +810,7 @@ Este endpoint permite enviar documentos a procesar directamente sin un lote.
 ```bash [Curl]
 accessToken="ElTokenDeAcceso"
 
-curl -X POST 'https://digitai-api.theeye.io/api/documents/upload?access_token=${accessToken}' \
+curl -X POST "https://digitai-api.theeye.io/api/documents/upload?access_token=${accessToken}" \
        -F file=@"archivocomprobante.pdf"
 ```
 
@@ -865,7 +900,7 @@ const main = async ([ filepath ]) => {
         if (res.statusCode >= 400) {
           const err = new Error(`${res.statusCode}: ${res.body?.message||res.body}`)
           err.response = res
-          err.request = req
+          err.request = request
           reject(err)
           return
         }

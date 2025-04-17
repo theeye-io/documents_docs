@@ -1,12 +1,17 @@
 <template>
   <div class="api-playground">
-    <div class="playground-container">
+    <div class="playground-header">
+      <div class="request-header">
+        <div class="method-badge" :class="method.toLowerCase()">{{ method }}</div>
+        <div class="endpoint">{{ displayEndpoint }}</div>
+      </div>
+      <button @click="togglePlayground" class="toggle-button">
+        {{ isExpanded ? '▲' : '▼' }}
+      </button>
+    </div>
+    
+    <div v-if="isExpanded" class="playground-container">
       <div class="request-section">
-        <div class="request-header">
-          <div class="method-badge" :class="method.toLowerCase()">{{ method }}</div>
-          <div class="endpoint">{{ displayEndpoint }}</div>
-        </div>
-        
         <div v-if="isLocalhost && actualEndpoint !== displayEndpoint" class="custom-url-indicator">
           <span class="indicator-icon">⚠️</span>
           <span>Usando URL personalizada: <code>{{ actualEndpoint }}</code></span>
@@ -121,6 +126,7 @@ const isLoading = ref(false)
 const showResponse = ref(false)
 const file = ref(null)
 const fileSelected = computed(() => file.value !== null)
+const isExpanded = ref(false)
 
 // Display the original endpoint in the UI but use the transformed URL for API calls
 const displayEndpoint = computed(() => props.endpoint)
@@ -141,6 +147,10 @@ const formattedResponse = computed(() => {
     return String(responseContent.value)
   }
 })
+
+function togglePlayground() {
+  isExpanded.value = !isExpanded.value
+}
 
 function getStatusClass(status) {
   if (!status) return ''
@@ -249,11 +259,19 @@ async function executeRequest() {
 
 <style>
 .api-playground {
-  margin: 1.5rem 0;
-  border-radius: 6px;
-  border: 1px solid var(--vp-c-brand-lighter);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  width: 100%;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 8px;
   overflow: hidden;
+  background-color: var(--vp-c-bg-soft);
+}
+
+.playground-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  border-bottom: 1px solid var(--vp-c-divider);
 }
 
 .playground-container {
@@ -261,166 +279,116 @@ async function executeRequest() {
   flex-direction: column;
   gap: 1rem;
   padding: 1rem;
-  background-color: var(--vp-c-bg);
 }
 
 .request-header {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  margin-bottom: 1rem;
+}
+
+.toggle-button {
+  background: var(--vp-c-brand);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.toggle-button:hover {
+  background-color: var(--vp-c-brand-dark);
 }
 
 .method-badge {
-  padding: 0.25rem 0.5rem;
+  padding: 4px 8px;
   border-radius: 4px;
   font-weight: 600;
   font-size: 0.8rem;
   text-transform: uppercase;
+  color: white;
 }
 
 .method-badge.get {
   background-color: #61affe;
-  color: white;
 }
 
 .method-badge.post {
   background-color: #49cc90;
-  color: white;
 }
 
 .method-badge.put {
   background-color: #fca130;
-  color: white;
 }
 
 .method-badge.delete {
   background-color: #f93e3e;
-  color: white;
 }
 
 .method-badge.patch {
   background-color: #50e3c2;
-  color: white;
 }
 
 .endpoint {
-  font-family: monospace;
+  font-family: var(--vp-font-family-mono);
   font-size: 0.9rem;
-  padding: 0.25rem;
-  background-color: var(--vp-c-bg-soft);
-  border-radius: 4px;
-  flex-grow: 1;
-  overflow-x: auto;
+  word-break: break-all;
 }
 
-.params-section, .body-section {
-  margin-bottom: 1rem;
+.request-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.custom-url-indicator {
+  background-color: var(--vp-c-warning-soft);
+  border-left: 4px solid var(--vp-c-warning);
+  padding: 0.5rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.indicator-icon {
+  font-size: 1rem;
+}
+
+.params-section,
+.body-section,
+.file-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 .param-item {
   display: flex;
-  gap: 0.5rem;
-  margin-bottom: 0.5rem;
-  align-items: center;
+  flex-direction: column;
+  gap: 0.25rem;
 }
 
-.param-item label {
-  min-width: 100px;
-  font-size: 0.9rem;
-}
-
-.param-input, .body-input {
+.param-input,
+.body-input {
+  width: 100%;
   padding: 0.5rem;
   border: 1px solid var(--vp-c-divider);
   border-radius: 4px;
-  background-color: var(--vp-c-bg-soft);
+  background-color: var(--vp-c-bg);
   color: var(--vp-c-text-1);
-  font-family: monospace;
-  flex-grow: 1;
-}
-
-.body-input {
-  width: 100%;
-  resize: vertical;
-}
-
-.execute-button {
-  padding: 0.5rem 1rem;
-  background-color: var(--vp-c-brand);
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: background-color 0.2s;
-}
-
-.execute-button:hover {
-  background-color: var(--vp-c-brand-dark);
-}
-
-.execute-button:disabled {
-  background-color: var(--vp-c-divider);
-  cursor: not-allowed;
-}
-
-.response-section {
-  margin-top: 1rem;
-  border-top: 1px solid var(--vp-c-divider);
-  padding-top: 1rem;
-}
-
-.response-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 0.5rem;
-}
-
-.status-badge {
-  padding: 0.25rem 0.5rem;
-  border-radius: 4px;
-  font-weight: 600;
-  font-size: 0.8rem;
-}
-
-.status-badge.success {
-  background-color: #49cc90;
-  color: white;
-}
-
-.status-badge.redirect {
-  background-color: #fca130;
-  color: white;
-}
-
-.status-badge.client-error {
-  background-color: #f93e3e;
-  color: white;
-}
-
-.status-badge.server-error {
-  background-color: #f93e3e;
-  color: white;
-}
-
-.response-time {
-  font-size: 0.8rem;
-  color: var(--vp-c-text-2);
-}
-
-.response-content {
-  background-color: var(--vp-c-bg-soft);
-  padding: 1rem;
-  border-radius: 4px;
-  overflow-x: auto;
-  margin: 0;
+  font-family: var(--vp-font-family-mono);
   font-size: 0.9rem;
 }
 
-.file-section {
-  margin-bottom: 1rem;
+.body-input {
+  resize: vertical;
+  min-height: 100px;
 }
 
 .file-upload {
@@ -431,40 +399,99 @@ async function executeRequest() {
 .file-label {
   display: inline-block;
   padding: 0.5rem 1rem;
-  background-color: var(--vp-c-bg-soft);
-  color: var(--vp-c-text-1);
-  border: 1px solid var(--vp-c-divider);
+  background-color: var(--vp-c-brand);
+  color: white;
   border-radius: 4px;
   cursor: pointer;
+  font-size: 0.9rem;
+  max-width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  max-width: 300px;
 }
 
 .file-input {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border-width: 0;
+  display: none;
 }
 
-.custom-url-indicator {
-  background-color: var(--vp-c-warning-soft);
-  padding: 0.5rem;
+.action-section {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.execute-button {
+  padding: 0.5rem 1.5rem;
+  background-color: var(--vp-c-brand);
+  color: white;
+  border: none;
   border-radius: 4px;
-  margin: 0.5rem 0 1rem;
-  font-size: 0.85rem;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.execute-button:hover {
+  background-color: var(--vp-c-brand-dark);
+}
+
+.execute-button:disabled {
+  background-color: var(--vp-c-gray);
+  cursor: not-allowed;
+}
+
+.response-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  border-top: 1px solid var(--vp-c-divider);
+  padding-top: 1rem;
+}
+
+.response-header {
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
 
-.indicator-icon {
-  margin-right: 0.5rem;
+.status-badge {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 0.8rem;
+  color: white;
+}
+
+.status-badge.success {
+  background-color: #49cc90;
+}
+
+.status-badge.redirect {
+  background-color: #fca130;
+}
+
+.status-badge.client-error {
+  background-color: #f93e3e;
+}
+
+.status-badge.server-error {
+  background-color: #f93e3e;
+}
+
+.response-time {
+  font-size: 0.8rem;
+  color: var(--vp-c-text-2);
+}
+
+.response-content {
+  margin: 0;
+  padding: 1rem;
+  background-color: var(--vp-c-bg);
+  border-radius: 4px;
+  font-family: var(--vp-font-family-mono);
+  font-size: 0.9rem;
+  overflow-wrap: break-word;
+  white-space: pre-wrap;
+  max-height: 400px;
+  overflow-y: auto;
 }
 </style> 
