@@ -130,7 +130,7 @@ const isExpanded = ref(false)
 
 // Display the original endpoint in the UI but use the transformed URL for API calls
 const displayEndpoint = computed(() => props.endpoint)
-const actualEndpoint = computed(() => isLocalhost.value ? getFullApiUrl(props.endpoint) : props.endpoint)
+const actualEndpoint = computed(() => getFullApiUrl(props.endpoint))
 
 // Create a filtered params list that excludes access_token if we have a global token
 const displayParams = computed(() => {

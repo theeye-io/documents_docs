@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/theeye-io/documents_docs#readme",
   "devDependencies": {
+    "http-server": "^14.1.1",
     "vitepress": "^1.0.0",
     "vue": "^3.3.4"
   },
