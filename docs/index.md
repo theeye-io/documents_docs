@@ -4,7 +4,7 @@
 
 Digitai es una potente herramienta para la automatización del procesamiento y digitalización de documentos. Esta plataforma permite reconocer, extraer y procesar información de diversos tipos de comprobantes y documentos comerciales, integrándola con sus sistemas existentes.
 
-![Diagrama de flujo de documentos](./public/images/image102.png)
+![Diagrama de flujo de documentos](/images/image102.png)
 
 ## ¿Qué encontrará en esta documentación?
 

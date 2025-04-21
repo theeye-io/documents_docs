@@ -202,7 +202,7 @@ async function fetchProfile(tokenValue) {
   try {
     // Use the base URL and compose the endpoint properly
     const baseUrl = apiBaseUrl.value
-    const response = await fetch(`${baseUrl}/session/profile?access_token=${tokenValue}`)
+    const response = await fetch(`${baseUrl}/api/session/profile?access_token=${tokenValue}`)
     
     if (!response.ok) {
       throw new Error(`Error de servidor: ${response.status}`)

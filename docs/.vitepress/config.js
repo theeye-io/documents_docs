@@ -5,7 +5,7 @@ export default {
   vite: {
     resolve: {
       alias: {
-        '/images/': '/public/images/'
+        'images': '/public/images/'
       }
     }
   },

@@ -2,7 +2,7 @@
 
 ## Flow de Envío de comprobantes {#flow-de-envio-de-comprobantes}
 
-![diagrama](../public/images/image97.png)
+![diagrama](/images/image97.png)
 
 ## Preparación {#preparación}
 

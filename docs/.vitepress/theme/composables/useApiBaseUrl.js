@@ -1,7 +1,7 @@
 import { ref, computed } from 'vue'
 
 // Default production API URL
-const DEFAULT_API_URL = 'https://digitai-api.theeye.io/api'
+const DEFAULT_API_URL = 'https://digitai-api.theeye.io'
 
 // Create a shared state for the API base URL
 const apiBaseUrl = ref(DEFAULT_API_URL)
@@ -32,7 +32,7 @@ function ensureApiPath(url) {
   let formattedUrl = url.endsWith('/') ? url.slice(0, -1) : url;
   
   // Add /api if not already present
-  if (!formattedUrl.endsWith('/api')) {
+  if (!formattedUrl.includes('/api')) {
     formattedUrl = formattedUrl + '/api';
   }
   
