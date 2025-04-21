@@ -49,10 +49,6 @@ Estos estados se visualizan desde el reporte de documentos:
 
 ![boton_reporte_documentos](./public/images/image27.png)
 
-En la columna estado:
-
-![reporte_documentos](./public/images/reporteDocumentos.png)
-
 <br>
 
 ### Caso Práctico
@@ -63,20 +59,25 @@ El primer paso es acceder al reporte de emails desde la pantalla de inicio:
 
 ![home_emails](./public/images/home_emails.png) 
 
-Se mostrarán los correos procesados, y por cada adjunto descargado, aparecerá un registro:
-<br>
+Se mostrarán los correos procesados, y por cada adjunto descargado, aparecerá un registro.
 
-Las columnas muestran la fecha de recepción del e-mail, el remitente, el asunto, el nombre del adjunto, y el estado del proceso de descarga del adjunto. <br>
+Las columnas de la tabla presentan la siguiente información:
+- Fecha de recepción del e-mail
+- Remitente
+- Asunto
+- Nombre del adjunto
+- Estado del proceso de descarga del adjunto
 
-En la sección de acciones se puede descargar el archivo adjunto asociado ![descarga_documento](./public/images/descarga_comprobantes.png). En caso de que el documento ya se haya procesado, se podrá visualizar la información obtenida de la digitalización ![datos_comprobantes](./public/images/datos_comprobantes.png), y además tendrá un acceso directo al documento generado por el proceso ![datos_proceso](./public/images/informacion_proceso_documento.png), para poder visualizar el estado del ciclo de vida del mismo.
-<br>
-<br>
-![reporte_emails](./public/images/reporte_emails.png) 
-<br>
+### Acciones disponibles
 
-Presionando ![datos_proceso](./public/images/informacion_proceso_documento.png) se puede acceder a la pantalla de proceso del documento "Reporte de Documentos":
-<br>
+En la sección de acciones se encuentran las siguientes opciones:
+
+- **Descargar archivo adjunto** ![descarga_documento](./public/images/descarga_comprobantes.png): Permite obtener una copia del archivo original adjunto al correo.
+- **Visualizar información digitalizada** ![datos_comprobantes](./public/images/datos_comprobantes.png): Disponible cuando el documento ha sido procesado, muestra los datos extraídos durante la digitalización.
+- **Acceder al documento procesado** ![datos_proceso](./public/images/informacion_proceso_documento.png): Proporciona acceso directo al documento generado, permitiendo visualizar su estado actual en el ciclo de vida del proceso.
+
+Al hacer clic en el icono de acceso al documento procesado ![datos_proceso](./public/images/informacion_proceso_documento.png), se abrirá la pantalla "Reporte de Documentos" con el documento seleccionado:
 
 ![documento_filtrado](./public/images/documento_filtrado.png)
 
-De este modo podremos saber el estado de proceso del documento. Notar que se utilizó el filtro para seleccionar el documento en cuestión. 
+Esta vista permite verificar el estado actual del procesamiento del documento. Observe que el sistema utiliza automáticamente el filtro para mostrar únicamente el documento seleccionado. 

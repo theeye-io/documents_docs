@@ -6,7 +6,7 @@ const hasSetToken = ref(false)
 
 // If available, retrieve token from localStorage on initial load
 if (typeof window !== 'undefined') {
-  const savedToken = localStorage.getItem('digitai_api_token')
+  const savedToken = localStorage.getItem('api_access_token')
   if (savedToken) {
     tokenValue.value = savedToken
     hasSetToken.value = true
@@ -17,7 +17,7 @@ export function useApiToken() {
   // Save token to localStorage when it changes
   watch(tokenValue, (newValue) => {
     if (typeof window !== 'undefined' && newValue) {
-      localStorage.setItem('digitai_api_token', newValue)
+      localStorage.setItem('api_access_token', newValue)
       hasSetToken.value = true
     }
   })
@@ -27,7 +27,7 @@ export function useApiToken() {
     tokenValue.value = ''
     hasSetToken.value = false
     if (typeof window !== 'undefined') {
-      localStorage.removeItem('digitai_api_token')
+      localStorage.removeItem('api_access_token')
     }
   }
 

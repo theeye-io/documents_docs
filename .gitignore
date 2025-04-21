@@ -30,3 +30,5 @@ docs/.vitepress/cache
 # OS files
 .DS_Store
 Thumbs.db
+
+deploy-config.sh

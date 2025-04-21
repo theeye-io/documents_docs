@@ -55,6 +55,35 @@
           </div>
         </div>
 
+        <!-- Profile Information Section -->
+        <div v-if="isTokenSet && !isEditing && profileInfo" class="profile-section">
+          <h5>Información del Perfil</h5>
+          <div class="profile-details">
+            <div class="profile-item">
+              <span class="profile-label">Nombre:</span>
+              <span class="profile-value">{{ profileInfo.name }}</span>
+            </div>
+            <div class="profile-item">
+              <span class="profile-label">Email:</span>
+              <span class="profile-value">{{ profileInfo.email }}</span>
+            </div>
+            <div class="profile-item">
+              <span class="profile-label">Credencial:</span>
+              <span class="profile-value">{{ profileInfo.credential }}</span>
+            </div>
+            <div v-if="profileInfo.customer && profileInfo.customer.name" class="profile-item">
+              <span class="profile-label">Cliente:</span>
+              <span class="profile-value">{{ profileInfo.customer.name }}</span>
+            </div>
+          </div>
+        </div>
+        <div v-else-if="isTokenSet && !isEditing && isLoading" class="profile-loading">
+          Cargando información del perfil...
+        </div>
+        <div v-else-if="isTokenSet && !isEditing && profileError" class="profile-error">
+          Error: {{ profileError }}
+        </div>
+
         <!-- API URL Configuration (only on localhost) -->
         <div v-if="isLocalhost" class="api-url-section">
           <h5>URL de la API (Modo Desarrollo)</h5>
@@ -66,7 +95,7 @@
               v-model="localApiUrl" 
               type="text" 
               class="url-input"
-              placeholder="https://api-dev.example.com/api"
+              placeholder="https://api-dev.example.com"
               @keyup.enter="saveApiUrl"
             />
             
@@ -90,7 +119,7 @@
           </div>
           <div class="api-url-status" v-if="isCustomApiUrl">
             <span class="url-status-icon">✓</span> 
-            <span>URL personalizada configurada: <code>{{ apiBaseUrl }}</code></span>
+            <span>URL personalizada configurada: <code>{{ displayApiBaseUrl }}</code></span>
           </div>
         </div>
       </div>
@@ -99,7 +128,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, watch } from 'vue'
 import { useApiToken } from '../composables/useApiToken'
 import { useApiBaseUrl } from '../composables/useApiBaseUrl'
 
@@ -107,6 +136,11 @@ import { useApiBaseUrl } from '../composables/useApiBaseUrl'
 const { token, hasToken, clearToken } = useApiToken()
 const localToken = ref('')
 const isEditing = ref(false)
+
+// Profile data
+const profileInfo = ref(null)
+const isLoading = ref(false)
+const profileError = ref(null)
 
 const isTokenSet = computed(() => hasToken.value)
 
@@ -128,15 +162,66 @@ const maskedToken = computed(() => {
 const { apiBaseUrl, isCustomUrl: isCustomApiUrl, isLocalhost, setApiBaseUrl, resetApiBaseUrl } = useApiBaseUrl()
 const localApiUrl = ref('')
 
+// Display URL without /api for UI
+const displayApiBaseUrl = computed(() => {
+  if (!apiBaseUrl.value) return '';
+  return apiBaseUrl.value.endsWith('/api') 
+    ? apiBaseUrl.value.slice(0, -4) 
+    : apiBaseUrl.value;
+})
+
 onMounted(() => {
   localToken.value = token.value
-  localApiUrl.value = apiBaseUrl.value
+  
+  // Set local API URL without /api for display
+  localApiUrl.value = displayApiBaseUrl.value
+  
+  // Fetch profile if token exists
+  if (token.value) {
+    fetchProfile(token.value)
+  }
 })
+
+// Watch for token changes to fetch profile
+watch(token, (newToken) => {
+  if (newToken) {
+    fetchProfile(newToken)
+  } else {
+    profileInfo.value = null
+    profileError.value = null
+  }
+})
+
+async function fetchProfile(tokenValue) {
+  if (!tokenValue) return
+  
+  isLoading.value = true
+  profileError.value = null
+  profileInfo.value = null
+  
+  try {
+    // Use the base URL and compose the endpoint properly
+    const baseUrl = apiBaseUrl.value
+    const response = await fetch(`${baseUrl}/session/profile?access_token=${tokenValue}`)
+    
+    if (!response.ok) {
+      throw new Error(`Error de servidor: ${response.status}`)
+    }
+    
+    profileInfo.value = await response.json()
+  } catch (error) {
+    console.error("Error fetching profile:", error)
+    profileError.value = error.message || "Error al obtener información del perfil"
+  } finally {
+    isLoading.value = false
+  }
+}
 
 function saveToken() {
   if (localToken.value) {
     token.value = localToken.value
     isEditing.value = false
+    // Profile will be fetched via the watcher
   }
 }
 
@@ -149,6 +234,8 @@ function clearTokenHandler() {
   localToken.value = ''
   clearToken()
   isEditing.value = false
+  profileInfo.value = null
+  profileError.value = null
 }
 
 function saveApiUrl() {
@@ -190,6 +277,8 @@ function resetApiUrl() {
 
 .token-manager-section {
   border-bottom: 1px solid var(--vp-c-divider-light);
+  padding-bottom: 1.5rem;
+  margin-bottom: 1.5rem;
 }
 
 .token-manager-section h5,
@@ -321,5 +410,61 @@ function resetApiUrl() {
 .token-clear-btn:hover:not(:disabled),
 .url-reset-btn:hover:not(:disabled) {
   background-color: var(--vp-c-danger-soft);
+}
+
+/* Profile section styles */
+.profile-section {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background-color: var(--vp-c-bg);
+  border-radius: 6px;
+  border-left: 4px solid var(--vp-c-brand);
+}
+
+.profile-section h5 {
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+  font-size: 1rem;
+  color: var(--vp-c-text-1);
+}
+
+.profile-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.profile-item {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.profile-label {
+  font-weight: 600;
+  min-width: 110px;
+}
+
+.profile-value {
+  color: var(--vp-c-text-2);
+  word-break: break-word;
+}
+
+.profile-loading {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background-color: var(--vp-c-bg);
+  border-radius: 6px;
+  border-left: 4px solid var(--vp-c-brand);
+  color: var(--vp-c-text-2);
+}
+
+.profile-error {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background-color: var(--vp-c-danger-soft);
+  border-radius: 6px;
+  border-left: 4px solid var(--vp-c-danger);
+  color: var(--vp-c-danger);
 }
 </style> 

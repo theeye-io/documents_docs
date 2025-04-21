@@ -59,11 +59,9 @@ Esto abrirá automáticamente tu navegador con la documentación y recargará la
     - `config.js`: Archivo de configuración principal
     - `theme/`: Personalización del tema
       - `components/`: Componentes Vue personalizados
-        - `ApiExplorer.vue`: Componente Swagger UI para pruebas de API
-  - `api/`: Documentación de la API con ejemplos interactivos
+  - `api/`: Directorio que contiene el playground personalizado para pruebas de API
   - `*.md`: Archivos de documentación en formato Markdown
   - `public/`: Archivos estáticos
-    - `swagger/`: Especificaciones de OpenAPI/Swagger
 
 ### Generación de Documentación Estática
 
@@ -83,16 +81,44 @@ Para previsualizar la documentación compilada:
 npm run docs:preview
 ```
 
-### Uso del Componente ApiExplorer para Pruebas de API
+## Despliegue en Producción
 
-Para incluir pruebas interactivas de API en cualquier página de documentación, usa el componente ApiExplorer:
+### Requisitos para Despliegue
 
-```md
-# Mi Documento
+- [AWS CLI](https://aws.amazon.com/cli/) instalado y configurado
+- Permisos para acceder al bucket S3 y distribución CloudFront
+- Node.js y npm (mismos requisitos que para desarrollo)
 
-Descripción de la API...
+### Configuración de Despliegue
 
-<ApiExplorer spec-url="/swagger/my-api-spec.json" />
+El proyecto utiliza AWS S3 para el almacenamiento de archivos estáticos y CloudFront como CDN. Para configurar el despliegue:
+
+1. Copia el archivo `deploy-config.example.sh` a `deploy-config.sh`:
+   ```bash
+   cp scripts/deploy-config.example.sh scripts/deploy-config.sh
+   ```
+
+2. Edita `deploy-config.sh` con tus credenciales y configuración de AWS:
+   ```bash
+   # Ejemplo de configuración
+   S3_BUCKET="nombre-de-tu-bucket"
+   CLOUDFRONT_DISTRIBUTION_ID="tu-id-de-distribucion"
+   AWS_REGION="tu-region"
+   ```
+
+### Despliegue Manual
+
+Para desplegar manualmente el sitio de documentación a producción:
+
+```bash
+./scripts/deploy.sh
 ```
 
-Esto incorporará un explorador de API interactivo que permite probar endpoints, cargar archivos, y visualizar respuestas JSON directamente en la documentación.
+Este script realiza las siguientes acciones:
+1. Compila la documentación en modo producción
+2. Sincroniza los archivos generados con el bucket S3
+3. Crea una invalidación en CloudFront para actualizar la caché
+
+### Uso del API Playground Personalizado
+
+Para utilizar el playground personalizado de API, accede al directorio `docs/api/`. El playground te permite probar endpoints, enviar solicitudes y visualizar respuestas directamente en la documentación.

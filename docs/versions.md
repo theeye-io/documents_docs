@@ -5,7 +5,6 @@ Aquí encontrará todas las versiones disponibles de la documentación de Digita
 ## Versiones Actuales
 
 - [v1.1.0](/): Versión actual
-- [v1.0.0](/v1.0.0/): Versión inicial
 
 ## Gestión de Versiones
 

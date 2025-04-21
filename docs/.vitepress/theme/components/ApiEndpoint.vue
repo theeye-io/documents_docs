@@ -1,6 +1,6 @@
 <template>
   <div class="api-endpoint">
-    <h3 :id="slug">{{ title }}</h3>
+    <h3 v-if="!hideTitle" :id="slug">{{ title }}</h3>
     
     <div class="endpoint-description">
       <slot></slot>
@@ -53,6 +53,10 @@ const props = defineProps({
     default: '{}'
   },
   hasFileUpload: {
+    type: Boolean,
+    default: false
+  },
+  hideTitle: {
     type: Boolean,
     default: false
   }

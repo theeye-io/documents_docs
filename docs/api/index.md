@@ -1,10 +1,10 @@
 # Documentación API
 
-## Flow de Envío de comprobantes
+## Flow de Envío de comprobantes {#flow-de-envio-de-comprobantes}
 
 ![diagrama](../public/images/image97.png)
 
-## Preparación
+## Preparación {#preparación}
 
 ### Bearer Access Token
 
@@ -19,7 +19,53 @@ Por lo que no debe ser compartido
 
 <ApiPlaygroundControls />
 
-## Operaciones comunes
+## Instalación de los requisitos
+
+Para ejecutar los ejemplos necesitas instalar las dependencias:
+
+::: code-group
+```bash [Node.js]
+# Pre-requisitos: Instalar nodejs y npm
+
+# Paso 1 (opcional): Inicializamos el directorio
+npm init -y
+
+# Paso 2: Instalamos las dependencias
+npm install form-data axios
+
+# Paso 3: Ejecutamos el script
+node procesar_documento.js './comprobante.pdf'
+```
+
+```bash [Python]
+# Pre-requisitos: Instalar python y pip
+
+# Paso 1: Instalamos la librería requests
+pip install requests
+
+# Paso 2: Ejecutamos el script
+python procesar_documento.py './comprobante.pdf'
+```
+:::
+
+## Variables de entorno
+
+En el shell debemos setear el access token por variable de entorno para poder comunicarnos con la API.
+
+::: code-group
+```bash [Linux/macOS]
+export API_ACCESS_TOKEN="ElTokenDeAcceso"
+```
+
+```shell [Windows]
+set API_ACCESS_TOKEN="ElTokenDeAcceso"
+```
+:::
+
+
+## Operaciones comunes {#operaciones-comunes}
+
+### Basic Login {#basic-login}
 
 <ApiEndpoint
   title="Basic Login"
@@ -28,6 +74,7 @@ Por lo que no debe ser compartido
   :baseUrl="'https://digitai-api.theeye.io'"
   :hasBody="true"
   defaultBody='{"username":"user@domain.io","password":"youknowit"}'
+  :hideTitle="true"
 >
 
 Este endpoint permite obtener un token de acceso mediante un login básico.
@@ -69,6 +116,37 @@ async function login() {
 
 login();
 ```
+
+```python [Python]
+import requests
+import json
+
+def login():
+    try:
+        response = requests.post(
+            'https://digitai-api.theeye.io/api/Session/login',
+            json={
+                'username': 'user@domain.io',
+                'password': 'youknowit'
+            },
+            headers={
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+        )
+        
+        response.raise_for_status()  # Raise exception for HTTP errors
+        
+        # Guardar el token para usarlo en solicitudes posteriores
+        access_token = response.json()['id']
+        print('Access Token:', access_token)
+        return access_token
+    except requests.exceptions.RequestException as e:
+        print('Error al iniciar sesión:', e)
+
+if __name__ == "__main__":
+    login()
+```
 :::
 
 El resultado de esta operación es un access token que se puede utilizar para consultar la API durante un periodo de tiempo especifico
@@ -77,7 +155,9 @@ El resultado de esta operación es un access token que se puede utilizar para co
 </template>
 </ApiEndpoint>
 
-## Operaciones con Lotes (Batch)
+## Operaciones con Lotes (Batch) {#operaciones-con-lotes-batch}
+
+### Obtener Todos los Lotes {#obtener-todos-los-lotes}
 
 <ApiEndpoint
   title="Obtener Todos los Lotes"
@@ -85,6 +165,7 @@ El resultado de esta operación es un access token que se puede utilizar para co
   endpoint="/api/Batches"
   :baseUrl="'https://digitai-api.theeye.io'"
   :params="[{name: 'access_token', placeholder: 'ElTokenDeAcceso'}]"
+  :hideTitle="true"
 >
 
 Este endpoint permite obtener todos los lotes de documentos del cliente.
@@ -128,6 +209,34 @@ async function obtenerTodosLosLotes(accessToken) {
 const accessToken = 'ElTokenDeAcceso';
 obtenerTodosLosLotes(accessToken);
 ```
+
+```python [Python]
+import requests
+
+def obtener_todos_los_lotes(access_token):
+    try:
+        response = requests.get(
+            'https://digitai-api.theeye.io/api/Batches',
+            params={
+                'access_token': access_token
+            },
+            headers={
+                'Accept': 'application/json'
+            }
+        )
+        
+        response.raise_for_status()
+        
+        print('Todos los lotes:', response.json())
+        return response.json()
+    except requests.exceptions.RequestException as e:
+        print('Error al obtener lotes:', e)
+
+# Uso
+if __name__ == "__main__":
+    access_token = 'ElTokenDeAcceso'
+    obtener_todos_los_lotes(access_token)
+```
 :::
 
 Ejemplo de respuesta:
@@ -162,6 +271,8 @@ Ejemplo de respuesta:
 </template>
 </ApiEndpoint>
 
+### Crear Batch {#crear-batch}
+
 <ApiEndpoint
   title="Crear Batch"
   method="POST" 
@@ -171,6 +282,7 @@ Ejemplo de respuesta:
   :hasBody="true"
   defaultBody='{"name":"Lote de Facturas Enero 2023"}'
   :initiallyExpanded="true"
+  :hideTitle="true"
 >
 
 Este endpoint permite crear un nuevo lote para agrupar documentos.
@@ -216,6 +328,38 @@ async function crearBatch(accessToken) {
 const accessToken = 'ElTokenDeAcceso';
 crearBatch(accessToken);
 ```
+
+```python [Python]
+import requests
+
+def crear_batch(access_token):
+    try:
+        response = requests.post(
+            'https://digitai-api.theeye.io/api/Batches',
+            json={
+                'name': 'Lote de Facturas Enero 2023'
+            },
+            params={
+                'access_token': access_token
+            },
+            headers={
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+        )
+        
+        response.raise_for_status()
+        
+        print('Batch creado:', response.json())
+        return response.json()
+    except requests.exceptions.RequestException as e:
+        print('Error al crear batch:', e)
+
+# Uso
+if __name__ == "__main__":
+    access_token = 'ElTokenDeAcceso'
+    crear_batch(access_token)
+```
 :::
 
 Ejemplo de respuesta:
@@ -236,6 +380,8 @@ Ejemplo de respuesta:
 </template>
 </ApiEndpoint>
 
+### Subir Documentos al Batch {#subir-documentos-al-batch}
+
 <ApiEndpoint
   title="Subir Documentos al Batch"
   method="POST" 
@@ -247,6 +393,7 @@ Ejemplo de respuesta:
   ]"
   :hasBody="false"
   :hasFileUpload="true"
+  :hideTitle="true"
 >
 
 Este endpoint permite subir documentos a un lote específico.
@@ -300,6 +447,37 @@ const batchId = '60a1b2c3d4e5f6a7b8c9d0e2';
 const filePath = './factura.pdf';
 subirDocumentoAlBatch(accessToken, batchId, filePath);
 ```
+
+```python [Python]
+import requests
+
+def subir_documento_al_batch(access_token, batch_id, file_path):
+    try:
+        with open(file_path, 'rb') as file:
+            files = {'file': file}
+            
+            response = requests.post(
+                f'https://digitai-api.theeye.io/api/Batches/{batch_id}/upload',
+                files=files,
+                params={
+                    'access_token': access_token
+                }
+            )
+            
+            response.raise_for_status()
+            
+            print('Documento subido:', response.json())
+            return response.json()
+    except requests.exceptions.RequestException as e:
+        print('Error al subir documento:', e)
+
+# Uso
+if __name__ == "__main__":
+    access_token = 'ElTokenDeAcceso'
+    batch_id = '60a1b2c3d4e5f6a7b8c9d0e2'
+    file_path = './factura.pdf'
+    subir_documento_al_batch(access_token, batch_id, file_path)
+```
 :::
 
 Ejemplo de respuesta:
@@ -334,6 +512,8 @@ Ejemplo de respuesta:
 </template>
 </ApiEndpoint>
 
+### Leer Batch por ID {#leer-batch-por-id}
+
 <ApiEndpoint
   title="Leer Batch por ID"
   method="GET" 
@@ -343,6 +523,7 @@ Ejemplo de respuesta:
     {name: 'batchId', placeholder: '60a1b2c3d4e5f6a7b8c9d0e2'},
     {name: 'access_token', placeholder: 'ElTokenDeAcceso'}
   ]"
+  :hideTitle="true"
 >
 
 Este endpoint permite obtener la información de un lote específico.
@@ -388,6 +569,35 @@ const accessToken = 'ElTokenDeAcceso';
 const batchId = '60a1b2c3d4e5f6a7b8c9d0e2';
 obtenerBatchPorId(accessToken, batchId);
 ```
+
+```python [Python]
+import requests
+
+def obtener_batch_por_id(access_token, batch_id):
+    try:
+        response = requests.get(
+            f'https://digitai-api.theeye.io/api/Batches/{batch_id}',
+            params={
+                'access_token': access_token
+            },
+            headers={
+                'Accept': 'application/json'
+            }
+        )
+        
+        response.raise_for_status()
+        
+        print('Información del batch:', response.json())
+        return response.json()
+    except requests.exceptions.RequestException as e:
+        print('Error al obtener batch:', e)
+
+# Uso
+if __name__ == "__main__":
+    access_token = 'ElTokenDeAcceso'
+    batch_id = '60a1b2c3d4e5f6a7b8c9d0e2'
+    obtener_batch_por_id(access_token, batch_id)
+```
 :::
 
 Ejemplo de respuesta:
@@ -409,7 +619,9 @@ Ejemplo de respuesta:
 </template>
 </ApiEndpoint>
 
-## Operaciones con Documentos
+## Operaciones con Documentos {#operaciones-con-documentos}
+
+### Obtener Todos los Documentos {#obtener-todos-los-documentos}
 
 <ApiEndpoint
   title="Obtener Todos los Documentos"
@@ -417,6 +629,7 @@ Ejemplo de respuesta:
   endpoint="/api/Documents"
   :baseUrl="'https://digitai-api.theeye.io'"
   :params="[{name: 'access_token', placeholder: 'ElTokenDeAcceso'}]"
+  :hideTitle="true"
 >
 
 Este endpoint permite obtener todos los documentos del cliente.
@@ -460,6 +673,34 @@ async function obtenerTodosLosDocumentos(accessToken) {
 const accessToken = 'ElTokenDeAcceso';
 obtenerTodosLosDocumentos(accessToken);
 ```
+
+```python [Python]
+import requests
+
+def obtener_todos_los_documentos(access_token):
+    try:
+        response = requests.get(
+            'https://digitai-api.theeye.io/api/Documents',
+            params={
+                'access_token': access_token
+            },
+            headers={
+                'Accept': 'application/json'
+            }
+        )
+        
+        response.raise_for_status()
+        
+        print('Todos los documentos:', response.json())
+        return response.json()
+    except requests.exceptions.RequestException as e:
+        print('Error al obtener documentos:', e)
+
+# Uso
+if __name__ == "__main__":
+    access_token = 'ElTokenDeAcceso'
+    obtener_todos_los_documentos(access_token)
+```
 :::
 
 Ejemplo de respuesta:
@@ -490,6 +731,8 @@ Ejemplo de respuesta:
 </template>
 </ApiEndpoint>
 
+### Leer Documento por ID {#leer-documento-por-id}
+
 <ApiEndpoint
   title="Leer Documento por ID"
   method="GET" 
@@ -499,6 +742,7 @@ Ejemplo de respuesta:
     {name: 'documentId', placeholder: '60a1b2c3d4e5f6a7b8c9d0e3'},
     {name: 'access_token', placeholder: 'ElTokenDeAcceso'}
   ]"
+  :hideTitle="true"
 >
 
 Este endpoint permite obtener la información de un documento específico.
@@ -544,6 +788,35 @@ const accessToken = 'ElTokenDeAcceso';
 const documentId = '60a1b2c3d4e5f6a7b8c9d0e3';
 obtenerDocumentoPorId(accessToken, documentId);
 ```
+
+```python [Python]
+import requests
+
+def obtener_documento_por_id(access_token, document_id):
+    try:
+        response = requests.get(
+            f'https://digitai-api.theeye.io/api/Documents/{document_id}',
+            params={
+                'access_token': access_token
+            },
+            headers={
+                'Accept': 'application/json'
+            }
+        )
+        
+        response.raise_for_status()
+        
+        print('Información del documento:', response.json())
+        return response.json()
+    except requests.exceptions.RequestException as e:
+        print('Error al obtener documento:', e)
+
+# Uso
+if __name__ == "__main__":
+    access_token = 'ElTokenDeAcceso'
+    document_id = '60a1b2c3d4e5f6a7b8c9d0e3'
+    obtener_documento_por_id(access_token, document_id)
+```
 :::
 
 Ejemplo de respuesta:
@@ -572,12 +845,15 @@ Ejemplo de respuesta:
   "export_timestamp": null,
   "matched": false,
   "extractor": "pdf-extractor",
+  "secret": "88888888888888888888888888888888",
   "id": "60a1b2c3d4e5f6a7b8c9d0e1"
 }
 ```
 
 </template>
 </ApiEndpoint>
+
+### Obtener Documentos por Batch ID {#obtener-documentos-por-batch-id}
 
 <script setup>
 const params = [
@@ -591,6 +867,7 @@ const params = [
   endpoint="/api/Documents"
   :baseUrl="'https://digitai-api.theeye.io'"
   :params="params"
+  :hideTitle="true"
 >
 
 Este endpoint permite obtener todos los documentos asociados a un lote específico. El parámetro `filter` debe ser un objeto JSON codificado en URL que contenga la condición de filtrado.
@@ -644,6 +921,43 @@ const accessToken = 'ElTokenDeAcceso';
 const batchId = '6800eb313251642494ae877d';
 obtenerDocumentosPorBatchId(accessToken, batchId);
 ```
+
+```python [Python]
+import requests
+import json
+
+def obtener_documentos_por_batch_id(access_token, batch_id):
+    try:
+        filter_data = json.dumps({
+            'where': {
+                'batch_id': batch_id
+            }
+        })
+        
+        response = requests.get(
+            'https://digitai-api.theeye.io/api/Documents',
+            params={
+                'filter': filter_data,
+                'access_token': access_token
+            },
+            headers={
+                'Accept': 'application/json'
+            }
+        )
+        
+        response.raise_for_status()
+        
+        print('Documentos del batch:', response.json())
+        return response.json()
+    except requests.exceptions.RequestException as e:
+        print('Error al obtener documentos del batch:', e)
+
+# Uso
+if __name__ == "__main__":
+    access_token = 'ElTokenDeAcceso'
+    batch_id = '6800eb313251642494ae877d'
+    obtener_documentos_por_batch_id(access_token, batch_id)
+```
 :::
 
 Ejemplo de respuesta:
@@ -674,7 +988,9 @@ Ejemplo de respuesta:
 </template>
 </ApiEndpoint>
 
-## Reportes de Documentos
+## Reportes de Documentos {#reportes-de-documentos}
+
+### Obtener Reporte de Documentos por Batch ID {#obtener-reporte-de-documentos-por-batch-id}
 
 <ApiEndpoint
   title="Obtener Reporte de Documentos por Batch ID"
@@ -685,6 +1001,7 @@ Ejemplo de respuesta:
     {name: 'filters[batch_id]', placeholder: '60a1b2c3d4e5f6a7b8c9d0e2'},
     {name: 'access_token', placeholder: 'ElTokenDeAcceso'}
   ]"
+  :hideTitle="true"
 >
 
 Este endpoint permite obtener un reporte detallado de todos los documentos asociados a un lote específico.
@@ -730,6 +1047,36 @@ async function obtenerReportePorBatchId(accessToken, batchId) {
 const accessToken = 'ElTokenDeAcceso';
 const batchId = '60a1b2c3d4e5f6a7b8c9d0e2';
 obtenerReportePorBatchId(accessToken, batchId);
+```
+
+```python [Python]
+import requests
+
+def obtener_reporte_por_batch_id(access_token, batch_id):
+    try:
+        response = requests.get(
+            'https://digitai-api.theeye.io/api/Documents/report',
+            params={
+                'filters[batch_id]': batch_id,
+                'access_token': access_token
+            },
+            headers={
+                'Accept': 'application/json'
+            }
+        )
+        
+        response.raise_for_status()
+        
+        print('Reporte de documentos:', response.json())
+        return response.json()
+    except requests.exceptions.RequestException as e:
+        print('Error al obtener reporte:', e)
+
+# Uso
+if __name__ == "__main__":
+    access_token = 'ElTokenDeAcceso'
+    batch_id = '60a1b2c3d4e5f6a7b8c9d0e2'
+    obtener_reporte_por_batch_id(access_token, batch_id)
 ```
 :::
 
@@ -791,6 +1138,8 @@ Ejemplo de respuesta:
 </template>
 </ApiEndpoint>
 
+### Enviar Documentos a Procesar {#enviar-documentos-a-procesar}
+
 <ApiEndpoint
   title="Enviar documentos a procesar"
   method="POST" 
@@ -800,6 +1149,7 @@ Ejemplo de respuesta:
     {name: 'access_token', placeholder: 'ElTokenDeAcceso'}
   ]"
   :hasFileUpload="true"
+  :hideTitle="true"
 >
 
 Este endpoint permite enviar documentos a procesar directamente sin un lote.
@@ -945,47 +1295,558 @@ print(response.text)
 </template>
 </ApiEndpoint>
 
-## Instalación de los requisitos
-
-Para ejecutar los ejemplos anteriores necesitas instalar las dependencias:
-
-::: code-group
-```bash [Node.js]
-# Pre-requisitos: Instalar nodejs y npm
-
-# Paso 1 (opcional): Inicializamos el directorio
-npm init -y
-
-# Paso 2: Instalamos las dependencias
-npm install form-data axios
-
-# Paso 3: Ejecutamos el script
-node procesar_documento.js './comprobante.pdf'
-```
-
-```bash [Python]
-# Pre-requisitos: Instalar python y pip
-
-# Paso 1: Instalamos la librería requests
-pip install requests
-
-# Paso 2: Ejecutamos el script
-python procesar_documento.py './comprobante.pdf'
-```
-:::
-
-## Variables de entorno
-
-En el shell debemos setear el access token por variable de entorno para poder comunicarnos con la API.
-
-::: code-group
-```bash [Linux/macOS]
-export API_ACCESS_TOKEN="ElTokenDeAcceso"
-```
-
-```shell [Windows]
-set API_ACCESS_TOKEN="ElTokenDeAcceso"
-```
-:::
-
 <ApiPlaygroundControls /> 
+
+## Operaciones con Lifecycle de Documentos {#operaciones-con-lifecycle-de-documentos}
+
+### Obtener Lifecycle por ID {#obtener-lifecycle-por-id}
+
+<ApiEndpoint
+  title="Obtener Lifecycle por ID"
+  method="GET" 
+  endpoint="/DocumentLifecycles/:id"
+  :baseUrl="'https://digitai-api.theeye.io'"
+  :params="[
+    {name: 'id', placeholder: '60a1b2c3d4e5f6a7b8c9d0e3'},
+    {name: 'access_token', placeholder: 'ElTokenDeAcceso'}
+  ]"
+  :hideTitle="true"
+>
+
+Este endpoint permite obtener información sobre el lifecycle de un documento específico.
+
+<template #example>
+
+::: code-group
+```bash [Curl]
+accessToken="ElTokenDeAcceso"
+documentId="60a1b2c3d4e5f6a7b8c9d0e3"
+
+curl -X GET \
+       --header 'Accept: application/json' \
+       "https://digitai-api.theeye.io/DocumentLifecycles/${documentId}?access_token=${accessToken}"
+```
+
+```javascript [NodeJS]
+const axios = require('axios');
+
+async function obtenerCicloDeVidaPorId(accessToken, documentId) {
+  try {
+    const response = await axios.get(
+      `https://digitai-api.theeye.io/DocumentLifecycles/${documentId}`, 
+      {
+        params: {
+          access_token: accessToken
+        },
+        headers: {
+          'Accept': 'application/json'
+        }
+      }
+    );
+    
+    console.log('Información del lifecycle:', response.data);
+    return response.data;
+  } catch (error) {
+    console.error('Error al obtener lifecycle:', error.response?.data || error.message);
+  }
+}
+
+// Uso
+const accessToken = 'ElTokenDeAcceso';
+const documentId = '60a1b2c3d4e5f6a7b8c9d0e3';
+obtenerCicloDeVidaPorId(accessToken, documentId);
+```
+
+```python [Python]
+import requests
+
+def obtener_ciclo_de_vida_por_id(access_token, document_id):
+    try:
+        response = requests.get(
+            f'https://digitai-api.theeye.io/DocumentLifecycles/{document_id}',
+            params={
+                'access_token': access_token
+            },
+            headers={
+                'Accept': 'application/json'
+            }
+        )
+        
+        response.raise_for_status()
+        
+        print('Información del lifecycle:', response.json())
+        return response.json()
+    except requests.exceptions.RequestException as e:
+        print('Error al obtener lifecycle:', e)
+
+# Uso
+if __name__ == "__main__":
+    access_token = 'ElTokenDeAcceso'
+    document_id = '60a1b2c3d4e5f6a7b8c9d0e3'
+    obtener_ciclo_de_vida_por_id(access_token, document_id)
+```
+:::
+
+Ejemplo de respuesta:
+
+```json
+{
+  "lifecycle": "invalidated",
+  "lifecycle_details": ""
+}
+```
+
+</template>
+</ApiEndpoint>
+
+### Marcar Documento como Completado {#marcar-documento-como-completado}
+
+<ApiEndpoint
+  title="Marcar Documento como Completado"
+  method="PUT" 
+  endpoint="/DocumentLifecycles/:id/completed"
+  :baseUrl="'https://digitai-api.theeye.io'"
+  :params="[
+    {name: 'id', placeholder: '60a1b2c3d4e5f6a7b8c9d0e3'},
+    {name: 'access_token', placeholder: 'ElTokenDeAcceso'}
+  ]"
+  :hasBody="true"
+  defaultBody='{"details":"Documento procesado correctamente"}'
+  :hideTitle="true"
+>
+
+Este endpoint permite marcar un documento como completado en su lifecycle.
+
+<template #example>
+
+::: code-group
+```bash [Curl]
+accessToken="ElTokenDeAcceso"
+documentId="60a1b2c3d4e5f6a7b8c9d0e3"
+
+curl -X PUT \
+       --header 'Content-Type: application/json' \
+       --header 'Accept: application/json' \
+       -d '{"details":"Documento procesado correctamente"}' \
+       "https://digitai-api.theeye.io/DocumentLifecycles/${documentId}/completed?access_token=${accessToken}"
+```
+
+```javascript [NodeJS]
+const axios = require('axios');
+
+async function marcarDocumentoComoCompletado(accessToken, documentId, details) {
+  try {
+    const response = await axios.put(
+      `https://digitai-api.theeye.io/DocumentLifecycles/${documentId}/completed`,
+      { details },
+      {
+        params: {
+          access_token: accessToken
+        },
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        }
+      }
+    );
+    
+    console.log('Documento marcado como completado:', response.data);
+    return response.data;
+  } catch (error) {
+    console.error('Error al marcar documento como completado:', error.response?.data || error.message);
+  }
+}
+
+// Uso
+const accessToken = 'ElTokenDeAcceso';
+const documentId = '60a1b2c3d4e5f6a7b8c9d0e3';
+const details = 'Documento procesado correctamente';
+marcarDocumentoComoCompletado(accessToken, documentId, details);
+```
+
+```python [Python]
+import requests
+
+def marcar_documento_como_completado(access_token, document_id, details):
+    try:
+        response = requests.put(
+            f'https://digitai-api.theeye.io/DocumentLifecycles/{document_id}/completed',
+            json={
+                'details': details
+            },
+            params={
+                'access_token': access_token
+            },
+            headers={
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+        )
+        
+        response.raise_for_status()
+        
+        print('Documento marcado como completado:', response.json())
+        return response.json()
+    except requests.exceptions.RequestException as e:
+        print('Error al marcar documento como completado:', e)
+
+# Uso
+if __name__ == "__main__":
+    access_token = 'ElTokenDeAcceso'
+    document_id = '60a1b2c3d4e5f6a7b8c9d0e3'
+    details = 'Documento procesado correctamente'
+    marcar_documento_como_completado(access_token, document_id, details)
+```
+:::
+
+Ejemplo de respuesta:
+
+```json
+{
+  "lifecycle": "completed",
+  "lifecycle_details": ""
+}
+```
+
+</template>
+</ApiEndpoint>
+
+### Actualizar Detalles del Lifecycle {#actualizar-detalles-del-lifecycle}
+
+<ApiEndpoint
+  title="Actualizar Detalles del Lifecycle"
+  method="PUT" 
+  endpoint="/DocumentLifecycles/:id/details"
+  :baseUrl="'https://digitai-api.theeye.io'"
+  :params="[
+    {name: 'id', placeholder: '60a1b2c3d4e5f6a7b8c9d0e3'},
+    {name: 'access_token', placeholder: 'ElTokenDeAcceso'}
+  ]"
+  :hasBody="true"
+  defaultBody='{"details":"Procesando página 3 de 10"}'
+  :hideTitle="true"
+>
+
+Este endpoint permite actualizar los detalles del lifecycle de un documento sin cambiar su estado.
+
+<template #example>
+
+::: code-group
+```bash [Curl]
+accessToken="ElTokenDeAcceso"
+documentId="60a1b2c3d4e5f6a7b8c9d0e3"
+
+curl -X PUT \
+       --header 'Content-Type: application/json' \
+       --header 'Accept: application/json' \
+       -d '{"details":"Procesando página 3 de 10"}' \
+       "https://digitai-api.theeye.io/DocumentLifecycles/${documentId}/details?access_token=${accessToken}"
+```
+
+```javascript [NodeJS]
+const axios = require('axios');
+
+async function actualizarDetallesCicloDeVida(accessToken, documentId, details) {
+  try {
+    const response = await axios.put(
+      `https://digitai-api.theeye.io/DocumentLifecycles/${documentId}/details`,
+      { details },
+      {
+        params: {
+          access_token: accessToken
+        },
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        }
+      }
+    );
+    
+    console.log('Detalles actualizados:', response.data);
+    return response.data;
+  } catch (error) {
+    console.error('Error al actualizar detalles:', error.response?.data || error.message);
+  }
+}
+
+// Uo
+const accessToken = 'ElTokenDeAcceso';
+const documentId = '60a1b2c3d4e5f6a7b8c9d0e3';
+const details = 'Procesando página 3 de 10';
+actualizarDetallesCicloDeVida(accessToken, documentId, details);
+```
+
+```python [Python]
+import requests
+
+def actualizar_detalles_ciclo_de_vida(access_token, document_id, details):
+    try:
+        response = requests.put(
+            f'https://digitai-api.theeye.io/DocumentLifecycles/{document_id}/details',
+            json={
+                'details': details
+            },
+            params={
+                'access_token': access_token
+            },
+            headers={
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+        )
+        
+        response.raise_for_status()
+        
+        print('Detalles actualizados:', response.json())
+        return response.json()
+    except requests.exceptions.RequestException as e:
+        print('Error al actualizar detalles:', e)
+
+# Uso
+if __name__ == "__main__":
+    access_token = 'ElTokenDeAcceso'
+    document_id = '60a1b2c3d4e5f6a7b8c9d0e3'
+    details = 'Procesando página 3 de 10'
+    actualizar_detalles_ciclo_de_vida(access_token, document_id, details)
+```
+:::
+
+Ejemplo de respuesta:
+
+```json
+{
+  "id": "60a1b2c3d4e5f6a7b8c9d0e3",
+  "documentId": "60a1b2c3d4e5f6a7b8c9d0e3",
+  "status": "processing",
+  "details": "Procesando página 3 de 10",
+  "createdAt": "2023-06-01T10:20:15.000Z",
+  "updatedAt": "2023-06-01T10:25:30.000Z"
+}
+```
+
+</template>
+</ApiEndpoint>
+
+### Marcar Documento con Error {#marcar-documento-con-error}
+
+<ApiEndpoint
+  title="Marcar Documento con Error"
+  method="PUT" 
+  endpoint="/DocumentLifecycles/:id/error"
+  :baseUrl="'https://digitai-api.theeye.io'"
+  :params="[
+    {name: 'id', placeholder: '60a1b2c3d4e5f6a7b8c9d0e3'},
+    {name: 'access_token', placeholder: 'ElTokenDeAcceso'}
+  ]"
+  :hasBody="true"
+  defaultBody='{"error":"El documento está dañado y no puede ser procesado"}'
+  :hideTitle="true"
+>
+
+Este endpoint permite marcar un documento con error en su lifecycle.
+
+<template #example>
+
+::: code-group
+```bash [Curl]
+accessToken="ElTokenDeAcceso"
+documentId="60a1b2c3d4e5f6a7b8c9d0e3"
+
+curl -X PUT \
+       --header 'Content-Type: application/json' \
+       --header 'Accept: application/json' \
+       -d '{"error":"El documento está dañado y no puede ser procesado"}' \
+       "https://digitai-api.theeye.io/DocumentLifecycles/${documentId}/error?access_token=${accessToken}"
+```
+
+```javascript [NodeJS]
+const axios = require('axios');
+
+async function marcarDocumentoConError(accessToken, documentId, error) {
+  try {
+    const response = await axios.put(
+      `https://digitai-api.theeye.io/DocumentLifecycles/${documentId}/error`,
+      { error },
+      {
+        params: {
+          access_token: accessToken
+        },
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        }
+      }
+    );
+    
+    console.log('Documento marcado con error:', response.data);
+    return response.data;
+  } catch (error) {
+    console.error('Error al marcar documento con error:', error.response?.data || error.message);
+  }
+}
+
+// Uso
+const accessToken = 'ElTokenDeAcceso';
+const documentId = '60a1b2c3d4e5f6a7b8c9d0e3';
+const errorMsg = 'El documento está dañado y no puede ser procesado';
+marcarDocumentoConError(accessToken, documentId, errorMsg);
+```
+
+```python [Python]
+import requests
+
+def marcar_documento_con_error(access_token, document_id, error_msg):
+    try:
+        response = requests.put(
+            f'https://digitai-api.theeye.io/DocumentLifecycles/{document_id}/error',
+            json={
+                'error': error_msg
+            },
+            params={
+                'access_token': access_token
+            },
+            headers={
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+        )
+        
+        response.raise_for_status()
+        
+        print('Documento marcado con error:', response.json())
+        return response.json()
+    except requests.exceptions.RequestException as e:
+        print('Error al marcar documento con error:', e)
+
+# Uso
+if __name__ == "__main__":
+    access_token = 'ElTokenDeAcceso'
+    document_id = '60a1b2c3d4e5f6a7b8c9d0e3'
+    error_msg = 'El documento está dañado y no puede ser procesado'
+    marcar_documento_con_error(access_token, document_id, error_msg)
+```
+:::
+
+Ejemplo de respuesta:
+
+```json
+{
+  "lifecycle":"error",
+  "lifecycle_details":""
+}
+```
+
+</template>
+</ApiEndpoint>
+
+### Invalidar Documento {#invalidar-documento}
+
+<ApiEndpoint
+  title="Invalidar Documento"
+  method="PUT" 
+  endpoint="/DocumentLifecycles/:id/invalidated"
+  :baseUrl="'https://digitai-api.theeye.io'"
+  :params="[
+    {name: 'id', placeholder: '60a1b2c3d4e5f6a7b8c9d0e3'},
+    {name: 'access_token', placeholder: 'ElTokenDeAcceso'}
+  ]"
+  :hasBody="true"
+  defaultBody='{"reason":"El documento no cumple con los requisitos para ser procesado"}'
+  :hideTitle="true"
+>
+
+Este endpoint permite marcar un documento como invalidado en su lifecycle.
+
+<template #example>
+
+::: code-group
+```bash [Curl]
+accessToken="ElTokenDeAcceso"
+documentId="60a1b2c3d4e5f6a7b8c9d0e3"
+
+curl -X PUT \
+       --header 'Content-Type: application/json' \
+       --header 'Accept: application/json' \
+       -d '{"reason":"El documento no cumple con los requisitos para ser procesado"}' \
+       "https://digitai-api.theeye.io/DocumentLifecycles/${documentId}/invalidated?access_token=${accessToken}"
+```
+
+```javascript [NodeJS]
+const axios = require('axios');
+
+async function invalidarDocumento(accessToken, documentId, reason) {
+  try {
+    const response = await axios.put(
+      `https://digitai-api.theeye.io/DocumentLifecycles/${documentId}/invalidated`,
+      { reason },
+      {
+        params: {
+          access_token: accessToken
+        },
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        }
+      }
+    );
+    
+    console.log('Documento invalidado:', response.data);
+    return response.data;
+  } catch (error) {
+    console.error('Error al invalidar documento:', error.response?.data || error.message);
+  }
+}
+
+// Uso
+const accessToken = 'ElTokenDeAcceso';
+const documentId = '60a1b2c3d4e5f6a7b8c9d0e3';
+const reason = 'El documento no cumple con los requisitos para ser procesado';
+invalidarDocumento(accessToken, documentId, reason);
+```
+
+```python [Python]
+import requests
+
+def invalidar_documento(access_token, document_id, reason):
+    try:
+        response = requests.put(
+            f'https://digitai-api.theeye.io/DocumentLifecycles/{document_id}/invalidated',
+            json={
+                'reason': reason
+            },
+            params={
+                'access_token': access_token
+            },
+            headers={
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+        )
+        
+        response.raise_for_status()
+        
+        print('Documento invalidado:', response.json())
+        return response.json()
+    except requests.exceptions.RequestException as e:
+        print('Error al invalidar documento:', e)
+
+# Uso
+if __name__ == "__main__":
+    access_token = 'ElTokenDeAcceso'
+    document_id = '60a1b2c3d4e5f6a7b8c9d0e3'
+    reason = 'El documento no cumple con los requisitos para ser procesado'
+    invalidar_documento(access_token, document_id, reason)
+```
+:::
+
+Ejemplo de respuesta:
+
+```json
+{
+  "lifecycle":"invalidated",
+  "lifecycle_details":""
+}
+```
+
+</template>
+</ApiEndpoint>

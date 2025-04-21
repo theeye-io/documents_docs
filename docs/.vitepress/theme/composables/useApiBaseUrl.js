@@ -24,6 +24,21 @@ if (typeof window !== 'undefined') {
   }
 }
 
+// Helper function to ensure URL has /api path
+function ensureApiPath(url) {
+  if (!url) return url;
+  
+  // Remove trailing slash if present
+  let formattedUrl = url.endsWith('/') ? url.slice(0, -1) : url;
+  
+  // Add /api if not already present
+  if (!formattedUrl.endsWith('/api')) {
+    formattedUrl = formattedUrl + '/api';
+  }
+  
+  return formattedUrl;
+}
+
 export function useApiBaseUrl() {
   // Save URL to localStorage when it changes
   const setApiBaseUrl = (url) => {
@@ -33,8 +48,8 @@ export function useApiBaseUrl() {
       return
     }
     
-    // Remove trailing slash if present
-    const formattedUrl = url.endsWith('/') ? url.slice(0, -1) : url
+    // Format URL to ensure it has /api path
+    const formattedUrl = ensureApiPath(url)
     
     apiBaseUrl.value = formattedUrl
     isCustomUrl.value = true
