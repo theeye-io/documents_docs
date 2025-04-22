@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com/theeye-io/documents_docs/compare/1.1.0...1.2.0) (2025-04-22)
+
+
+### Features
+
+* ejemplos apis + deploy scripts ([80f522b](https://github.com/theeye-io/documents_docs/commit/80f522b0ccb166bf714c7f9dfd951694f8560152))
+* iframe sample ([4423f36](https://github.com/theeye-io/documents_docs/commit/4423f36edf7589b06e75b235fbf3ff6c94142534))
+
+
+### Bug Fixes
+
+* endpoint to use ([9303ea3](https://github.com/theeye-io/documents_docs/commit/9303ea31ad30ef1cb8b2eb009263821006fcf43c))
+* path, token, url. doc nueva lifecycle ([08201b9](https://github.com/theeye-io/documents_docs/commit/08201b924758eeb07dc164f868a4531c9fdf1420))
+
 ## 1.1.0 (2025-04-17)
 
 
