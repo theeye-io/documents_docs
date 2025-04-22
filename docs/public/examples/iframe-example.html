@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digitai - Ejemplo de Integración con iframes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .header {
+            background-color: #3f51b5;
+            color: white;
+            padding: 15px;
+            border-radius: 5px 5px 0 0;
+        }
+        .content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 0 0 5px 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .iframe-container {
+            width: 100%;
+            height: 700px;
+            margin: 20px 0;
+            border: 1px solid #ddd;
+        }
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        .status {
+            padding: 10px;
+            margin-top: 20px;
+            background-color: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            display: none;
+        }
+        button {
+            background-color: #3f51b5;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #303f9f;
+        }
+        .instructions {
+            background-color: #e3f2fd;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+        code {
+            background-color: #f1f1f1;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+        .input-group {
+            margin-bottom: 15px;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .input-group input:focus {
+            border-color: #3f51b5;
+            outline: none;
+        }
+        .tabs {
+            display: flex;
+            margin-bottom: 15px;
+        }
+        .tab {
+            padding: 10px 15px;
+            cursor: pointer;
+            background-color: #f1f1f1;
+            border: 1px solid #ddd;
+        }
+        .tab.active {
+            background-color: #3f51b5;
+            color: white;
+            border-color: #3f51b5;
+        }
+        .tab:first-child {
+            border-radius: 4px 0 0 4px;
+        }
+        .tab:last-child {
+            border-radius: 0 4px 4px 0;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .error-message {
+            padding: 10px;
+            margin: 10px 0;
+            background-color: #fef0f0;
+            border-left: 4px solid #e74c3c;
+            display: none;
+        }
+        .info-message {
+            padding: 10px;
+            margin: 10px 0;
+            background-color: #e3f2fd;
+            border-left: 4px solid #2196f3;
+        }
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Digitai - Ejemplo de Integración con iframes</h1>
+        </div>
+        <div class="content">
+            <div class="instructions">
+                <h2>Instrucciones</h2>
+                <p>Este es un ejemplo funcional de integración con Digitai mediante iframes. Para utilizarlo:</p>
+                <ol>
+                    <li>Puede usar los parámetros <code>?documentId=ID&secretKey=KEY</code> en la URL para precargar valores</li>
+                    <li>O ingrese manualmente el ID del documento y la clave secreta en los campos correspondientes</li>
+                    <li>O ingrese directamente la URL completa del documento</li>
+                    <li>Pruebe la funcionalidad haciendo clic en "Cargar Documento"</li>
+                </ol>
+                <p>Para más información, consulte la <a href="https://docs.digitai.theeye.io/developers/" target="_blank">documentación completa</a>.</p>
+            </div>
+
+            <h2>Documento</h2>
+            
+            <div class="tabs">
+                <div class="tab active" data-tab="parameters">Parámetros</div>
+                <div class="tab" data-tab="url">URL Completa</div>
+            </div>
+            
+            <div class="tab-content active" id="parameters-content">
+                <div class="input-group">
+                    <label for="environmentUrl">API URL de Entorno:</label>
+                    <input type="text" id="environmentUrl" placeholder="API URL del entorno de Digitai" value="https://digitai-api.theeye.io">
+                </div>
+                <div class="input-group">
+                    <label for="documentId">ID del Documento:</label>
+                    <input type="text" id="documentId" placeholder="Ingrese el ID del documento">
+                </div>
+                <div class="input-group">
+                    <label for="secretKey">Clave Secreta:</label>
+                    <input type="text" id="secretKey" placeholder="Ingrese la clave secreta">
+                </div>
+            </div>
+            
+            <div class="tab-content" id="url-content">
+                <div class="input-group">
+                    <label for="fullUrl">URL Completa del Documento:</label>
+                    <input type="text" id="fullUrl" placeholder="https://digitai-api.theeye.io/document/ID/secret/KEY/review">
+                </div>
+            </div>
+            
+            <div class="info-message">
+                <strong>Nota:</strong> Algunos servidores pueden bloquear la visualización en iframes por razones de seguridad. 
+                Si ocurre un error, utilice la opción "Abrir en nueva pestaña" como alternativa.
+            </div>
+            
+            <div class="action-buttons">
+                <button id="loadButton">Cargar en iframe</button>
+                <button id="openButton">Abrir en nueva pestaña</button>
+            </div>
+            <button id="reloadButton" style="display: none;">Recargar Documento</button>
+            
+            <div id="errorContainer" class="error-message">
+                <strong>Error:</strong> No se puede mostrar el contenido en un iframe debido a restricciones de seguridad del servidor.
+                <p>Por favor, utilice la opción "Abrir en nueva pestaña".</p>
+            </div>
+            
+            <div id="iframeContainer" class="iframe-container" style="display: none;">
+                <iframe id="documentFrame" src="about:blank" allowfullscreen></iframe>
+            </div>
+            
+            <div id="status" class="status">
+                <h3>Mensaje Recibido:</h3>
+                <pre id="messageContent"></pre>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Obtener elementos del DOM
+        const loadButton = document.getElementById('loadButton');
+        const openButton = document.getElementById('openButton');
+        const reloadButton = document.getElementById('reloadButton');
+        const iframeContainer = document.getElementById('iframeContainer');
+        const documentFrame = document.getElementById('documentFrame');
+        const statusElement = document.getElementById('status');
+        const messageContentElement = document.getElementById('messageContent');
+        const environmentUrlInput = document.getElementById('environmentUrl');
+        const documentIdInput = document.getElementById('documentId');
+        const secretKeyInput = document.getElementById('secretKey');
+        const fullUrlInput = document.getElementById('fullUrl');
+        const tabs = document.querySelectorAll('.tab');
+        const tabContents = document.querySelectorAll('.tab-content');
+        const errorContainer = document.getElementById('errorContainer');
+        
+        // Gestión de pestañas
+        tabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                tabs.forEach(t => t.classList.remove('active'));
+                tabContents.forEach(tc => tc.classList.remove('active'));
+                
+                this.classList.add('active');
+                document.getElementById(`${this.dataset.tab}-content`).classList.add('active');
+            });
+        });
+        
+        // Obtener parámetros de la URL
+        function getURLParameters() {
+            const params = new URLSearchParams(window.location.search);
+            const documentId = params.get('documentId');
+            const secretKey = params.get('secretKey');
+            const environmentUrl = params.get('environmentUrl');
+            
+            if (documentId) documentIdInput.value = documentId;
+            if (secretKey) secretKeyInput.value = secretKey;
+            if (environmentUrl) environmentUrlInput.value = environmentUrl;
+        }
+        
+        // Inicializar con parámetros de URL
+        getURLParameters();
+        
+        // Construir URL del documento basado en los parámetros o URL completa
+        function getDocumentUrl() {
+            const activeTab = document.querySelector('.tab.active').dataset.tab;
+            
+            if (activeTab === 'url') {
+                return fullUrlInput.value.trim();
+            } else {
+                const environmentUrl = environmentUrlInput.value.trim() || 'https://digitai.theeye.io';
+                const documentId = documentIdInput.value.trim();
+                const secretKey = secretKeyInput.value.trim();
+                
+                if (!documentId || !secretKey) {
+                    alert('Por favor, ingrese tanto el ID del documento como la clave secreta.');
+                    return null;
+                }
+                
+                return `${environmentUrl}/document/${documentId}/secret/${secretKey}/review`;
+            }
+        }
+        
+        // Escuchar mensajes del iframe
+        window.addEventListener('message', function(event) {
+            // Verificar origen del mensaje (opcional pero recomendado en producción)
+            // if (event.origin !== 'https://digitai.theeye.io') return;
+            
+            console.log('Mensaje recibido:', event.data);
+            
+            // Mostrar el mensaje recibido
+            if (event.data && event.data.action === 'close') {
+                statusElement.style.display = 'block';
+                messageContentElement.textContent = JSON.stringify(event.data, null, 2);
+                
+                // Ocultar iframe y mostrar botón de recarga
+                iframeContainer.style.display = 'none';
+                loadButton.style.display = 'none';
+                reloadButton.style.display = 'inline-block';
+            }
+        });
+        
+        // Evento de clic en botón de carga
+        loadButton.addEventListener('click', function() {
+            const documentUrl = getDocumentUrl();
+            if (!documentUrl) return;
+            
+            errorContainer.style.display = 'none';
+            documentFrame.src = documentUrl;
+            iframeContainer.style.display = 'block';
+            loadButton.style.display = 'none';
+            reloadButton.style.display = 'inline-block';
+            statusElement.style.display = 'none';
+            
+            // Comprobar si el iframe se carga correctamente
+            documentFrame.onerror = function() {
+                errorContainer.style.display = 'block';
+            };
+        });
+        
+        // Evento de clic en botón de apertura en nueva pestaña
+        openButton.addEventListener('click', function() {
+            const documentUrl = getDocumentUrl();
+            if (!documentUrl) return;
+            
+            window.open(documentUrl, '_blank');
+        });
+        
+        // Capturar errores de carga del iframe
+        window.addEventListener('error', function(e) {
+            if (e.target.tagName === 'IFRAME') {
+                errorContainer.style.display = 'block';
+            }
+        }, true);
+        
+        // Evento de clic en botón de recarga
+        reloadButton.addEventListener('click', function() {
+            const documentUrl = getDocumentUrl();
+            if (!documentUrl) return;
+            
+            documentFrame.src = documentUrl;
+            iframeContainer.style.display = 'block';
+            statusElement.style.display = 'none';
+        });
+    </script>
+</body>
+</html> 

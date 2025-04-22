@@ -35,6 +35,14 @@ Documentación completa de nuestra API REST para integrar Digitai con sus sistem
 - Callbacks y notificaciones
 - Ejemplos de código en múltiples lenguajes (cURL, Node.js, Python)
 
+### [Developers](/developers/)
+
+Herramientas y guías para desarrolladores que desean integrar Digitai en sus aplicaciones:
+
+- Integración mediante iframes para visualización de documentos
+- Manejo de eventos y mensajes entre su aplicación y Digitai
+- Ejemplos prácticos de implementación en distintos entornos
+
 ## Primeros Pasos
 
 Para comenzar a utilizar Digitai:

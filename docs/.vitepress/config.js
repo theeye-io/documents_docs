@@ -16,6 +16,7 @@ export default {
       { text: 'Trazabilidad', link: '/trazabilidad' },
       { text: 'Convenciones', link: '/convenciones/' },
       { text: 'API', link: '/api/' },
+      { text: 'Developers', link: '/developers/' },
       { text: 'Soporte', link: 'https://ayuda.theeye.io' },
       {
         text: 'Versión',
@@ -96,6 +97,21 @@ export default {
                   { text: 'Invalidar Documento', link: '/api/#invalidar-documento' }
                 ]
               }
+            ]
+          }
+        ]
+      },
+      {
+        text: 'Guía para Desarrolladores',
+        items: [
+          {
+            text: 'Integración mediante iframes',
+            link: '/developers/',
+            items: [
+              { text: 'Cómo funciona', link: '/developers/#cómo-funciona' },
+              { text: 'Implementación paso a paso', link: '/developers/#implementación-paso-a-paso' },
+              { text: 'Ejemplo completo', link: '/developers/#ejemplo-completo-de-implementación' },
+              { text: 'Consideraciones de seguridad', link: '/developers/#consideraciones-de-seguridad' }
             ]
           }
         ]
