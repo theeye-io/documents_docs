@@ -1,7 +1,7 @@
 import { ref, computed } from 'vue'
 
 // Default production API URL
-const DEFAULT_API_URL = 'https://digitai-api.theeye.io'
+const DEFAULT_API_URL = 'https://digitai-staging-api.theeye.io'
 
 // Create a shared state for the API base URL
 const apiBaseUrl = ref(DEFAULT_API_URL)
