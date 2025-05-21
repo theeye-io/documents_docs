@@ -1,7 +1,7 @@
 import { ref, computed } from 'vue'
 
 // Default production API URL
-const DEFAULT_API_URL = 'https://digitai-api.theeye.io'
+const DEFAULT_API_URL = 'https://digitai-backend.theeye.io'
 
 // Create a shared state for the API base URL
 const apiBaseUrl = ref(DEFAULT_API_URL)
@@ -18,7 +18,7 @@ const isLocalhost = computed(() => {
 // If available, retrieve custom URL from localStorage on initial load
 if (typeof window !== 'undefined') {
   const savedUrl = localStorage.getItem('digitai_api_base_url')
-  if (savedUrl) {
+  if (savedUrl && savedUrl !== DEFAULT_API_URL) {
     apiBaseUrl.value = savedUrl
     isCustomUrl.value = true
   }
@@ -52,7 +52,7 @@ export function useApiBaseUrl() {
     const formattedUrl = ensureApiPath(url)
     
     apiBaseUrl.value = formattedUrl
-    isCustomUrl.value = true
+    isCustomUrl.value = formattedUrl !== DEFAULT_API_URL
     
     if (typeof window !== 'undefined') {
       localStorage.setItem('digitai_api_base_url', formattedUrl)
@@ -61,12 +61,11 @@ export function useApiBaseUrl() {
 
   // Reset to default URL
   const resetApiBaseUrl = () => {
-    apiBaseUrl.value = DEFAULT_API_URL
-    isCustomUrl.value = false
-    
     if (typeof window !== 'undefined') {
       localStorage.removeItem('digitai_api_base_url')
     }
+    apiBaseUrl.value = DEFAULT_API_URL
+    isCustomUrl.value = false
   }
 
   // Function to transform an endpoint to use the current base URL

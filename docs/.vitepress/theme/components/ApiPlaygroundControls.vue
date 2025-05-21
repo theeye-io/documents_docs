@@ -84,43 +84,55 @@
           Error: {{ profileError }}
         </div>
 
-        <!-- API URL Configuration (only on localhost) -->
-        <div v-if="isLocalhost" class="api-url-section">
-          <h5>URL de la API (Modo Desarrollo)</h5>
-          <p class="url-description">
-            Configure la URL base de la API para pruebas en entorno de desarrollo.
-          </p>
-          <div class="url-input-container">
-            <input 
-              v-model="localApiUrl" 
-              type="text" 
-              class="url-input"
-              placeholder="https://api-dev.example.com"
-              @keyup.enter="saveApiUrl"
-            />
-            
-            <div class="url-actions">
-              <button 
-                class="url-save-btn control-btn" 
-                @click="saveApiUrl"
-                :disabled="!localApiUrl"
-              >
-                Guardar URL
-              </button>
-              
-              <button 
-                v-if="isCustomApiUrl" 
-                class="url-reset-btn control-btn" 
-                @click="resetApiUrl"
-              >
-                Restaurar Default
-              </button>
-            </div>
+        <!-- API URL Configuration (always visible) -->
+        <div class="api-url-section">
+          <h5>URL de la API</h5>
+          <div v-if="isCustomApiUrl" class="custom-url-alert">
+            <span class="alert-icon">⚠️</span>
+            <span>Usando URL personalizada: <code>{{ displayApiBaseUrl }}</code></span>
+            <button 
+              class="url-reset-btn control-btn" 
+              @click="resetApiUrl"
+            >
+              Restaurar URL por defecto
+            </button>
           </div>
-          <div class="api-url-status" v-if="isCustomApiUrl">
+          <div v-else class="default-url-status">
             <span class="url-status-icon">✓</span> 
-            <span>URL personalizada configurada: <code>{{ displayApiBaseUrl }}</code></span>
+            <span>Usando URL por defecto: <code>{{ displayApiBaseUrl }}</code></span>
           </div>
+
+          <!-- Development mode controls -->
+          <template v-if="isLocalhost">
+            <p class="url-description">
+              Configure la URL base de la API para pruebas en entorno de desarrollo.
+            </p>
+            <div class="url-input-container">
+              <input 
+                v-model="localApiUrl" 
+                type="text" 
+                class="url-input"
+                placeholder="https://api-dev.example.com"
+                @keyup.enter="saveApiUrl"
+              />
+              
+              <div class="url-actions">
+                <button 
+                  class="url-save-btn control-btn" 
+                  @click="saveApiUrl"
+                  :disabled="!localApiUrl"
+                >
+                  Guardar URL
+                </button>
+                <button 
+                  class="url-clear-btn control-btn" 
+                  @click="resetApiUrl"
+                >
+                  Limpiar
+                </button>
+              </div>
+            </div>
+          </template>
         </div>
       </div>
     </div>
@@ -247,6 +259,15 @@ function saveApiUrl() {
 function resetApiUrl() {
   localApiUrl.value = ''
   resetApiBaseUrl()
+}
+
+function clearUrlStorage() {
+  // Clear custom URL from storage and reset to default
+  resetApiUrl()
+  // Clear the input field
+  localApiUrl.value = ''
+  // Force a refresh of the display URL
+  localApiUrl.value = displayApiBaseUrl.value
 }
 </script>
 
@@ -466,5 +487,52 @@ function resetApiUrl() {
   border-radius: 6px;
   border-left: 4px solid var(--vp-c-danger);
   color: var(--vp-c-danger);
+}
+
+.custom-url-alert {
+  margin: 10px 0;
+  padding: 10px;
+  background-color: #fff3cd;
+  border: 1px solid #ffeeba;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.alert-icon {
+  font-size: 1.2em;
+}
+
+.default-url-status {
+  margin: 10px 0;
+  padding: 10px;
+  background-color: #d4edda;
+  border: 1px solid #c3e6cb;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.url-reset-btn {
+  margin-left: auto;
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.url-reset-btn:hover {
+  background-color: #c82333;
+}
+
+code {
+  background-color: rgba(0, 0, 0, 0.05);
+  padding: 2px 4px;
+  border-radius: 3px;
+  font-family: monospace;
 }
 </style> 

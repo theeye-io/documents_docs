@@ -71,7 +71,7 @@ set API_ACCESS_TOKEN="ElTokenDeAcceso"
   title="Basic Login"
   method="POST" 
   endpoint="/api/Session/login"
-  :baseUrl="'https://digitai-api.theeye.io'"
+  :baseUrl="'https://digitai-backend.theeye.io'"
   :hasBody="true"
   defaultBody='{"username":"user@domain.io","password":"youknowit"}'
   :hideTitle="true"
@@ -87,7 +87,7 @@ curl -X POST \
        --header 'Content-Type: application/json' \
        --header 'Accept: application/json' \
        -d '{"username":"user%40domain.io","password":"youknowit"}' \
-       'https://digitai-api.theeye.io/api/Session/login'
+       'https://digitai-backend.theeye.io/api/Session/login'
 ```
 
 ```javascript [NodeJS]
@@ -95,7 +95,7 @@ const axios = require('axios');
 
 async function login() {
   try {
-    const response = await axios.post('https://digitai-api.theeye.io/api/Session/login', {
+    const response = await axios.post('https://digitai-backend.theeye.io/api/Session/login', {
       username: 'user@domain.io',
       password: 'youknowit'
     }, {
@@ -124,7 +124,7 @@ import json
 def login():
     try:
         response = requests.post(
-            'https://digitai-api.theeye.io/api/Session/login',
+            'https://digitai-backend.theeye.io/api/Session/login',
             json={
                 'username': 'user@domain.io',
                 'password': 'youknowit'
@@ -163,7 +163,7 @@ El resultado de esta operación es un access token que se puede utilizar para co
   title="Obtener Todos los Lotes"
   method="GET" 
   endpoint="/api/Batches"
-  :baseUrl="'https://digitai-api.theeye.io'"
+  :baseUrl="'https://digitai-backend.theeye.io'"
   :params="[{name: 'access_token', placeholder: 'ElTokenDeAcceso'}]"
   :hideTitle="true"
 >
@@ -178,7 +178,7 @@ accessToken="ElTokenDeAcceso"
 
 curl -X GET \
        --header 'Accept: application/json' \
-       "https://digitai-api.theeye.io/api/Batches?access_token=${accessToken}"
+       "https://digitai-backend.theeye.io/api/Batches?access_token=${accessToken}"
 ```
 
 ```javascript [NodeJS]
@@ -187,7 +187,7 @@ const axios = require('axios');
 async function obtenerTodosLosLotes(accessToken) {
   try {
     const response = await axios.get(
-      'https://digitai-api.theeye.io/api/Batches', 
+      'https://digitai-backend.theeye.io/api/Batches', 
       {
         params: {
           access_token: accessToken
@@ -216,7 +216,7 @@ import requests
 def obtener_todos_los_lotes(access_token):
     try:
         response = requests.get(
-            'https://digitai-api.theeye.io/api/Batches',
+            'https://digitai-backend.theeye.io/api/Batches',
             params={
                 'access_token': access_token
             },
@@ -277,15 +277,29 @@ Ejemplo de respuesta:
   title="Crear Batch"
   method="POST" 
   endpoint="/api/Batches"
-  :baseUrl="'https://digitai-api.theeye.io'"
+  :baseUrl="'https://digitai-backend.theeye.io'"
   :params="[{name: 'access_token', placeholder: 'ElTokenDeAcceso'}]"
   :hasBody="true"
-  defaultBody='{"name":"Lote de Facturas Enero 2023"}'
+  defaultBody='{"name":"Lote de Facturas Enero 2023","lifecycle":"on_hold","lifecycle_details":"En espera de validación","import_uuid":"550e8400-e29b-41d4-a716-446655440000"}'
   :initiallyExpanded="true"
   :hideTitle="true"
 >
 
 Este endpoint permite crear un nuevo lote para agrupar documentos.
+
+Por defecto, el batch se crea con el lifecycle en "pending". Sin embargo, es posible especificar un lifecycle diferente al momento de la creación.
+
+Los campos que se pueden especificar al crear un batch son:
+- `name` (string, requerido): Nombre del lote
+- `lifecycle` (string, opcional): Estado inicial del lote. Valores posibles: "pending" (default) o "on_hold"
+- `lifecycle_details` (string, opcional): Detalles adicionales sobre el estado del lote
+- `import_uuid` (string|boolean, opcional): UUID para identificar un proceso importación. Puede ser un UUID válido o `true` para que se genere automáticamente en el backend.
+
+> **Nota sobre import_uuid**: 
+> - Si se omite, será `null` por defecto
+> - Si es `true`, se generará un UUID automáticamente
+> - Si se proporciona un string, DEBE ser un UUID válido o se producirá un error
+> - Cualquier otro valor producirá un error de validación
 
 <template #example>
 
@@ -296,8 +310,8 @@ accessToken="ElTokenDeAcceso"
 curl -X POST \
        --header 'Content-Type: application/json' \
        --header 'Accept: application/json' \
-       -d '{"name":"Lote de Facturas Enero 2023"}' \
-       "https://digitai-api.theeye.io/api/Batches?access_token=${accessToken}"
+       -d '{"name":"Lote de Facturas Enero 2023","lifecycle":"on_hold","lifecycle_details":"En espera de validación","import_uuid":"550e8400-e29b-41d4-a716-446655440000"}' \
+       "https://digitai-backend.theeye.io/api/Batches?access_token=${accessToken}"
 ```
 
 ```javascript [NodeJS]
@@ -305,8 +319,11 @@ const axios = require('axios');
 
 async function crearBatch(accessToken) {
   try {
-    const response = await axios.post('https://digitai-api.theeye.io/api/Batches', {
-      name: 'Lote de Facturas Enero 2023'
+    const response = await axios.post('https://digitai-backend.theeye.io/api/Batches', {
+      name: 'Lote de Facturas Enero 2023',
+      lifecycle: 'on_hold',
+      lifecycle_details: 'En espera de validación',
+      import_uuid: '550e8400-e29b-41d4-a716-446655440000'
     }, {
       params: {
         access_token: accessToken
@@ -335,9 +352,12 @@ import requests
 def crear_batch(access_token):
     try:
         response = requests.post(
-            'https://digitai-api.theeye.io/api/Batches',
+            'https://digitai-backend.theeye.io/api/Batches',
             json={
-                'name': 'Lote de Facturas Enero 2023'
+                'name': 'Lote de Facturas Enero 2023',
+                'lifecycle': 'on_hold',
+                'lifecycle_details': 'En espera de validación',
+                'import_uuid': '550e8400-e29b-41d4-a716-446655440000'
             },
             params={
                 'access_token': access_token
@@ -370,7 +390,7 @@ Ejemplo de respuesta:
   "name": "Lote de Facturas Enero 2023",
   "creation_date": "2023-06-01T10:15:30.000Z",
   "modification_date": "2023-06-01T10:15:30.000Z",
-  "lifecycle": "pending",
+  "lifecycle": "on_hold",
   "lifecycle_details": "",
   "import_uuid": "550e8400-e29b-41d4-a716-446655440000",
   "id": "60a1b2c3d4e5f6a7b8c9d0e2"
@@ -386,7 +406,7 @@ Ejemplo de respuesta:
   title="Subir Documentos al Batch"
   method="POST" 
   endpoint="/api/Batches/:batchId/upload"
-  :baseUrl="'https://digitai-api.theeye.io'"
+  :baseUrl="'https://digitai-backend.theeye.io'"
   :params="[
     {name: 'batchId', placeholder: '60a1b2c3d4e5f6a7b8c9d0e2'},
     {name: 'access_token', placeholder: 'ElTokenDeAcceso'}
@@ -406,7 +426,7 @@ accessToken="ElTokenDeAcceso"
 batchId="60a1b2c3d4e5f6a7b8c9d0e2"
 
 curl -X POST \
-       "https://digitai-api.theeye.io/api/Batches/${batchId}/upload?access_token=${accessToken}" \
+       "https://digitai-backend.theeye.io/api/Batches/${batchId}/upload?access_token=${accessToken}" \
        -F file=@"factura.pdf"
 ```
 
@@ -422,7 +442,7 @@ async function subirDocumentoAlBatch(accessToken, batchId, filePath) {
     formData.append('file', fileStream);
     
     const response = await axios.post(
-      `https://digitai-api.theeye.io/api/Batches/${batchId}/upload`, 
+      `https://digitai-backend.theeye.io/api/Batches/${batchId}/upload`, 
       formData, 
       {
         params: {
@@ -457,7 +477,7 @@ def subir_documento_al_batch(access_token, batch_id, file_path):
             files = {'file': file}
             
             response = requests.post(
-                f'https://digitai-api.theeye.io/api/Batches/{batch_id}/upload',
+                f'https://digitai-backend.theeye.io/api/Batches/{batch_id}/upload',
                 files=files,
                 params={
                     'access_token': access_token
@@ -503,6 +523,7 @@ Ejemplo de respuesta:
   "extension": "pdf",
   "manual_classification": null,
   "export_timestamp": null,
+  "matched": false,
   "extractor": null,
   "secret": "88888888888888888888888888888888",
   "id": "999999999999999999999999"
@@ -518,7 +539,7 @@ Ejemplo de respuesta:
   title="Leer Batch por ID"
   method="GET" 
   endpoint="/api/Batches/:batchId"
-  :baseUrl="'https://digitai-api.theeye.io'"
+  :baseUrl="'https://digitai-backend.theeye.io'"
   :params="[
     {name: 'batchId', placeholder: '60a1b2c3d4e5f6a7b8c9d0e2'},
     {name: 'access_token', placeholder: 'ElTokenDeAcceso'}
@@ -537,7 +558,7 @@ batchId="60a1b2c3d4e5f6a7b8c9d0e2"
 
 curl -X GET \
        --header 'Accept: application/json' \
-       "https://digitai-api.theeye.io/api/Batches/${batchId}?access_token=${accessToken}"
+       "https://digitai-backend.theeye.io/api/Batches/${batchId}?access_token=${accessToken}"
 ```
 
 ```javascript [NodeJS]
@@ -546,7 +567,7 @@ const axios = require('axios');
 async function obtenerBatchPorId(accessToken, batchId) {
   try {
     const response = await axios.get(
-      `https://digitai-api.theeye.io/api/Batches/${batchId}`, 
+      `https://digitai-backend.theeye.io/api/Batches/${batchId}`, 
       {
         params: {
           access_token: accessToken
@@ -576,7 +597,7 @@ import requests
 def obtener_batch_por_id(access_token, batch_id):
     try:
         response = requests.get(
-            f'https://digitai-api.theeye.io/api/Batches/{batch_id}',
+            f'https://digitai-backend.theeye.io/api/Batches/{batch_id}',
             params={
                 'access_token': access_token
             },
@@ -627,7 +648,7 @@ Ejemplo de respuesta:
   title="Obtener Todos los Documentos"
   method="GET" 
   endpoint="/api/Documents"
-  :baseUrl="'https://digitai-api.theeye.io'"
+  :baseUrl="'https://digitai-backend.theeye.io'"
   :params="[{name: 'access_token', placeholder: 'ElTokenDeAcceso'}]"
   :hideTitle="true"
 >
@@ -642,7 +663,7 @@ accessToken="ElTokenDeAcceso"
 
 curl -X GET \
        --header 'Accept: application/json' \
-       "https://digitai-api.theeye.io/api/Documents?access_token=${accessToken}"
+       "https://digitai-backend.theeye.io/api/Documents?access_token=${accessToken}"
 ```
 
 ```javascript [NodeJS]
@@ -651,7 +672,7 @@ const axios = require('axios');
 async function obtenerTodosLosDocumentos(accessToken) {
   try {
     const response = await axios.get(
-      'https://digitai-api.theeye.io/api/Documents', 
+      'https://digitai-backend.theeye.io/api/Documents', 
       {
         params: {
           access_token: accessToken
@@ -680,7 +701,7 @@ import requests
 def obtener_todos_los_documentos(access_token):
     try:
         response = requests.get(
-            'https://digitai-api.theeye.io/api/Documents',
+            'https://digitai-backend.theeye.io/api/Documents',
             params={
                 'access_token': access_token
             },
@@ -737,7 +758,7 @@ Ejemplo de respuesta:
   title="Leer Documento por ID"
   method="GET" 
   endpoint="/api/Documents/:documentId"
-  :baseUrl="'https://digitai-api.theeye.io'"
+  :baseUrl="'https://digitai-backend.theeye.io'"
   :params="[
     {name: 'documentId', placeholder: '60a1b2c3d4e5f6a7b8c9d0e3'},
     {name: 'access_token', placeholder: 'ElTokenDeAcceso'}
@@ -756,7 +777,7 @@ documentId="60a1b2c3d4e5f6a7b8c9d0e3"
 
 curl -X GET \
        --header 'Accept: application/json' \
-       "https://digitai-api.theeye.io/api/Documents/${documentId}?access_token=${accessToken}"
+       "https://digitai-backend.theeye.io/api/Documents/${documentId}?access_token=${accessToken}"
 ```
 
 ```javascript [NodeJS]
@@ -765,7 +786,7 @@ const axios = require('axios');
 async function obtenerDocumentoPorId(accessToken, documentId) {
   try {
     const response = await axios.get(
-      `https://digitai-api.theeye.io/api/Documents/${documentId}`, 
+      `https://digitai-backend.theeye.io/api/Documents/${documentId}`, 
       {
         params: {
           access_token: accessToken
@@ -795,7 +816,7 @@ import requests
 def obtener_documento_por_id(access_token, document_id):
     try:
         response = requests.get(
-            f'https://digitai-api.theeye.io/api/Documents/{document_id}',
+            f'https://digitai-backend.theeye.io/api/Documents/{document_id}',
             params={
                 'access_token': access_token
             },
@@ -865,7 +886,7 @@ const params = [
   title="Obtener Documentos por Batch ID"
   method="GET" 
   endpoint="/api/Documents"
-  :baseUrl="'https://digitai-api.theeye.io'"
+  :baseUrl="'https://digitai-backend.theeye.io'"
   :params="params"
   :hideTitle="true"
 >
@@ -882,7 +903,7 @@ filter="{\"where\":{\"batch_id\":\"6800eb313251642494ae877d\"}}"
 
 curl -X GET \
        --header 'Accept: application/json' \
-       "https://digitai-api.theeye.io/api/Documents?filter=${filter}&access_token=${accessToken}"
+       "https://digitai-backend.theeye.io/api/Documents?filter=${filter}&access_token=${accessToken}"
 ```
 
 ```javascript [NodeJS]
@@ -897,7 +918,7 @@ async function obtenerDocumentosPorBatchId(accessToken, batchId) {
     });
     
     const response = await axios.get(
-      'https://digitai-api.theeye.io/api/Documents', 
+      'https://digitai-backend.theeye.io/api/Documents', 
       {
         params: {
           filter: filter,
@@ -935,7 +956,7 @@ def obtener_documentos_por_batch_id(access_token, batch_id):
         })
         
         response = requests.get(
-            'https://digitai-api.theeye.io/api/Documents',
+            'https://digitai-backend.theeye.io/api/Documents',
             params={
                 'filter': filter_data,
                 'access_token': access_token
@@ -996,7 +1017,7 @@ Ejemplo de respuesta:
   title="Obtener Reporte de Documentos por Batch ID"
   method="GET" 
   endpoint="/api/Documents/report"
-  :baseUrl="'https://digitai-api.theeye.io'"
+  :baseUrl="'https://digitai-backend.theeye.io'"
   :params="[
     {name: 'filters[batch_id]', placeholder: '60a1b2c3d4e5f6a7b8c9d0e2'},
     {name: 'access_token', placeholder: 'ElTokenDeAcceso'}
@@ -1015,7 +1036,7 @@ batchId="60a1b2c3d4e5f6a7b8c9d0e2"
 
 curl -X GET \
        --header 'Accept: application/json' \
-       "https://digitai-api.theeye.io/api/Documents/report?filters[batch_id]=${batchId}&access_token=${accessToken}"
+       "https://digitai-backend.theeye.io/api/Documents/report?filters[batch_id]=${batchId}&access_token=${accessToken}"
 ```
 
 ```javascript [NodeJS]
@@ -1024,7 +1045,7 @@ const axios = require('axios');
 async function obtenerReportePorBatchId(accessToken, batchId) {
   try {
     const response = await axios.get(
-      'https://digitai-api.theeye.io/api/Documents/report', 
+      'https://digitai-backend.theeye.io/api/Documents/report', 
       {
         params: {
           'filters[batch_id]': batchId,
@@ -1055,7 +1076,7 @@ import requests
 def obtener_reporte_por_batch_id(access_token, batch_id):
     try:
         response = requests.get(
-            'https://digitai-api.theeye.io/api/Documents/report',
+            'https://digitai-backend.theeye.io/api/Documents/report',
             params={
                 'filters[batch_id]': batch_id,
                 'access_token': access_token
@@ -1144,7 +1165,7 @@ Ejemplo de respuesta:
   title="Enviar documentos a procesar"
   method="POST" 
   endpoint="/api/documents/upload"
-  :baseUrl="'https://digitai-api.theeye.io'"
+  :baseUrl="'https://digitai-backend.theeye.io'"
   :params="[
     {name: 'access_token', placeholder: 'ElTokenDeAcceso'}
   ]"
@@ -1160,7 +1181,7 @@ Este endpoint permite enviar documentos a procesar directamente sin un lote.
 ```bash [Curl]
 accessToken="ElTokenDeAcceso"
 
-curl -X POST "https://digitai-api.theeye.io/api/documents/upload?access_token=${accessToken}" \
+curl -X POST "https://digitai-backend.theeye.io/api/documents/upload?access_token=${accessToken}" \
        -F file=@"archivocomprobante.pdf"
 ```
 
@@ -1176,7 +1197,7 @@ async function subirDocumento(accessToken, filePath) {
     formData.append('file', fileStream);
     
     const response = await axios.post(
-      'https://digitai-api.theeye.io/api/documents/upload', 
+      'https://digitai-backend.theeye.io/api/documents/upload', 
       formData, 
       {
         params: {
@@ -1217,7 +1238,7 @@ const main = async ([ filepath ]) => {
 
   const request = https.request({
     method: 'post',
-    host: 'digitai-api.theeye.io',
+    host: 'digitai-backend.theeye.io',
     path: `/api/documents/upload?access_token=${accessToken}`,
     headers: formData.getHeaders()
   })
@@ -1278,7 +1299,7 @@ file = sys.argv[1]
 basename = os.path.basename(file)
 accessToken = os.getenv('API_ACCESS_TOKEN')
 
-url = "https://digitai-api.theeye.io/api/documents/upload?access_token=" + accessToken
+url = "https://digitai-backend.theeye.io/api/documents/upload?access_token=" + accessToken
 
 payload = {}
 files = [
@@ -1295,8 +1316,6 @@ print(response.text)
 </template>
 </ApiEndpoint>
 
-<ApiPlaygroundControls /> 
-
 ## Operaciones con Lifecycle de Documentos {#operaciones-con-lifecycle-de-documentos}
 
 ### Obtener Lifecycle por ID {#obtener-lifecycle-por-id}
@@ -1304,8 +1323,8 @@ print(response.text)
 <ApiEndpoint
   title="Obtener Lifecycle por ID"
   method="GET" 
-  endpoint="/DocumentLifecycles/:id"
-  :baseUrl="'https://digitai-api.theeye.io'"
+  endpoint="/api/DocumentLifecycles/:id"
+  :baseUrl="'https://digitai-backend.theeye.io'"
   :params="[
     {name: 'id', placeholder: '60a1b2c3d4e5f6a7b8c9d0e3'},
     {name: 'access_token', placeholder: 'ElTokenDeAcceso'}
@@ -1324,7 +1343,7 @@ documentId="60a1b2c3d4e5f6a7b8c9d0e3"
 
 curl -X GET \
        --header 'Accept: application/json' \
-       "https://digitai-api.theeye.io/DocumentLifecycles/${documentId}?access_token=${accessToken}"
+       "https://digitai-backend.theeye.io/api/DocumentLifecycles/${documentId}?access_token=${accessToken}"
 ```
 
 ```javascript [NodeJS]
@@ -1333,7 +1352,7 @@ const axios = require('axios');
 async function obtenerCicloDeVidaPorId(accessToken, documentId) {
   try {
     const response = await axios.get(
-      `https://digitai-api.theeye.io/DocumentLifecycles/${documentId}`, 
+      `https://digitai-backend.theeye.io/api/DocumentLifecycles/${documentId}`, 
       {
         params: {
           access_token: accessToken
@@ -1363,7 +1382,7 @@ import requests
 def obtener_ciclo_de_vida_por_id(access_token, document_id):
     try:
         response = requests.get(
-            f'https://digitai-api.theeye.io/DocumentLifecycles/{document_id}',
+            f'https://digitai-backend.theeye.io/api/DocumentLifecycles/{document_id}',
             params={
                 'access_token': access_token
             },
@@ -1404,8 +1423,8 @@ Ejemplo de respuesta:
 <ApiEndpoint
   title="Marcar Documento como Completado"
   method="PUT" 
-  endpoint="/DocumentLifecycles/:id/completed"
-  :baseUrl="'https://digitai-api.theeye.io'"
+  endpoint="/api/DocumentLifecycles/:id/completed"
+  :baseUrl="'https://digitai-backend.theeye.io'"
   :params="[
     {name: 'id', placeholder: '60a1b2c3d4e5f6a7b8c9d0e3'},
     {name: 'access_token', placeholder: 'ElTokenDeAcceso'}
@@ -1428,7 +1447,7 @@ curl -X PUT \
        --header 'Content-Type: application/json' \
        --header 'Accept: application/json' \
        -d '{"details":"Documento procesado correctamente"}' \
-       "https://digitai-api.theeye.io/DocumentLifecycles/${documentId}/completed?access_token=${accessToken}"
+       "https://digitai-backend.theeye.io/api/DocumentLifecycles/${documentId}/completed?access_token=${accessToken}"
 ```
 
 ```javascript [NodeJS]
@@ -1437,7 +1456,7 @@ const axios = require('axios');
 async function marcarDocumentoComoCompletado(accessToken, documentId, details) {
   try {
     const response = await axios.put(
-      `https://digitai-api.theeye.io/DocumentLifecycles/${documentId}/completed`,
+      `https://digitai-backend.theeye.io/api/DocumentLifecycles/${documentId}/completed`,
       { details },
       {
         params: {
@@ -1470,7 +1489,7 @@ import requests
 def marcar_documento_como_completado(access_token, document_id, details):
     try:
         response = requests.put(
-            f'https://digitai-api.theeye.io/DocumentLifecycles/{document_id}/completed',
+            f'https://digitai-backend.theeye.io/api/DocumentLifecycles/{document_id}/completed',
             json={
                 'details': details
             },
@@ -1516,8 +1535,8 @@ Ejemplo de respuesta:
 <ApiEndpoint
   title="Actualizar Detalles del Lifecycle"
   method="PUT" 
-  endpoint="/DocumentLifecycles/:id/details"
-  :baseUrl="'https://digitai-api.theeye.io'"
+  endpoint="/api/DocumentLifecycles/:id/details"
+  :baseUrl="'https://digitai-backend.theeye.io'"
   :params="[
     {name: 'id', placeholder: '60a1b2c3d4e5f6a7b8c9d0e3'},
     {name: 'access_token', placeholder: 'ElTokenDeAcceso'}
@@ -1540,7 +1559,7 @@ curl -X PUT \
        --header 'Content-Type: application/json' \
        --header 'Accept: application/json' \
        -d '{"details":"Procesando página 3 de 10"}' \
-       "https://digitai-api.theeye.io/DocumentLifecycles/${documentId}/details?access_token=${accessToken}"
+       "https://digitai-backend.theeye.io/api/DocumentLifecycles/${documentId}/details?access_token=${accessToken}"
 ```
 
 ```javascript [NodeJS]
@@ -1549,7 +1568,7 @@ const axios = require('axios');
 async function actualizarDetallesCicloDeVida(accessToken, documentId, details) {
   try {
     const response = await axios.put(
-      `https://digitai-api.theeye.io/DocumentLifecycles/${documentId}/details`,
+      `https://digitai-backend.theeye.io/api/DocumentLifecycles/${documentId}/details`,
       { details },
       {
         params: {
@@ -1559,8 +1578,7 @@ async function actualizarDetallesCicloDeVida(accessToken, documentId, details) {
           'Content-Type': 'application/json',
           'Accept': 'application/json'
         }
-      }
-    );
+    });
     
     console.log('Detalles actualizados:', response.data);
     return response.data;
@@ -1582,7 +1600,7 @@ import requests
 def actualizar_detalles_ciclo_de_vida(access_token, document_id, details):
     try:
         response = requests.put(
-            f'https://digitai-api.theeye.io/DocumentLifecycles/{document_id}/details',
+            f'https://digitai-backend.theeye.io/api/DocumentLifecycles/{document_id}/details',
             json={
                 'details': details
             },
@@ -1632,8 +1650,8 @@ Ejemplo de respuesta:
 <ApiEndpoint
   title="Marcar Documento con Error"
   method="PUT" 
-  endpoint="/DocumentLifecycles/:id/error"
-  :baseUrl="'https://digitai-api.theeye.io'"
+  endpoint="/api/DocumentLifecycles/:id/error"
+  :baseUrl="'https://digitai-backend.theeye.io'"
   :params="[
     {name: 'id', placeholder: '60a1b2c3d4e5f6a7b8c9d0e3'},
     {name: 'access_token', placeholder: 'ElTokenDeAcceso'}
@@ -1656,7 +1674,7 @@ curl -X PUT \
        --header 'Content-Type: application/json' \
        --header 'Accept: application/json' \
        -d '{"error":"El documento está dañado y no puede ser procesado"}' \
-       "https://digitai-api.theeye.io/DocumentLifecycles/${documentId}/error?access_token=${accessToken}"
+       "https://digitai-backend.theeye.io/api/DocumentLifecycles/${documentId}/error?access_token=${accessToken}"
 ```
 
 ```javascript [NodeJS]
@@ -1665,7 +1683,7 @@ const axios = require('axios');
 async function marcarDocumentoConError(accessToken, documentId, error) {
   try {
     const response = await axios.put(
-      `https://digitai-api.theeye.io/DocumentLifecycles/${documentId}/error`,
+      `https://digitai-backend.theeye.io/api/DocumentLifecycles/${documentId}/error`,
       { error },
       {
         params: {
@@ -1698,7 +1716,7 @@ import requests
 def marcar_documento_con_error(access_token, document_id, error_msg):
     try:
         response = requests.put(
-            f'https://digitai-api.theeye.io/DocumentLifecycles/{document_id}/error',
+            f'https://digitai-backend.theeye.io/api/DocumentLifecycles/{document_id}/error',
             json={
                 'error': error_msg
             },
@@ -1744,8 +1762,8 @@ Ejemplo de respuesta:
 <ApiEndpoint
   title="Invalidar Documento"
   method="PUT" 
-  endpoint="/DocumentLifecycles/:id/invalidated"
-  :baseUrl="'https://digitai-api.theeye.io'"
+  endpoint="/api/DocumentLifecycles/:id/invalidated"
+  :baseUrl="'https://digitai-backend.theeye.io'"
   :params="[
     {name: 'id', placeholder: '60a1b2c3d4e5f6a7b8c9d0e3'},
     {name: 'access_token', placeholder: 'ElTokenDeAcceso'}
@@ -1768,7 +1786,7 @@ curl -X PUT \
        --header 'Content-Type: application/json' \
        --header 'Accept: application/json' \
        -d '{"reason":"El documento no cumple con los requisitos para ser procesado"}' \
-       "https://digitai-api.theeye.io/DocumentLifecycles/${documentId}/invalidated?access_token=${accessToken}"
+       "https://digitai-backend.theeye.io/api/DocumentLifecycles/${documentId}/invalidated?access_token=${accessToken}"
 ```
 
 ```javascript [NodeJS]
@@ -1777,7 +1795,7 @@ const axios = require('axios');
 async function invalidarDocumento(accessToken, documentId, reason) {
   try {
     const response = await axios.put(
-      `https://digitai-api.theeye.io/DocumentLifecycles/${documentId}/invalidated`,
+      `https://digitai-backend.theeye.io/api/DocumentLifecycles/${documentId}/invalidated`,
       { reason },
       {
         params: {
@@ -1810,7 +1828,7 @@ import requests
 def invalidar_documento(access_token, document_id, reason):
     try:
         response = requests.put(
-            f'https://digitai-api.theeye.io/DocumentLifecycles/{document_id}/invalidated',
+            f'https://digitai-backend.theeye.io/api/DocumentLifecycles/{document_id}/invalidated',
             json={
                 'reason': reason
             },

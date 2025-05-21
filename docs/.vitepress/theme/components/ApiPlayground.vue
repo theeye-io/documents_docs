@@ -12,7 +12,7 @@
     
     <div v-if="isExpanded" class="playground-container">
       <div class="request-section">
-        <div v-if="isLocalhost && actualEndpoint !== displayEndpoint" class="custom-url-indicator">
+        <div v-if="isCustomUrl" class="custom-url-indicator">
           <span class="indicator-icon">⚠️</span>
           <span>Usando URL personalizada: <code>{{ actualEndpoint }}</code></span>
         </div>
@@ -116,7 +116,7 @@ const props = defineProps({
 })
 
 const { token, hasToken } = useApiToken()
-const { getFullApiUrl, isLocalhost } = useApiBaseUrl()
+const { getFullApiUrl, isLocalhost, isCustomUrl } = useApiBaseUrl()
 const paramValues = ref({})
 const requestBody = ref(props.defaultBody)
 const responseContent = ref({})
