@@ -400,6 +400,117 @@ Ejemplo de respuesta:
 </template>
 </ApiEndpoint>
 
+### Cambiar Batch a Estado Pendiente {#cambiar-batch-a-estado-pendiente}
+
+<ApiEndpoint
+  title="Cambiar Batch a Estado Pendiente"
+  method="PUT" 
+  endpoint="/api/Batches/:id/pending"
+  :baseUrl="'https://digitai-backend.theeye.io'"
+  :params="[
+    {name: 'id', placeholder: '60a1b2c3d4e5f6a7b8c9d0e2'},
+    {name: 'access_token', placeholder: 'ElTokenDeAcceso'}
+  ]"
+  :hasBody="true"
+  defaultBody='{"details":"Batch retornado a estado pendiente"}'
+  :hideTitle="true"
+>
+
+Este endpoint permite cambiar el estado de un lote a "pending" (pendiente).
+
+<template #example>
+
+::: code-group
+```bash [Curl]
+accessToken="ElTokenDeAcceso"
+batchId="60a1b2c3d4e5f6a7b8c9d0e2"
+
+curl -X PUT \
+       --header 'Content-Type: application/json' \
+       --header 'Accept: application/json' \
+       -d '{"details":"Batch retornado a estado pendiente"}' \
+       "https://digitai-backend.theeye.io/api/Batches/${batchId}/pending?access_token=${accessToken}"
+```
+
+```javascript [NodeJS]
+const axios = require('axios');
+
+async function cambiarBatchAPendiente(accessToken, batchId, details) {
+  try {
+    const response = await axios.put(
+      `https://digitai-backend.theeye.io/api/Batches/${batchId}/pending`,
+      { details },
+      {
+        params: {
+          access_token: accessToken
+        },
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        }
+      }
+    );
+    
+    console.log('Batch cambiado a pendiente:', response.data);
+    return response.data;
+  } catch (error) {
+    console.error('Error al cambiar batch a pendiente:', error.response?.data || error.message);
+  }
+}
+
+// Uso
+const accessToken = 'ElTokenDeAcceso';
+const batchId = '60a1b2c3d4e5f6a7b8c9d0e2';
+const details = 'Batch retornado a estado pendiente';
+cambiarBatchAPendiente(accessToken, batchId, details);
+```
+
+```python [Python]
+import requests
+
+def cambiar_batch_a_pendiente(access_token, batch_id, details):
+    try:
+        response = requests.put(
+            f'https://digitai-backend.theeye.io/api/Batches/{batch_id}/pending',
+            json={
+                'details': details
+            },
+            params={
+                'access_token': access_token
+            },
+            headers={
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+        )
+        
+        response.raise_for_status()
+        
+        print('Batch cambiado a pendiente:', response.json())
+        return response.json()
+    except requests.exceptions.RequestException as e:
+        print('Error al cambiar batch a pendiente:', e)
+
+# Uso
+if __name__ == "__main__":
+    access_token = 'ElTokenDeAcceso'
+    batch_id = '60a1b2c3d4e5f6a7b8c9d0e2'
+    details = 'Batch retornado a estado pendiente'
+    cambiar_batch_a_pendiente(access_token, batch_id, details)
+```
+:::
+
+Ejemplo de respuesta:
+
+```json
+{
+  "result": "success"
+}
+```
+
+</template>
+</ApiEndpoint>
+
 ### Subir Documentos al Batch {#subir-documentos-al-batch}
 
 <ApiEndpoint

@@ -65,6 +65,7 @@ export default {
                 items: [
                   { text: 'Obtener Todos los Lotes', link: '/api/#obtener-todos-los-lotes' },
                   { text: 'Crear Batch', link: '/api/#crear-batch' },
+                  { text: 'Cambiar Batch a Estado Pendiente', link: '/api/#cambiar-batch-a-estado-pendiente' },
                   { text: 'Subir Documentos al Batch', link: '/api/#subir-documentos-al-batch' },
                   { text: 'Leer Batch por ID', link: '/api/#leer-batch-por-id' }
                 ]
