@@ -124,12 +124,6 @@
                 >
                   Guardar URL
                 </button>
-                <button 
-                  class="url-clear-btn control-btn" 
-                  @click="resetApiUrl"
-                >
-                  Limpiar
-                </button>
               </div>
             </div>
           </template>
@@ -171,7 +165,7 @@ const maskedToken = computed(() => {
 })
 
 // API URL management
-const { apiBaseUrl, isCustomUrl: isCustomApiUrl, isLocalhost, setApiBaseUrl, resetApiBaseUrl } = useApiBaseUrl()
+const { apiBaseUrl, isCustomUrl: isCustomApiUrl, isLocalhost, setApiBaseUrl, resetApiBaseUrl, getFullApiUrl } = useApiBaseUrl()
 const localApiUrl = ref('')
 
 // Display URL without /api for UI
@@ -212,9 +206,8 @@ async function fetchProfile(tokenValue) {
   profileInfo.value = null
   
   try {
-    // Use the base URL and compose the endpoint properly
-    const baseUrl = apiBaseUrl.value
-    const response = await fetch(`${baseUrl}/api/session/profile?access_token=${tokenValue}`)
+    // Use getFullApiUrl to properly construct the URL
+    const response = await fetch(getFullApiUrl(`/session/profile?access_token=${tokenValue}`))
     
     if (!response.ok) {
       throw new Error(`Error de servidor: ${response.status}`)

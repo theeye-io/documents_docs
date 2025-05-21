@@ -128,8 +128,22 @@ const file = ref(null)
 const fileSelected = computed(() => file.value !== null)
 const isExpanded = ref(false)
 
-// Display the original endpoint in the UI but use the transformed URL for API calls
-const displayEndpoint = computed(() => props.endpoint)
+// Display only the endpoint path in the UI
+const displayEndpoint = computed(() => {
+  // If it's a full URL, extract just the path part
+  if (props.endpoint.startsWith('http')) {
+    try {
+      const url = new URL(props.endpoint)
+      return url.pathname + url.search + url.hash
+    } catch (e) {
+      return props.endpoint
+    }
+  }
+  // If it's already a path, use it as is
+  return props.endpoint
+})
+
+// Use the actual endpoint with the custom URL for API calls
 const actualEndpoint = computed(() => getFullApiUrl(props.endpoint))
 
 // Create a filtered params list that excludes access_token if we have a global token
@@ -350,6 +364,7 @@ async function executeRequest() {
   background-color: var(--vp-c-warning-soft);
   border-left: 4px solid var(--vp-c-warning);
   padding: 0.5rem 1rem;
+  margin-bottom: 1rem;
   display: flex;
   align-items: center;
   gap: 0.5rem;

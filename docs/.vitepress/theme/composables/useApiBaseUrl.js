@@ -1,10 +1,10 @@
 import { ref, computed } from 'vue'
 
 // Default production API URL
-const DEFAULT_API_URL = 'https://digitai-backend.theeye.io'
+const DEFAULT_API_URL = 'https://digitai-backend.theeye.io/api'
 
 // Create a shared state for the API base URL
-const apiBaseUrl = ref(DEFAULT_API_URL)
+const apiBaseUrl = ref(ensureApiPath(DEFAULT_API_URL))
 const isCustomUrl = ref(false)
 
 // Compute if we're on localhost (only client-side)
@@ -31,8 +31,8 @@ function ensureApiPath(url) {
   // Remove trailing slash if present
   let formattedUrl = url.endsWith('/') ? url.slice(0, -1) : url;
   
-  // Add /api if not already present
-  if (!formattedUrl.includes('/api')) {
+  // Add /api if not already present and not already in the URL
+  if (!formattedUrl.endsWith('/api') && !formattedUrl.includes('/api/')) {
     formattedUrl = formattedUrl + '/api';
   }
   
@@ -64,7 +64,7 @@ export function useApiBaseUrl() {
     if (typeof window !== 'undefined') {
       localStorage.removeItem('digitai_api_base_url')
     }
-    apiBaseUrl.value = DEFAULT_API_URL
+    apiBaseUrl.value = ensureApiPath(DEFAULT_API_URL)
     isCustomUrl.value = false
   }
 

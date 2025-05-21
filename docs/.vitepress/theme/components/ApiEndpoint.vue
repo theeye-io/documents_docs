@@ -9,7 +9,7 @@
     <div class="playground-wrapper">
       <ApiPlayground 
         :method="method" 
-        :endpoint="endpoint"
+        :endpoint="fullEndpoint"
         :params="params"
         :hasBody="hasBody"
         :defaultBody="defaultBody"
@@ -25,6 +25,7 @@
 
 <script setup>
 import { computed } from 'vue'
+import { useApiBaseUrl } from '../composables/useApiBaseUrl'
 
 const props = defineProps({
   title: {
@@ -39,6 +40,10 @@ const props = defineProps({
   endpoint: {
     type: String,
     required: true
+  },
+  baseUrl: {
+    type: String,
+    default: ''
   },
   params: {
     type: Array,
@@ -60,6 +65,34 @@ const props = defineProps({
     type: Boolean,
     default: false
   }
+})
+
+const { getFullApiUrl, isCustomUrl } = useApiBaseUrl()
+
+// Display only the endpoint path in the UI
+const displayEndpoint = computed(() => {
+  // If it's a full URL, extract just the path part
+  if (props.endpoint.startsWith('http')) {
+    try {
+      const url = new URL(props.endpoint)
+      return url.pathname + url.search + url.hash
+    } catch (e) {
+      return props.endpoint
+    }
+  }
+  // If it's already a path, use it as is
+  return props.endpoint
+})
+
+const fullEndpoint = computed(() => {
+  // If baseUrl is provided, use it (for backward compatibility)
+  if (props.baseUrl) {
+    const base = props.baseUrl.endsWith('/') ? props.baseUrl.slice(0, -1) : props.baseUrl
+    const path = props.endpoint.startsWith('/') ? props.endpoint.slice(1) : props.endpoint
+    return `${base}/${path}`
+  }
+  // Otherwise use the custom URL from useApiBaseUrl
+  return getFullApiUrl(props.endpoint)
 })
 
 const slug = computed(() => {
