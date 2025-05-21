@@ -418,6 +418,8 @@ Ejemplo de respuesta:
 
 Este endpoint permite cambiar el estado de un lote a "pending" (pendiente).
 
+Después de cambiar a estado "pending", todos los documentos son reverificados. El batch cambiará automáticamente el "lifecycle" cuando se cumplan todas las condiciones necesarias. Por ejemplo, si todos los documentos fueron revisados, están listos y en estado "completed" y la política lo permite, el batch cambiará a estado "queued". Después de esto, la acción "submit" del batch será habilitada o, en algunas circunstancias, el "submit" del batch se ejecutará de manera automática.
+
 <template #example>
 
 ::: code-group
