@@ -60,20 +60,10 @@ export default {
                 ]
               },
               {
-                text: 'Operaciones con Lotes (Batch)',
-                link: '/api/#operaciones-con-lotes-batch',
-                items: [
-                  { text: 'Obtener Todos los Lotes', link: '/api/#obtener-todos-los-lotes' },
-                  { text: 'Crear Batch', link: '/api/#crear-batch' },
-                  { text: 'Cambiar Batch a Estado Pendiente', link: '/api/#cambiar-batch-a-estado-pendiente' },
-                  { text: 'Subir Documentos al Batch', link: '/api/#subir-documentos-al-batch' },
-                  { text: 'Leer Batch por ID', link: '/api/#leer-batch-por-id' }
-                ]
-              },
-              {
                 text: 'Operaciones con Documentos',
                 link: '/api/#operaciones-con-documentos',
                 items: [
+                  { text: 'Subir documentos', link: '/api/#subir-documentos' },
                   { text: 'Obtener Todos los Documentos', link: '/api/#obtener-todos-los-documentos' },
                   { text: 'Leer Documento por ID', link: '/api/#leer-documento-por-id' },
                   { text: 'Obtener Documentos por Batch ID', link: '/api/#obtener-documentos-por-batch-id' }
@@ -83,8 +73,7 @@ export default {
                 text: 'Reportes de Documentos',
                 link: '/api/#reportes-de-documentos',
                 items: [
-                  { text: 'Obtener Reporte de Documentos por Batch ID', link: '/api/#obtener-reporte-de-documentos-por-batch-id' },
-                  { text: 'Enviar documentos a procesar', link: '/api/#enviar-documentos-a-procesar' }
+                  { text: 'Obtener Reporte de Documentos por Batch ID', link: '/api/#obtener-reporte-de-documentos-por-batch-id' }
                 ]
               },
               {
@@ -96,6 +85,17 @@ export default {
                   { text: 'Actualizar Detalles del Lifecycle', link: '/api/#actualizar-detalles-del-lifecycle' },
                   { text: 'Marcar Documento con Error', link: '/api/#marcar-documento-con-error' },
                   { text: 'Invalidar Documento', link: '/api/#invalidar-documento' }
+                ]
+              },
+              {
+                text: 'Operaciones con Lotes (Batch)',
+                link: '/api/#operaciones-con-lotes-batch',
+                items: [
+                  { text: 'Obtener Todos los Lotes', link: '/api/#obtener-todos-los-lotes' },
+                  { text: 'Crear Batch', link: '/api/#crear-batch' },
+                  { text: 'Cambiar Batch a Estado Pendiente', link: '/api/#cambiar-batch-a-estado-pendiente' },
+                  { text: 'Subir Documentos al Batch', link: '/api/#subir-documentos-al-batch' },
+                  { text: 'Leer Batch por ID', link: '/api/#leer-batch-por-id' }
                 ]
               }
             ]

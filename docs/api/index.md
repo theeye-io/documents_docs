@@ -755,6 +755,133 @@ Ejemplo de respuesta:
 
 ## Operaciones con Documentos {#operaciones-con-documentos}
 
+### Subir documentos {#subir-documentos}
+
+<ApiEndpoint
+  title="Subir documentos"
+  method="POST" 
+  endpoint="/api/Documents/upload"
+  :baseUrl="'https://digitai-backend.theeye.io'"
+  :params="[
+    {name: 'access_token', placeholder: 'ElTokenDeAcceso'}
+  ]"
+  :hasFileUpload="true"
+  :hideTitle="true"
+>
+
+Este endpoint permite subir documentos directamente para procesamiento sin asociarlos a un lote específico.
+
+<template #example>
+
+::: code-group
+```bash [Curl]
+accessToken="ElTokenDeAcceso"
+
+curl -X POST "https://digitai-backend.theeye.io/api/Documents/upload?access_token=${accessToken}" \
+       -F file=@"documento.pdf"
+```
+
+```javascript [NodeJS]
+const axios = require('axios');
+const fs = require('fs');
+const FormData = require('form-data');
+
+async function subirDocumento(accessToken, filePath) {
+  try {
+    const formData = new FormData();
+    const fileStream = fs.createReadStream(filePath);
+    formData.append('file', fileStream);
+    
+    const response = await axios.post(
+      'https://digitai-backend.theeye.io/api/Documents/upload', 
+      formData, 
+      {
+        params: {
+          access_token: accessToken
+        },
+        headers: {
+          ...formData.getHeaders()
+        }
+      }
+    );
+    
+    console.log('Documento subido:', response.data);
+    return response.data;
+  } catch (error) {
+    console.error('Error al subir documento:', error.response?.data || error.message);
+  }
+}
+
+// Uso
+const accessToken = 'ElTokenDeAcceso';
+const filePath = './documento.pdf';
+subirDocumento(accessToken, filePath);
+```
+
+```python [Python]
+import requests
+
+def subir_documento(access_token, file_path):
+    try:
+        with open(file_path, 'rb') as file:
+            files = {'file': file}
+            
+            response = requests.post(
+                'https://digitai-backend.theeye.io/api/Documents/upload',
+                files=files,
+                params={
+                    'access_token': access_token
+                }
+            )
+            
+            response.raise_for_status()
+            
+            print('Documento subido:', response.json())
+            return response.json()
+    except requests.exceptions.RequestException as e:
+        print('Error al subir documento:', e)
+
+# Uso
+if __name__ == "__main__":
+    access_token = 'ElTokenDeAcceso'
+    file_path = './documento.pdf'
+    subir_documento(access_token, file_path)
+```
+:::
+
+Ejemplo de respuesta:
+
+```json
+{
+  "customer_id": "333333333333333333333333",
+  "assignee_id": null,
+  "miscomprobantes_id": null,
+  "batch_id": null,
+  "filename": "",
+  "original_name": "documento.pdf",
+  "keyPrefix": "documents/digitai/20250417/999999999999999999999999",
+  "creation_date": "2025-04-17T11:52:45.894Z",
+  "modification_date": "2025-04-17T11:52:45.894Z",
+  "categories": [],
+  "checksum": "76bd6b3a5eaa0398c01d405775514e87c3bfde02",
+  "type": null,
+  "lifecycle": "pending",
+  "lifecycle_details": "",
+  "lifecycle_error": "",
+  "content_type": "application/pdf",
+  "extension": "pdf",
+  "manual_classification": null,
+  "export_timestamp": null,
+  "matched": false,
+  "extractor": null,
+  "secret": "88888888888888888888888888888888",
+  "id": "999999999999999999999999"
+}
+```
+
+</template>
+</ApiEndpoint>
+
 ### Obtener Todos los Documentos {#obtener-todos-los-documentos}
 
 <ApiEndpoint
@@ -1268,163 +1395,6 @@ Ejemplo de respuesta:
   }
 ]
 ```
-
-</template>
-</ApiEndpoint>
-
-### Enviar Documentos a Procesar {#enviar-documentos-a-procesar}
-
-<ApiEndpoint
-  title="Enviar documentos a procesar"
-  method="POST" 
-  endpoint="/api/documents/upload"
-  :baseUrl="'https://digitai-backend.theeye.io'"
-  :params="[
-    {name: 'access_token', placeholder: 'ElTokenDeAcceso'}
-  ]"
-  :hasFileUpload="true"
-  :hideTitle="true"
->
-
-Este endpoint permite enviar documentos a procesar directamente sin un lote.
-
-<template #example>
-
-::: code-group
-```bash [Curl]
-accessToken="ElTokenDeAcceso"
-
-curl -X POST "https://digitai-backend.theeye.io/api/documents/upload?access_token=${accessToken}" \
-       -F file=@"archivocomprobante.pdf"
-```
-
-```javascript [NodeJS]
-const axios = require('axios');
-const fs = require('fs');
-const FormData = require('form-data');
-
-async function subirDocumento(accessToken, filePath) {
-  try {
-    const formData = new FormData();
-    const fileStream = fs.createReadStream(filePath);
-    formData.append('file', fileStream);
-    
-    const response = await axios.post(
-      'https://digitai-backend.theeye.io/api/documents/upload', 
-      formData, 
-      {
-        params: {
-          access_token: accessToken
-        },
-        headers: {
-          ...formData.getHeaders()
-        }
-      }
-    );
-    
-    console.log('Documento subido:', response.data);
-    return response.data;
-  } catch (error) {
-    console.error('Error al subir documento:', error.response?.data || error.message);
-  }
-}
-
-// Uso
-const accessToken = 'ElTokenDeAcceso';
-const filePath = './archivocomprobante.pdf';
-subirDocumento(accessToken, filePath);
-```
-
-```javascript [Node.js]
-const FormData = require('form-data')
-const path = require('path')
-const fs = require('fs')
-
-const https = require('https')
-const accessToken = process.env.API_ACCESS_TOKEN
-
-const main = async ([ filepath ]) => {
-  const content =  fs.createReadStream(filepath)
-
-  const formData = new FormData()
-  formData.append('file', content)
-
-  const request = https.request({
-    method: 'post',
-    host: 'digitai-backend.theeye.io',
-    path: `/api/documents/upload?access_token=${accessToken}`,
-    headers: formData.getHeaders()
-  })
-
-  formData.pipe(request)
-
-  request.on('response', res => {
-    const data = []
-
-    res.on('data', chunk => {
-      data.push(chunk)
-    })
-
-    return new Promise( (resolve, reject) => {
-      res.on('end', () => {
-        let payload;
-        const buffer = Buffer.concat(data).toString()
-
-        // assuming that the response is always JSON.
-        // But better would be to check the response content-type header
-        //if (/json/.test(res.headers['content-type'])) {
-        try {
-          payload = JSON.parse(buffer)
-        } catch (e) {
-          payload = buffer
-        }
-        //}
-        res.body = payload
-
-        if (res.statusCode >= 400) {
-          const err = new Error(`${res.statusCode}: ${res.body?.message||res.body}`)
-          err.response = res
-          err.request = request
-          reject(err)
-          return
-        }
-
-        // return the response object.
-        // assign the body to a response property body
-        console.log(res.statusCode)
-        console.log(res.body)
-        resolve(res)
-      })
-    })
-  })
-
-}
-
-main(process.argv.slice(2)).then(console.log).catch(console.error)
-```
-
-```python [Python]
-import requests
-import os
-import sys
-
-file = sys.argv[1]
-basename = os.path.basename(file)
-accessToken = os.getenv('API_ACCESS_TOKEN')
-
-url = "https://digitai-backend.theeye.io/api/documents/upload?access_token=" + accessToken
-
-payload = {}
-files = [
-  ('file', (basename, open(file, 'rb'), 'application/pdf'))
-]
-headers = {}
-
-response = requests.request("POST", url, headers=headers, data=payload, files=files)
-
-print(response.text)
-```
-:::
 
 </template>
 </ApiEndpoint>
