@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.1](https://github.com/theeye-io/documents_docs/compare/1.2.0...1.2.1) (2025-06-03)
+
+
+### Bug Fixes
+
+* missing doc. cambiar batch a pendiente ([3e53780](https://github.com/theeye-io/documents_docs/commit/3e53780a4ea428da9c70c1f9a26e295043f9671a))
+* url para development ([7fbfae1](https://github.com/theeye-io/documents_docs/commit/7fbfae1d4299bdafc6058d7ace56cf0d7d6f5096))
+
 ## [1.2.0](https://github.com/theeye-io/documents_docs/compare/1.1.0...1.2.0) (2025-04-22)
 
 
