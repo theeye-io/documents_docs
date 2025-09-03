@@ -48,9 +48,8 @@ Herramientas y guías para desarrolladores que desean integrar Digitai en sus ap
 Para comenzar a utilizar Digitai:
 
 1. **Acceda a la plataforma**: Ingrese a [https://digitai.theeye.io/home](https://digitai.theeye.io/home) con sus credenciales
-2. **Cree plantillas**: Defina la estructura de los documentos que desea procesar
-3. **Suba documentos**: Utilice la interfaz web, API o integración con email
-4. **Visualice resultados**: Obtenga los datos extraídos en formato JSON
+2. **Suba y reconozca documentos**: Cargue sus archivos mediante la interfaz web, API o email. El sistema los identificará y procesará automáticamente
+3. **Visualice resultados**: Obtenga los datos extraídos en formato JSON
 
 ## Integraciones disponibles
 
